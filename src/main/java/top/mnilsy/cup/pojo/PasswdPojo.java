@@ -3,7 +3,7 @@ package top.mnilsy.cup.pojo;
 /**
  * Created by mnilsy on 19-4-17 下午2:08.
  */
-public class Passwd {
+public class PasswdPojo {
     private String user_Id;
     private String passwd_Normal;
     private String passwd_Old1;
@@ -61,7 +61,7 @@ public class Passwd {
 
     @Override
     public String toString() {
-        return "Passwd{" +
+        return "PasswdPojo{" +
                 "user_Id='" + user_Id + '\'' +
                 ", passwd_Normal='" + passwd_Normal + '\'' +
                 ", passwd_Old1='" + passwd_Old1 + '\'' +

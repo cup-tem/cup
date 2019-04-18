@@ -5,12 +5,12 @@ import java.util.UUID;
 /**
  * Created by mnilsy on 19-4-17 下午7:01.
  */
-public class Proclamation {
+public class ProclamationPojo {
     private String proclamation_Id;
     private String proclamation_Vlue;
     private String proclamation_Time;
 
-    public Proclamation(String proclamation_Vlue) {
+    public ProclamationPojo(String proclamation_Vlue) {
         this.proclamation_Id = String.valueOf(UUID.randomUUID());
         this.proclamation_Vlue = proclamation_Vlue;
     }
@@ -37,5 +37,14 @@ public class Proclamation {
 
     public void setProclamation_Time(String proclamation_Time) {
         this.proclamation_Time = proclamation_Time;
+    }
+
+    @Override
+    public String toString() {
+        return "ProclamationPojo{" +
+                "proclamation_Id='" + proclamation_Id + '\'' +
+                ", proclamation_Vlue='" + proclamation_Vlue + '\'' +
+                ", proclamation_Time='" + proclamation_Time + '\'' +
+                '}';
     }
 }

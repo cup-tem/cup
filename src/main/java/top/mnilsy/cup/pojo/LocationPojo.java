@@ -5,7 +5,7 @@ import java.util.UUID;
 /**
  * Created by mnilsy on 19-4-17 下午6:47.
  */
-public class Location {
+public class LocationPojo {
     private String location_Id;
     private String user_Id;
     private double location_X;
@@ -13,10 +13,10 @@ public class Location {
     private String location_Time;
     private String newTweetTime;
 
-    public Location() {
+    public LocationPojo() {
     }
 
-    public Location(String user_Id, double location_X, double location_Y, String newTweetTime) {
+    public LocationPojo(String user_Id, double location_X, double location_Y, String newTweetTime) {
         this.location_Id = String.valueOf(UUID.randomUUID());
         this.user_Id = user_Id;
         this.location_X = location_X;
@@ -70,5 +70,17 @@ public class Location {
 
     public void setNewTweetTime(String newTweetTime) {
         this.newTweetTime = newTweetTime;
+    }
+
+    @Override
+    public String toString() {
+        return "LocationPojo{" +
+                "location_Id='" + location_Id + '\'' +
+                ", user_Id='" + user_Id + '\'' +
+                ", location_X=" + location_X +
+                ", location_Y=" + location_Y +
+                ", location_Time='" + location_Time + '\'' +
+                ", newTweetTime='" + newTweetTime + '\'' +
+                '}';
     }
 }

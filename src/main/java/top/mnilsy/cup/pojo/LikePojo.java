@@ -5,16 +5,16 @@ import java.util.UUID;
 /**
  * Created by mnilsy on 19-4-17 下午6:45.
  */
-public class Like {
+public class LikePojo {
     private String like_Id;
     private String tweet_Id;
     private String user_Id;
     private int like_Condition;
 
-    public Like() {
+    public LikePojo() {
     }
 
-    public Like(String tweet_Id, String user_Id) {
+    public LikePojo(String tweet_Id, String user_Id) {
         this.like_Id= String.valueOf(UUID.randomUUID());
         this.tweet_Id = tweet_Id;
         this.user_Id = user_Id;
@@ -50,5 +50,15 @@ public class Like {
 
     public void setLike_Condition(int like_Condition) {
         this.like_Condition = like_Condition;
+    }
+
+    @Override
+    public String toString() {
+        return "LikePojo{" +
+                "like_Id='" + like_Id + '\'' +
+                ", tweet_Id='" + tweet_Id + '\'' +
+                ", user_Id='" + user_Id + '\'' +
+                ", like_Condition=" + like_Condition +
+                '}';
     }
 }

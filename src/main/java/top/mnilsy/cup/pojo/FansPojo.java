@@ -5,16 +5,16 @@ import java.util.UUID;
 /**
  * Created by mnilsy on 19-4-17 下午7:07.
  */
-public class Fans {
+public class FansPojo {
     private String fans_Id;
     private String firstParty_User_Id;
     private String secondParty_User_Id;
     private String fans_Time;
 
-    public Fans() {
+    public FansPojo() {
     }
 
-    public Fans(String firstParty_User_Id, String secondParty_User_Id) {
+    public FansPojo(String firstParty_User_Id, String secondParty_User_Id) {
         this.fans_Id = String.valueOf(UUID.randomUUID());
         this.firstParty_User_Id = firstParty_User_Id;
         this.secondParty_User_Id = secondParty_User_Id;
@@ -50,5 +50,15 @@ public class Fans {
 
     public void setFans_Time(String fans_Time) {
         this.fans_Time = fans_Time;
+    }
+
+    @Override
+    public String toString() {
+        return "FansPojo{" +
+                "fans_Id='" + fans_Id + '\'' +
+                ", firstParty_User_Id='" + firstParty_User_Id + '\'' +
+                ", secondParty_User_Id='" + secondParty_User_Id + '\'' +
+                ", fans_Time='" + fans_Time + '\'' +
+                '}';
     }
 }

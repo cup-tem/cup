@@ -1,19 +1,21 @@
 package top.mnilsy.cup.util;
 
+import java.util.Map;
+
 /**
  * Created by mnilsy on 19-4-19 上午12:52.
  * 用于接收客户端传来的信息包
  * sessionid 为客户端登录是的sessionid
- * data 为客户端传过来的数据包
+ * data 为客户端传过来的数据包,以map存放
  */
 public class RequestMessage {
     private String sessionid;
-    private Object data;
+    private Map<String,Object> data;
 
     public RequestMessage() {
     }
 
-    public RequestMessage(String sessionid, Object data) {
+    public RequestMessage(String sessionid, Map<String, Object> data) {
         this.sessionid = sessionid;
         this.data = data;
     }
@@ -26,11 +28,11 @@ public class RequestMessage {
         this.sessionid = sessionid;
     }
 
-    public Object getData() {
+    public Map<String, Object> getData() {
         return data;
     }
 
-    public void setData(Object data) {
+    public void setData(Map<String, Object> data) {
         this.data = data;
     }
 }

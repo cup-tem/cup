@@ -5,7 +5,7 @@ import java.util.UUID;
 /**
  * Created by mnilsy on 19-4-17 下午2:11.
  */
-public class Message {
+public class MessagePojo {
     private String message_Id;
     private String message_Vlue;
     private String message_Sender_u_Id;
@@ -13,10 +13,10 @@ public class Message {
     private String message_Time;
     private int message_Condition;
 
-    public Message() {
+    public MessagePojo() {
     }
 
-    public Message(String message_Vlue, String message_Sender_u_Id, String message_Recipient_u_Id) {
+    public MessagePojo(String message_Vlue, String message_Sender_u_Id, String message_Recipient_u_Id) {
         this.message_Id= String.valueOf(UUID.randomUUID());
         this.message_Vlue = message_Vlue;
         this.message_Sender_u_Id = message_Sender_u_Id;
@@ -73,7 +73,7 @@ public class Message {
 
     @Override
     public String toString() {
-        return "Message{" +
+        return "MessagePojo{" +
                 "message_Id='" + message_Id + '\'' +
                 ", message_Vlue='" + message_Vlue + '\'' +
                 ", message_Sender_u_Id='" + message_Sender_u_Id + '\'' +

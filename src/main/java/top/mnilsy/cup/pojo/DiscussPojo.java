@@ -5,7 +5,7 @@ import java.util.UUID;
 /**
  * Created by mnilsy on 19-4-17 下午5:50.
  */
-public class Discuss {
+public class DiscussPojo {
     private String discuss_Id;
     private String tweet_Id;
     private String user_Id;
@@ -13,10 +13,10 @@ public class Discuss {
     private String discuss_Time;
     private int discuss_Condition;
 
-    public Discuss() {
+    public DiscussPojo() {
     }
 
-    public Discuss(String tweet_Id, String user_Id, String discuss_Vlue) {
+    public DiscussPojo(String tweet_Id, String user_Id, String discuss_Vlue) {
         this.discuss_Id = String.valueOf(UUID.randomUUID());
         this.tweet_Id = tweet_Id;
         this.user_Id = user_Id;
@@ -69,5 +69,17 @@ public class Discuss {
 
     public void setDiscuss_Condition(int discuss_Condition) {
         this.discuss_Condition = discuss_Condition;
+    }
+
+    @Override
+    public String toString() {
+        return "DiscussPojo{" +
+                "discuss_Id='" + discuss_Id + '\'' +
+                ", tweet_Id='" + tweet_Id + '\'' +
+                ", user_Id='" + user_Id + '\'' +
+                ", discuss_Vlue='" + discuss_Vlue + '\'' +
+                ", discuss_Time='" + discuss_Time + '\'' +
+                ", discuss_Condition=" + discuss_Condition +
+                '}';
     }
 }

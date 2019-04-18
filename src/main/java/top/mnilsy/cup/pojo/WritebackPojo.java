@@ -5,7 +5,7 @@ import java.util.UUID;
 /**
  * Created by mnilsy on 19-4-17 下午5:56.
  */
-public class Writeback {
+public class WritebackPojo {
     private String writeBack_Id;
     private String discuss_Id;
     private String user_Id;
@@ -13,10 +13,10 @@ public class Writeback {
     private String write_Date;
     private int writeBack_Condition;
 
-    public Writeback() {
+    public WritebackPojo() {
     }
 
-    public Writeback(String discuss_Id, String user_Id, String writeBack_Vlue) {
+    public WritebackPojo(String discuss_Id, String user_Id, String writeBack_Vlue) {
         this.writeBack_Id= String.valueOf(UUID.randomUUID());
         this.discuss_Id = discuss_Id;
         this.user_Id = user_Id;
@@ -69,5 +69,17 @@ public class Writeback {
 
     public void setWriteBack_Condition(int writeBack_Condition) {
         this.writeBack_Condition = writeBack_Condition;
+    }
+
+    @Override
+    public String toString() {
+        return "WritebackPojo{" +
+                "writeBack_Id='" + writeBack_Id + '\'' +
+                ", discuss_Id='" + discuss_Id + '\'' +
+                ", user_Id='" + user_Id + '\'' +
+                ", writeBack_Vlue='" + writeBack_Vlue + '\'' +
+                ", write_Date='" + write_Date + '\'' +
+                ", writeBack_Condition=" + writeBack_Condition +
+                '}';
     }
 }

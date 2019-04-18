@@ -5,16 +5,16 @@ import java.util.UUID;
 /**
  * Created by mnilsy on 19-4-17 下午7:10.
  */
-public class Blacklist {
+public class BlacklistPojo {
     private String blackList_Id;
     private String firstParty_User_Id;
     private String secondParty_User_Id;
     private String blackList_Time;
 
-    public Blacklist() {
+    public BlacklistPojo() {
     }
 
-    public Blacklist(String firstParty_User_Id, String secondParty_User_Id) {
+    public BlacklistPojo(String firstParty_User_Id, String secondParty_User_Id) {
         this.blackList_Id = String.valueOf(UUID.randomUUID());
         this.firstParty_User_Id = firstParty_User_Id;
         this.secondParty_User_Id = secondParty_User_Id;
@@ -50,5 +50,15 @@ public class Blacklist {
 
     public void setBlackList_Time(String blackList_Time) {
         this.blackList_Time = blackList_Time;
+    }
+
+    @Override
+    public String toString() {
+        return "BlacklistPojo{" +
+                "blackList_Id='" + blackList_Id + '\'' +
+                ", firstParty_User_Id='" + firstParty_User_Id + '\'' +
+                ", secondParty_User_Id='" + secondParty_User_Id + '\'' +
+                ", blackList_Time='" + blackList_Time + '\'' +
+                '}';
     }
 }

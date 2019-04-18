@@ -5,7 +5,7 @@ import java.util.UUID;
 /**
  * Created by mnilsy on 19-4-17 下午2:20.
  */
-public class Tweet {
+public class TweetPojo {
     private String tweet_Id;
     private int tweet_Type;
     private String tweet_Text;
@@ -14,10 +14,10 @@ public class Tweet {
     private int tweet_like;
     private int tweet_Condition;
 
-    public Tweet() {
+    public TweetPojo() {
     }
 
-    public Tweet(int tweet_Type, String tweet_Text) {
+    public TweetPojo(int tweet_Type, String tweet_Text) {
         this.tweet_Id= String.valueOf(UUID.randomUUID());
         this.tweet_Type = tweet_Type;
         this.tweet_Text = tweet_Text;
@@ -81,7 +81,7 @@ public class Tweet {
 
     @Override
     public String toString() {
-        return "Tweet{" +
+        return "TweetPojo{" +
                 "tweet_Id='" + tweet_Id + '\'' +
                 ", tweet_Type=" + tweet_Type +
                 ", tweet_Text='" + tweet_Text + '\'' +

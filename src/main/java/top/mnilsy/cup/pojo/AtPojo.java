@@ -5,7 +5,7 @@ import java.util.UUID;
 /**
  * Created by mnilsy on 19-4-17 下午6:49.
  */
-public class At {
+public class AtPojo {
     private String at_Id;
     private String user_Id;
     private String at_From_Id;
@@ -13,10 +13,10 @@ public class At {
     private String at_Time;
     private int at_Condition;
 
-    public At() {
+    public AtPojo() {
     }
 
-    public At(String user_Id, String at_From_Id, int at_From_Type) {
+    public AtPojo(String user_Id, String at_From_Id, int at_From_Type) {
         this.at_Id= String.valueOf(UUID.randomUUID());
         this.user_Id = user_Id;
         this.at_From_Id = at_From_Id;
@@ -69,5 +69,17 @@ public class At {
 
     public void setAt_Condition(int at_Condition) {
         this.at_Condition = at_Condition;
+    }
+
+    @Override
+    public String toString() {
+        return "AtPojo{" +
+                "at_Id='" + at_Id + '\'' +
+                ", user_Id='" + user_Id + '\'' +
+                ", at_From_Id='" + at_From_Id + '\'' +
+                ", at_From_Type=" + at_From_Type +
+                ", at_Time='" + at_Time + '\'' +
+                ", at_Condition=" + at_Condition +
+                '}';
     }
 }
