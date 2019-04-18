@@ -17,6 +17,7 @@ public class CupApplicationTests {
         String s= String.valueOf(UUID.randomUUID());
         System.out.println(s);
         System.out.println(s.substring(22,s.length()));
+        System.out.println("@@");
     }
 
 }
