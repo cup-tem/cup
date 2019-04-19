@@ -74,11 +74,32 @@ public class UserManageContrller {
 
     /**
      * 设置用户名和密码
+     *
      * @param requestMessage 用户名data.user_Name，密码data.passwd
      * @return 请求状态码status，用户信息data.UserPojoOV
      */
     @PostMapping("/setUserNamePasswd.api")
-    public ResponMessage setUserNamePasswd(@RequestBody RequestMessage requestMessage){
+    public ResponMessage setUserNamePasswd(@RequestBody RequestMessage requestMessage) {
+        return new ResponMessage();
+    }
+
+    /**
+     * 上传头像
+     * @param responMessage 头像base64编码data.user_Head
+     * @return 请求状态码status，用户信息data.UserPojoOV
+     */
+    @PostMapping("/uploadingUserHead.api")
+    public ResponMessage uploadingUserHead(@RequestBody ResponMessage responMessage){
+        return new ResponMessage();
+    }
+
+    /**
+     * 上传背景图
+     * @param requestMessage 背景base64编码data.user_Background
+     * @return 请求状态码status，用户信息data.UserPojoOV
+     */
+    @PostMapping("/uploadingUserBackgroundUrl.api")
+    public ResponMessage uploadingUserBackgroundUrl(@RequestBody RequestMessage requestMessage){
         return new ResponMessage();
     }
 }
