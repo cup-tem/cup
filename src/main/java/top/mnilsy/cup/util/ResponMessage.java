@@ -4,7 +4,11 @@ package top.mnilsy.cup.util;
  * Created by mnilsy on 19-4-19 上午12:05.
  * 用于返回客户端信息包
  * statu为返回状态码
- * message为返回对象
+ * 200为成功||true
+ * 500为失败
+ * 400为false
+ * message为返回信息
+ * data为返回对象
  */
 public class ResponMessage {
     private int status;
@@ -50,7 +54,7 @@ public class ResponMessage {
     }
 
     /**
-     * 请求成功，不返回数据
+     * 请求成功或者判断为true
      *
      * @return
      */
@@ -69,12 +73,21 @@ public class ResponMessage {
     }
 
     /**
-     * 请求错误，并返回错误信息
+     * 请求失败，并返回错误信息
      *
      * @param message 返回的错误信息
      * @return
      */
     public static ResponMessage error(String message) {
         return new ResponMessage(500, message, null);
+    }
+
+    /**
+     * 判断为false
+     *
+     * @return
+     */
+    public static ResponMessage no() {
+        return new ResponMessage(400, null, null);
     }
 }

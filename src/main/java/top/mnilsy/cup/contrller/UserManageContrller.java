@@ -1,10 +1,7 @@
 package top.mnilsy.cup.contrller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import top.mnilsy.cup.util.RequestMessage;
 import top.mnilsy.cup.util.ResponMessage;
 
@@ -13,15 +10,14 @@ import top.mnilsy.cup.util.ResponMessage;
  * 用户管理控制器
  */
 
-@Controller
-@ResponseBody
+@RestController
 public class UserManageContrller {
 
     /**
      * 密码登录，不需要带sessionid
      *
      * @param requestMessage 用户名||手机号码||电子邮箱data.user，密码data.passwd
-     * @return 请求状态码status，用户信息data.UserPojoOV,会话data.sessionid
+     * @return 请求状态码status，message为失败信息，用户信息data.UserPojoOV,会话data.sessionid
      */
     @PostMapping("/passwdLogin.api")
     public ResponMessage passwdLogin(@RequestBody RequestMessage requestMessage) {
@@ -32,7 +28,7 @@ public class UserManageContrller {
      * 请求手机验证码，不需要带sessionid
      *
      * @param requestMessage 手机号码data.user_Phone
-     * @return 请求状态码status，会话data.sessionid
+     * @return 请求状态码status，message为失败信息，会话data.sessionid
      */
     @GetMapping("/getPhoneCode.api")
     public ResponMessage getPhoneCode(@RequestBody RequestMessage requestMessage) {
@@ -43,7 +39,7 @@ public class UserManageContrller {
      * 验证码登录
      *
      * @param requestMessage 手机号码data.user_Phone，验证码data.code
-     * @return 请求状态码status，用户信息data.UserPojoOV
+     * @return 请求状态码status，message为失败信息，用户信息data.UserPojoOV
      */
     @PostMapping("/codeLogin.api")
     public ResponMessage codeLogin(@RequestBody RequestMessage requestMessage) {
@@ -54,7 +50,7 @@ public class UserManageContrller {
      * 账号注册
      *
      * @param requestMessage 手机号码data.user_Phone，验证码data.code
-     * @return 请求状态码status，错误信息message
+     * @return 请求状态码status，message为失败信息
      */
     @PostMapping("/register.api")
     public ResponMessage register(@RequestBody RequestMessage requestMessage) {
@@ -131,7 +127,7 @@ public class UserManageContrller {
      * 修改密码
      *
      * @param requestMessage 用户旧密码data.oldPasswd，用户新密码data.newPasswd
-     * @return 请求状态码status
+     * @return 请求状态码status，message为失败信息
      */
     @PostMapping("/updatePasswd.api")
     public ResponMessage updatePasswd(@RequestBody RequestMessage requestMessage) {
@@ -142,7 +138,7 @@ public class UserManageContrller {
      * 找回密码
      *
      * @param requestMessage 用户新密码data.newPasswd，手机验证码data.code
-     * @return 请求状态码status
+     * @return 请求状态码status，message为失败信息
      */
     @PostMapping("/retrievePasswd.api")
     public ResponMessage retrievePasswd(@RequestBody RequestMessage requestMessage) {
@@ -164,7 +160,7 @@ public class UserManageContrller {
      * 请求电子邮箱验证码
      *
      * @param requestMessage 用户电子邮箱data.user_Email
-     * @return 请求状态码status
+     * @return 请求状态码status，message为失败信息
      */
     @GetMapping("/getEmailCode.api")
     public ResponMessage getEmailCode(@RequestBody RequestMessage requestMessage) {
