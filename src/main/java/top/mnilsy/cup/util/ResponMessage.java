@@ -7,16 +7,16 @@ package top.mnilsy.cup.util;
  * message为返回对象
  */
 public class ResponMessage {
-    private int statu;
+    private int status;
     private String message;
     private Object data;
 
-    public int getStatu() {
-        return statu;
+    public int getStatus() {
+        return status;
     }
 
-    public void setStatu(int statu) {
-        this.statu = statu;
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public String getMessage() {
@@ -39,12 +39,12 @@ public class ResponMessage {
     }
 
     public ResponMessage(Object data) {
-        this.statu = 200;
+        this.status = 200;
         this.data = data;
     }
 
-    public ResponMessage(int statu, String message, Object data) {
-        this.statu = statu;
+    public ResponMessage(int status, String message, Object data) {
+        this.status = status;
         this.message = message;
         this.data = data;
     }
