@@ -18,7 +18,7 @@ import top.mnilsy.cup.util.ResponMessage;
 public class UserManageContrller {
 
     /**
-     * 用户密码登录，不需要带sessionid
+     * 密码登录，不需要带sessionid
      *
      * @param requestMessage 用户名||手机号码||电子邮箱data.user，密码data.passwd
      * @return 请求状态码status，用户信息data.UserPojoOV,会话data.sessionid
@@ -29,10 +29,10 @@ public class UserManageContrller {
     }
 
     /**
-     * 用户请求手机验证码，不需要带sessionid
+     * 请求手机验证码，不需要带sessionid
      *
      * @param requestMessage 手机号码data.user_Phone
-     * @return 请求状态码status，验证码data.code，会话data.sessionid
+     * @return 请求状态码status，会话data.sessionid
      */
     @GetMapping("/getPhoneCode.api")
     public ResponMessage getPhoneCode(@RequestBody RequestMessage requestMessage) {
@@ -85,21 +85,111 @@ public class UserManageContrller {
 
     /**
      * 上传头像
-     * @param responMessage 头像base64编码data.user_Head
+     *
+     * @param requestMessage 头像base64编码data.user_Head
      * @return 请求状态码status，用户信息data.UserPojoOV
      */
     @PostMapping("/uploadingUserHead.api")
-    public ResponMessage uploadingUserHead(@RequestBody ResponMessage responMessage){
+    public ResponMessage uploadingUserHead(@RequestBody RequestMessage requestMessage) {
         return new ResponMessage();
     }
 
     /**
      * 上传背景图
+     *
      * @param requestMessage 背景base64编码data.user_Background
      * @return 请求状态码status，用户信息data.UserPojoOV
      */
     @PostMapping("/uploadingUserBackgroundUrl.api")
-    public ResponMessage uploadingUserBackgroundUrl(@RequestBody RequestMessage requestMessage){
+    public ResponMessage uploadingUserBackgroundUrl(@RequestBody RequestMessage requestMessage) {
+        return new ResponMessage();
+    }
+
+    /**
+     * 修改昵称
+     *
+     * @param requestMessage 用户昵称data.user_NickName
+     * @return 请求状态码status，用户信息data.UserPojoOV
+     */
+    @PostMapping("/updateUserNickName.api")
+    public ResponMessage updateUserNickName(@RequestBody RequestMessage requestMessage) {
+        return new ResponMessage();
+    }
+
+    /**
+     * 修改性别
+     *
+     * @param requestMessage 用户性别data.user_Sex
+     * @return 请求状态码status，用户信息data.UserPojoOV
+     */
+    @PostMapping("/updateUserSex.api")
+    public ResponMessage updateUserSex(@RequestBody RequestMessage requestMessage) {
+        return new ResponMessage();
+    }
+
+    /**
+     * 修改密码
+     *
+     * @param requestMessage 用户旧密码data.oldPasswd，用户新密码data.newPasswd
+     * @return 请求状态码status
+     */
+    @PostMapping("/updatePasswd.api")
+    public ResponMessage updatePasswd(@RequestBody RequestMessage requestMessage) {
+        return new ResponMessage();
+    }
+
+    /**
+     * 找回密码
+     *
+     * @param requestMessage 用户新密码data.newPasswd，手机验证码data.code
+     * @return 请求状态码status
+     */
+    @PostMapping("/retrievePasswd.api")
+    public ResponMessage retrievePasswd(@RequestBody RequestMessage requestMessage) {
+        return new ResponMessage();
+    }
+
+    /**
+     * 修改手机号码
+     *
+     * @param requestMessage 用户新手机号码data.user_Phone，手机验证码data.code
+     * @return 请求状态码status，用户信息data.UserPojoOV
+     */
+    @PostMapping("/updateUserPhone.api")
+    public ResponMessage updateUserPhone(@RequestBody RequestMessage requestMessage) {
+        return new ResponMessage();
+    }
+
+    /**
+     * 请求电子邮箱验证码
+     *
+     * @param requestMessage 用户电子邮箱data.user_Email
+     * @return 请求状态码status
+     */
+    @GetMapping("/getEmailCode.api")
+    public ResponMessage getEmailCode(@RequestBody RequestMessage requestMessage) {
+        return new ResponMessage();
+    }
+
+    /**
+     * 绑定电子邮箱
+     *
+     * @param requestMessage 用户邮箱data.user_Email，邮箱验证码data.code
+     * @return 请求状态码status，用户信息data.UserPojoOV
+     */
+    @PostMapping("/bindUserEmail.api")
+    public ResponMessage bindUserEmail(@RequestBody RequestMessage requestMessage) {
+        return new ResponMessage();
+    }
+
+    /**
+     * 修改电子邮箱
+     *
+     * @param requestMessage 用户新邮箱data.user_Email，新邮箱验证码data.newCode，旧邮箱验证码data.oldCode
+     * @return 请求状态码status，用户信息data.UserPojoOV
+     */
+    @PostMapping("/updateUserEmail.api")
+    public ResponMessage updateUserEmail(@RequestBody RequestMessage requestMessage) {
         return new ResponMessage();
     }
 }
