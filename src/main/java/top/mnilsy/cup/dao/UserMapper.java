@@ -3,7 +3,7 @@ package top.mnilsy.cup.dao;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
-import top.mnilsy.cup.pojoOV.UserPojoVO;
+import top.mnilsy.cup.pojo.UserPojo;
 
 /**
  * Created by mnilsy on 19-4-20 上午12:22.
@@ -18,5 +18,7 @@ public interface UserMapper {
      * @return 用户基本资料
      */
     @Select("select * from user where user_Id = #{user_Id}")
-    UserPojoVO getUserInfo(String user_Id);
+    UserPojo getUserInfo(String user_Id);
+
+    
 }

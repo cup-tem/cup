@@ -1,11 +1,15 @@
 package top.mnilsy.cup;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.BeanUtils;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import top.mnilsy.cup.dao.UserMapper;
 import top.mnilsy.cup.pojoOV.UserPojoVO;
+import top.mnilsy.cup.util.ResponMessage;
 
 import javax.annotation.Resource;
 
@@ -18,8 +22,9 @@ public class CupApplicationTests {
 
     @Test
     public void contextLoads() {
-        UserPojoVO userPojoOV=userMapper.getUserInfo("325e29e4-de68-4a71-9ad6-781dce8d4159");
-        System.out.println(userPojoOV.toString());
+        UserPojoVO userPojoVO=new UserPojoVO("mnilsy","ShuyL","男","13536497415","mnilsy.top@gmail.com","大头像","小头像","背景","二维码","sesionid");
+        ResponMessage responMessage=new ResponMessage(200,"TestMessage",userPojoVO);
+        System.out.println(JSON.toJSONString(responMessage));
     }
 
 }

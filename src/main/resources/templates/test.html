@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>$Title$</title>
+    <script rel="script" src="../static/jquery-3.2.1.min.js" th:src="@{/jquery-3.2.1.min.js}"></script>
+    <script rel="script">
+        function f() {
+            $.ajax({
+                contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                type: "get",
+                url: "/getPhoneCode.api",
+                data: {
+                    data: {
+                        sessionId: "sesionid",
+                        user_BackgroundUrl: "背景",
+                        user_Email: "mnilsy.top@gmail.com",
+                        user_HeadUrl_max: "大头像",
+                        user_HeadUrl_min: "小头像",
+                        user_Name: "mnilsy",
+                        user_NickName: "ShuyL",
+                        user_Phone: "13536497415",
+                        user_QRCode: "二维码",
+                        user_Sex: "男"
+                    },
+                    sessionid: "TestMessage"
+                },
+                async: true,
+                dataType: "json",
+                success: function (data) {
+                    console.log(data)
+                },
+                error: function () {
+//这个是失败的回调
+                },
+                complete: function () {
+//这个是不管成功还是失败都会执行的回调
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+<a href="javascript:f()">emmmmmm</a>
+</body>
+</html>
+    

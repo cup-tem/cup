@@ -1,8 +1,14 @@
 package top.mnilsy.cup.contrller;
 
 import org.springframework.web.bind.annotation.*;
+import top.mnilsy.cup.service.UserService;
 import top.mnilsy.cup.util.RequestMessage;
 import top.mnilsy.cup.util.ResponMessage;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by mnilsy on 19-4-18 下午11:59.
@@ -11,6 +17,8 @@ import top.mnilsy.cup.util.ResponMessage;
 
 @RestController
 public class UserManageContrller {
+    @Resource(name = "userService")
+    private UserService userService;
 
     /**
      * 密码登录，不需要带sessionid
@@ -19,7 +27,7 @@ public class UserManageContrller {
      * @return 请求状态码status，message为失败信息，用户信息data.UserPojoVO,会话data.sessionid
      */
     @PostMapping("/passwdLogin.api")
-    public ResponMessage passwdLogin(@RequestBody RequestMessage requestMessage) {
+    public ResponMessage passwdLogin(RequestMessage requestMessage) {
         return new ResponMessage();
     }
 
@@ -30,8 +38,15 @@ public class UserManageContrller {
      * @return 请求状态码status，message为失败信息，会话data.sessionid
      */
     @GetMapping("/getPhoneCode.api")
-    public ResponMessage getPhoneCode(@RequestBody RequestMessage requestMessage) {
-        return new ResponMessage();
+    public ResponMessage getPhoneCode(RequestMessage requestMessage, HttpSession session) {
+        String code = userService.getPhoneCode((String) requestMessage.getData().get("user_Phone"));
+        if (code != null) {
+            session.setAttribute("phoneCode", code);
+            Map<String, String> map = new HashMap<>();
+            map.put("sessionId", session.getId());
+            return ResponMessage.ok(map);
+        }
+        return ResponMessage.error("获取验证码失败");
     }
 
     /**
@@ -41,7 +56,7 @@ public class UserManageContrller {
      * @return 请求状态码status，message为失败信息，用户信息data.UserPojoVO
      */
     @PostMapping("/codeLogin.api")
-    public ResponMessage codeLogin(@RequestBody RequestMessage requestMessage) {
+    public ResponMessage codeLogin(RequestMessage requestMessage) {
         return new ResponMessage();
     }
 
@@ -52,7 +67,7 @@ public class UserManageContrller {
      * @return 请求状态码status，message为失败信息
      */
     @PostMapping("/register.api")
-    public ResponMessage register(@RequestBody RequestMessage requestMessage) {
+    public ResponMessage register(RequestMessage requestMessage) {
         return new ResponMessage();
     }
 
@@ -63,7 +78,7 @@ public class UserManageContrller {
      * @return 请求状态码status
      */
     @PostMapping("/checkUserName.api")
-    public ResponMessage checkUserName(@RequestBody RequestMessage requestMessage) {
+    public ResponMessage checkUserName(RequestMessage requestMessage) {
         return new ResponMessage();
     }
 
@@ -74,7 +89,7 @@ public class UserManageContrller {
      * @return 请求状态码status，用户信息data.UserPojoVO
      */
     @PostMapping("/setUserNamePasswd.api")
-    public ResponMessage setUserNamePasswd(@RequestBody RequestMessage requestMessage) {
+    public ResponMessage setUserNamePasswd(RequestMessage requestMessage) {
         return new ResponMessage();
     }
 
@@ -85,7 +100,7 @@ public class UserManageContrller {
      * @return 请求状态码status，用户信息data.UserPojoVO
      */
     @PostMapping("/uploadingUserHead.api")
-    public ResponMessage uploadingUserHead(@RequestBody RequestMessage requestMessage) {
+    public ResponMessage uploadingUserHead(RequestMessage requestMessage) {
         return new ResponMessage();
     }
 
@@ -96,7 +111,7 @@ public class UserManageContrller {
      * @return 请求状态码status，用户信息data.UserPojoVO
      */
     @PostMapping("/uploadingUserBackgroundUrl.api")
-    public ResponMessage uploadingUserBackgroundUrl(@RequestBody RequestMessage requestMessage) {
+    public ResponMessage uploadingUserBackgroundUrl(RequestMessage requestMessage) {
         return new ResponMessage();
     }
 
@@ -107,7 +122,7 @@ public class UserManageContrller {
      * @return 请求状态码status，用户信息data.UserPojoVO
      */
     @PostMapping("/updateUserNickName.api")
-    public ResponMessage updateUserNickName(@RequestBody RequestMessage requestMessage) {
+    public ResponMessage updateUserNickName(RequestMessage requestMessage) {
         return new ResponMessage();
     }
 
@@ -118,7 +133,7 @@ public class UserManageContrller {
      * @return 请求状态码status，用户信息data.UserPojoVO
      */
     @PostMapping("/updateUserSex.api")
-    public ResponMessage updateUserSex(@RequestBody RequestMessage requestMessage) {
+    public ResponMessage updateUserSex(RequestMessage requestMessage) {
         return new ResponMessage();
     }
 
@@ -129,7 +144,7 @@ public class UserManageContrller {
      * @return 请求状态码status，message为失败信息
      */
     @PostMapping("/updatePasswd.api")
-    public ResponMessage updatePasswd(@RequestBody RequestMessage requestMessage) {
+    public ResponMessage updatePasswd(RequestMessage requestMessage) {
         return new ResponMessage();
     }
 
@@ -140,7 +155,7 @@ public class UserManageContrller {
      * @return 请求状态码status，message为失败信息
      */
     @PostMapping("/retrievePasswd.api")
-    public ResponMessage retrievePasswd(@RequestBody RequestMessage requestMessage) {
+    public ResponMessage retrievePasswd(RequestMessage requestMessage) {
         return new ResponMessage();
     }
 
@@ -151,7 +166,7 @@ public class UserManageContrller {
      * @return 请求状态码status，用户信息data.UserPojoVO
      */
     @PostMapping("/updateUserPhone.api")
-    public ResponMessage updateUserPhone(@RequestBody RequestMessage requestMessage) {
+    public ResponMessage updateUserPhone(RequestMessage requestMessage) {
         return new ResponMessage();
     }
 
@@ -162,7 +177,7 @@ public class UserManageContrller {
      * @return 请求状态码status，message为失败信息
      */
     @GetMapping("/getEmailCode.api")
-    public ResponMessage getEmailCode(@RequestBody RequestMessage requestMessage) {
+    public ResponMessage getEmailCode(RequestMessage requestMessage) {
         return new ResponMessage();
     }
 
@@ -173,7 +188,7 @@ public class UserManageContrller {
      * @return 请求状态码status，用户信息data.UserPojoVO
      */
     @PostMapping("/bindUserEmail.api")
-    public ResponMessage bindUserEmail(@RequestBody RequestMessage requestMessage) {
+    public ResponMessage bindUserEmail(RequestMessage requestMessage) {
         return new ResponMessage();
     }
 
@@ -184,7 +199,7 @@ public class UserManageContrller {
      * @return 请求状态码status，用户信息data.UserPojoVO
      */
     @PostMapping("/updateUserEmail.api")
-    public ResponMessage updateUserEmail(@RequestBody RequestMessage requestMessage) {
+    public ResponMessage updateUserEmail(RequestMessage requestMessage) {
         return new ResponMessage();
     }
 }
