@@ -44,7 +44,6 @@ public class UserManageContrller {
             session.setAttribute("phoneCode", code);
             Map<String, String> map = new HashMap<>();
             map.put("sessionId", session.getId());
-            System.out.println("!");
             return ResponMessage.ok(map);
         }
         return ResponMessage.error("获取验证码失败");
