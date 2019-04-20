@@ -23,7 +23,7 @@ public class UserManageContrller {
     /**
      * 密码登录，不需要带sessionid
      *
-     * @param requestMessage 用户名||手机号码||电子邮箱data.user，密码data.passwd
+     * @param requestMessage 用户名||手机号码||电子邮箱data.get("user")，密码data.get("passwd")
      * @return 请求状态码status，message为失败信息，用户信息data.UserPojoVO,会话data.sessionid
      */
     @PostMapping("/passwdLogin.api")
@@ -34,7 +34,7 @@ public class UserManageContrller {
     /**
      * 请求手机验证码，不需要带sessionid
      *
-     * @param requestMessage 手机号码data.user_Phone
+     * @param requestMessage 手机号码data.get("user_Phone“）
      * @return 请求状态码status，message为失败信息，会话data.sessionid
      */
     @GetMapping("/getPhoneCode.api")
@@ -52,7 +52,7 @@ public class UserManageContrller {
     /**
      * 验证码登录
      *
-     * @param requestMessage 手机号码data.user_Phone，验证码data.code
+     * @param requestMessage 手机号码data.get("user_Phone")，验证码data.get("code")
      * @return 请求状态码status，message为失败信息，用户信息data.UserPojoVO
      */
     @PostMapping("/codeLogin.api")
@@ -63,7 +63,7 @@ public class UserManageContrller {
     /**
      * 账号注册
      *
-     * @param requestMessage 手机号码data.user_Phone，验证码data.code
+     * @param requestMessage 手机号码data.get("user_Phone")，验证码data.get("code")
      * @return 请求状态码status，message为失败信息
      */
     @PostMapping("/register.api")
@@ -74,7 +74,7 @@ public class UserManageContrller {
     /**
      * 检测用户名是否唯一
      *
-     * @param requestMessage 用户名data.user_Name
+     * @param requestMessage 用户名data.get("user_Name")
      * @return 请求状态码status
      */
     @PostMapping("/checkUserName.api")
@@ -85,7 +85,7 @@ public class UserManageContrller {
     /**
      * 设置用户名和密码
      *
-     * @param requestMessage 用户名data.user_Name，密码data.passwd
+     * @param requestMessage 用户名data.get("user_Name")，密码data.get("passwd")
      * @return 请求状态码status，用户信息data.UserPojoVO
      */
     @PostMapping("/setUserNamePasswd.api")
@@ -96,7 +96,7 @@ public class UserManageContrller {
     /**
      * 上传头像
      *
-     * @param requestMessage 头像base64编码data.user_Head
+     * @param requestMessage 头像base64编码data.get("user_Head")
      * @return 请求状态码status，用户信息data.UserPojoVO
      */
     @PostMapping("/uploadingUserHead.api")
@@ -107,7 +107,7 @@ public class UserManageContrller {
     /**
      * 上传背景图
      *
-     * @param requestMessage 背景base64编码data.user_Background
+     * @param requestMessage 背景base64编码data.get("user_Background")
      * @return 请求状态码status，用户信息data.UserPojoVO
      */
     @PostMapping("/uploadingUserBackgroundUrl.api")
@@ -118,7 +118,7 @@ public class UserManageContrller {
     /**
      * 修改昵称
      *
-     * @param requestMessage 用户昵称data.user_NickName
+     * @param requestMessage 用户昵称data.get("user_NickName")
      * @return 请求状态码status，用户信息data.UserPojoVO
      */
     @PostMapping("/updateUserNickName.api")
@@ -129,7 +129,7 @@ public class UserManageContrller {
     /**
      * 修改性别
      *
-     * @param requestMessage 用户性别data.user_Sex
+     * @param requestMessage 用户性别data.get("user_Sex")
      * @return 请求状态码status，用户信息data.UserPojoVO
      */
     @PostMapping("/updateUserSex.api")
@@ -140,7 +140,7 @@ public class UserManageContrller {
     /**
      * 修改密码
      *
-     * @param requestMessage 用户旧密码data.oldPasswd，用户新密码data.newPasswd
+     * @param requestMessage 用户旧密码data.get("oldPasswd")，用户新密码data.get("newPasswd")
      * @return 请求状态码status，message为失败信息
      */
     @PostMapping("/updatePasswd.api")
@@ -151,7 +151,7 @@ public class UserManageContrller {
     /**
      * 找回密码
      *
-     * @param requestMessage 用户新密码data.newPasswd，手机验证码data.code
+     * @param requestMessage 用户新密码data.get("newPasswd")，手机验证码data.get("code")
      * @return 请求状态码status，message为失败信息
      */
     @PostMapping("/retrievePasswd.api")
@@ -162,7 +162,7 @@ public class UserManageContrller {
     /**
      * 修改手机号码
      *
-     * @param requestMessage 用户新手机号码data.user_Phone，手机验证码data.code
+     * @param requestMessage 用户新手机号码data.get("user_Phone")，手机验证码data.get("code")
      * @return 请求状态码status，用户信息data.UserPojoVO
      */
     @PostMapping("/updateUserPhone.api")
@@ -173,7 +173,7 @@ public class UserManageContrller {
     /**
      * 请求电子邮箱验证码
      *
-     * @param requestMessage 用户电子邮箱data.user_Email
+     * @param requestMessage 用户电子邮箱data.get("user_Email")
      * @return 请求状态码status，message为失败信息
      */
     @GetMapping("/getEmailCode.api")
@@ -184,7 +184,7 @@ public class UserManageContrller {
     /**
      * 绑定电子邮箱
      *
-     * @param requestMessage 用户邮箱data.user_Email，邮箱验证码data.code
+     * @param requestMessage 用户邮箱data.get("user_Email")，邮箱验证码data.get("code")
      * @return 请求状态码status，用户信息data.UserPojoVO
      */
     @PostMapping("/bindUserEmail.api")
@@ -195,7 +195,7 @@ public class UserManageContrller {
     /**
      * 修改电子邮箱
      *
-     * @param requestMessage 用户新邮箱data.user_Email，新邮箱验证码data.newCode，旧邮箱验证码data.oldCode
+     * @param requestMessage 用户新邮箱data.get("user_Email")，新邮箱验证码data.get("newCode")，旧邮箱验证码data.get("oldCode")
      * @return 请求状态码status，用户信息data.UserPojoVO
      */
     @PostMapping("/updateUserEmail.api")
