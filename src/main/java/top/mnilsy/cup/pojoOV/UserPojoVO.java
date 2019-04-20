@@ -1,11 +1,9 @@
 package top.mnilsy.cup.pojoOV;
 
-import java.util.UUID;
-
 /**
  * Created by mnilsy on 19-4-17 下午1:39.
  */
-public class UserPojoOV {
+public class UserPojoVO {
     private String user_Name;
     private String user_NickName;
     private String user_Sex;
@@ -14,11 +12,13 @@ public class UserPojoOV {
     private String user_HeadUrl_max;
     private String user_HeadUrl_min;
     private String user_BackgroundUrl;
+    private String user_QRCode;
+    private String sessionId;
 
-    public UserPojoOV() {
+    public UserPojoVO() {
     }
 
-    public UserPojoOV(String user_Name, String user_NickName, String user_Sex, String user_Phone, String user_Email, String user_HeadUrl_max, String user_HeadUrl_min, String user_BackgroundUrl) {
+    public UserPojoVO(String user_Name, String user_NickName, String user_Sex, String user_Phone, String user_Email, String user_HeadUrl_max, String user_HeadUrl_min, String user_BackgroundUrl, String user_QRCode, String sessionId) {
         this.user_Name = user_Name;
         this.user_NickName = user_NickName;
         this.user_Sex = user_Sex;
@@ -27,6 +27,8 @@ public class UserPojoOV {
         this.user_HeadUrl_max = user_HeadUrl_max;
         this.user_HeadUrl_min = user_HeadUrl_min;
         this.user_BackgroundUrl = user_BackgroundUrl;
+        this.user_QRCode = user_QRCode;
+        this.sessionId = sessionId;
     }
 
     public String getUser_Name() {
@@ -91,5 +93,37 @@ public class UserPojoOV {
 
     public void setUser_BackgroundUrl(String user_BackgroundUrl) {
         this.user_BackgroundUrl = user_BackgroundUrl;
+    }
+
+    public String getUser_QRCode() {
+        return user_QRCode;
+    }
+
+    public void setUser_QRCode(String user_QRCode) {
+        this.user_QRCode = user_QRCode;
+    }
+
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
+    }
+
+    @Override
+    public String toString() {
+        return "UserPojoVO{" +
+                "user_Name='" + user_Name + '\'' +
+                ", user_NickName='" + user_NickName + '\'' +
+                ", user_Sex='" + user_Sex + '\'' +
+                ", user_Phone='" + user_Phone + '\'' +
+                ", user_Email='" + user_Email + '\'' +
+                ", user_HeadUrl_max='" + user_HeadUrl_max + '\'' +
+                ", user_HeadUrl_min='" + user_HeadUrl_min + '\'' +
+                ", user_BackgroundUrl='" + user_BackgroundUrl + '\'' +
+                ", user_QRCode='" + user_QRCode + '\'' +
+                ", sessionId='" + sessionId + '\'' +
+                '}';
     }
 }

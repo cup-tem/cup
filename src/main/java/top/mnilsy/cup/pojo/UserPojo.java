@@ -17,11 +17,12 @@ public class UserPojo {
     private String user_HeadUrl_max;
     private String user_HeadUrl_min;
     private String user_BackgroundUrl;
+    private String user_QRCode;
 
     public UserPojo() {
     }
 
-    public UserPojo(String user_Id, String user_SignlnTime, int user_Condition, String user_Name, String user_NickName, String user_Sex, String user_Phone, String user_Email, String user_HeadUrl_max, String user_HeadUrl_min, String user_BackgroundUrl) {
+    public UserPojo(String user_Id, String user_SignlnTime, int user_Condition, String user_Name, String user_NickName, String user_Sex, String user_Phone, String user_Email, String user_HeadUrl_max, String user_HeadUrl_min, String user_BackgroundUrl, String user_QRCode) {
         this.user_Id = user_Id;
         this.user_SignlnTime = user_SignlnTime;
         this.user_Condition = user_Condition;
@@ -33,12 +34,13 @@ public class UserPojo {
         this.user_HeadUrl_max = user_HeadUrl_max;
         this.user_HeadUrl_min = user_HeadUrl_min;
         this.user_BackgroundUrl = user_BackgroundUrl;
+        this.user_QRCode = user_QRCode;
     }
 
     public UserPojo(String user_Phone) {
-        this.user_Id= String.valueOf(UUID.randomUUID());
-        this.user_Name=this.user_Id.substring(22,this.user_Id.length());
-        this.user_NickName="cup"+user_Id.substring(25,user_Id.length());
+        this.user_Id = String.valueOf(UUID.randomUUID());
+        this.user_Name = this.user_Id.substring(22, this.user_Id.length());
+        this.user_NickName = "cup" + user_Id.substring(25, user_Id.length());
         this.user_Phone = user_Phone;
     }
 
@@ -130,6 +132,14 @@ public class UserPojo {
         this.user_BackgroundUrl = user_BackgroundUrl;
     }
 
+    public String getUser_QRCode() {
+        return user_QRCode;
+    }
+
+    public void setUser_QRCode(String user_QRCode) {
+        this.user_QRCode = user_QRCode;
+    }
+
     @Override
     public String toString() {
         return "UserPojo{" +
@@ -144,6 +154,7 @@ public class UserPojo {
                 ", user_HeadUrl_max='" + user_HeadUrl_max + '\'' +
                 ", user_HeadUrl_min='" + user_HeadUrl_min + '\'' +
                 ", user_BackgroundUrl='" + user_BackgroundUrl + '\'' +
+                ", user_QRCode='" + user_QRCode + '\'' +
                 '}';
     }
 }
