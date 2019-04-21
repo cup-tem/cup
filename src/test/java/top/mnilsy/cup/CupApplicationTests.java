@@ -1,14 +1,12 @@
 package top.mnilsy.cup;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.BeanUtils;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import top.mnilsy.cup.dao.UserMapper;
-import top.mnilsy.cup.pojoOV.UserPojoVO;
+import top.mnilsy.cup.pojoVO.UserPojoVO;
 import top.mnilsy.cup.util.ResponMessage;
 
 import javax.annotation.Resource;

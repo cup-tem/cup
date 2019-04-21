@@ -43,7 +43,7 @@ public class TweetContrller {
      *
      * @param requestMessage 回复内容data.get("write_Vlue")
      * @param discuss_Id     评论的id
-     * @return
+     * @return 请求状态码status
      */
     @PostMapping("/putWriteBack{discuss_Id}.api")
     public ResponMessage putWriteBack(RequestMessage requestMessage, @PathVariable String discuss_Id) {
@@ -55,10 +55,46 @@ public class TweetContrller {
      *
      * @param requestMessage
      * @param tweet_Id       推文id
-     * @return
+     * @return 请求状态码status
      */
     @PostMapping("/putLike{tweet_Id}.api")
     public ResponMessage putLike(RequestMessage requestMessage, @PathVariable String tweet_Id) {
+        return new ResponMessage();
+    }
+
+    /**
+     * 删除推文
+     *
+     * @param requestMessage
+     * @param tweet_Id       推文id
+     * @return 请求状态码status
+     */
+    @PostMapping("/deleteTweet{tweet_Id}.api")
+    public ResponMessage deleteTweet(RequestMessage requestMessage, @PathVariable String tweet_Id) {
+        return new ResponMessage();
+    }
+
+    /**
+     * 删除评论
+     *
+     * @param requestMessage
+     * @param discuss_Id     评论的id
+     * @return 请求状态码status
+     */
+    @PostMapping("/deleteDiscuss{discuss_Id}.api")
+    public ResponMessage deleteDiscuss(RequestMessage requestMessage, @PathVariable String discuss_Id) {
+        return new ResponMessage();
+    }
+
+    /**
+     * 删除评论回复
+     *
+     * @param requestMessage
+     * @param writeBack_Id   评论回复的id
+     * @return 请求状态码status
+     */
+    @PostMapping("/deleteWriteBack{writeBack_Id}.api")
+    public ResponMessage deleteWriteBack(RequestMessage requestMessage, @PathVariable String writeBack_Id) {
         return new ResponMessage();
     }
 

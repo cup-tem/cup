@@ -1,10 +1,6 @@
 package top.mnilsy.cup.service;
 
-import org.springframework.stereotype.Service;
-import top.mnilsy.cup.dao.UserMapper;
-import top.mnilsy.cup.pojoOV.UserPojoVO;
-
-import javax.annotation.Resource;
+import top.mnilsy.cup.pojoVO.UserPojoVO;
 
 /**
  * Created by mnilsy on 19-4-20 下午7:15.

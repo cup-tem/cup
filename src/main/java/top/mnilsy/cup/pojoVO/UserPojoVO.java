@@ -1,4 +1,4 @@
-package top.mnilsy.cup.pojoOV;
+package top.mnilsy.cup.pojoVO;
 
 /**
  * Created by mnilsy on 19-4-17 下午1:39.

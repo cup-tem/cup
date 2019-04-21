@@ -1,7 +1,7 @@
 package top.mnilsy.cup.service.impl;
 
 import org.springframework.stereotype.Service;
-import top.mnilsy.cup.pojoOV.UserPojoVO;
+import top.mnilsy.cup.pojoVO.UserPojoVO;
 import top.mnilsy.cup.service.UserService;
 
 /**
