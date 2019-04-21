@@ -31,7 +31,7 @@ public class TweetContrller {
      *
      * @param requestMessage 评论内容data.get("discuss_Vlue")
      * @param tweet_Id       推文的id
-     * @return 请求状态码status
+     * @return 请求状态码status，失败信息message
      */
     @PostMapping("/putDiscuss{tweet_Id}.api")
     public ResponMessage putDiscuss(RequestMessage requestMessage, @PathVariable String tweet_Id) {
@@ -43,7 +43,7 @@ public class TweetContrller {
      *
      * @param requestMessage 回复内容data.get("write_Vlue")
      * @param discuss_Id     评论的id
-     * @return 请求状态码status
+     * @return 请求状态码status，失败信息message
      */
     @PostMapping("/putWriteBack{discuss_Id}.api")
     public ResponMessage putWriteBack(RequestMessage requestMessage, @PathVariable String discuss_Id) {
@@ -55,7 +55,7 @@ public class TweetContrller {
      *
      * @param requestMessage
      * @param tweet_Id       推文id
-     * @return 请求状态码status
+     * @return 请求状态码status，失败信息message
      */
     @PostMapping("/putLike{tweet_Id}.api")
     public ResponMessage putLike(RequestMessage requestMessage, @PathVariable String tweet_Id) {

@@ -24,7 +24,7 @@ public class UserManageContrller {
      * 密码登录，不需要带sessionid
      *
      * @param requestMessage 用户名||手机号码||电子邮箱data.get("user")，密码data.get("passwd")
-     * @return 请求状态码status，message为失败信息，用户信息data.userPojoVO,会话data.sessionid
+     * @return 请求状态码status，失败信息message，用户信息data.userPojoVO,会话data.sessionid
      */
     @PostMapping("/passwdLogin.api")
     public ResponMessage passwdLogin(RequestMessage requestMessage) {
@@ -35,7 +35,7 @@ public class UserManageContrller {
      * 请求手机验证码，不需要带sessionid
      *
      * @param requestMessage 手机号码data.get("user_Phone“）
-     * @return 请求状态码status，message为失败信息，会话data.sessionid
+     * @return 请求状态码status，失败信息message，会话data.sessionid
      */
     @GetMapping("/getPhoneCode.api")
     public ResponMessage getPhoneCode(RequestMessage requestMessage, HttpSession session) {
@@ -53,7 +53,7 @@ public class UserManageContrller {
      * 验证码登录
      *
      * @param requestMessage 手机号码data.get("user_Phone")，验证码data.get("code")
-     * @return 请求状态码status，message为失败信息，用户信息data.userPojoVO
+     * @return 请求状态码status，失败信息message，用户信息data.userPojoVO
      */
     @PostMapping("/codeLogin.api")
     public ResponMessage codeLogin(RequestMessage requestMessage) {
@@ -64,7 +64,7 @@ public class UserManageContrller {
      * 账号注册
      *
      * @param requestMessage 手机号码data.get("user_Phone")，验证码data.get("code")
-     * @return 请求状态码status，message为失败信息
+     * @return 请求状态码status，失败信息message
      */
     @PostMapping("/register.api")
     public ResponMessage register(RequestMessage requestMessage) {
@@ -141,7 +141,7 @@ public class UserManageContrller {
      * 修改密码
      *
      * @param requestMessage 用户旧密码data.get("oldPasswd")，用户新密码data.get("newPasswd")
-     * @return 请求状态码status，message为失败信息
+     * @return 请求状态码status，失败信息message
      */
     @PostMapping("/updatePasswd.api")
     public ResponMessage updatePasswd(RequestMessage requestMessage) {
@@ -152,7 +152,7 @@ public class UserManageContrller {
      * 找回密码
      *
      * @param requestMessage 用户新密码data.get("newPasswd")，手机验证码data.get("code")
-     * @return 请求状态码status，message为失败信息
+     * @return 请求状态码status，失败信息message
      */
     @PostMapping("/retrievePasswd.api")
     public ResponMessage retrievePasswd(RequestMessage requestMessage) {
@@ -174,7 +174,7 @@ public class UserManageContrller {
      * 请求电子邮箱验证码
      *
      * @param requestMessage 用户电子邮箱data.get("user_Email")
-     * @return 请求状态码status，message为失败信息
+     * @return 请求状态码status，失败信息message
      */
     @GetMapping("/getEmailCode.api")
     public ResponMessage getEmailCode(RequestMessage requestMessage) {

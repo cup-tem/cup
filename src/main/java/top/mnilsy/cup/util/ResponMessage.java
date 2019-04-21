@@ -8,7 +8,7 @@ package top.mnilsy.cup.util;
  * 500为失败
  * 400为false
  * message为返回信息
- * data为返回对象
+ * data为返回对象，多对象时存储Map
  */
 public class ResponMessage {
     private int status;
@@ -70,6 +70,15 @@ public class ResponMessage {
      */
     public static ResponMessage ok(Object data) {
         return new ResponMessage(data);
+    }
+
+    /**
+     * 请求失败
+     *
+     * @return
+     */
+    public static ResponMessage error() {
+        return new ResponMessage(500, null, null);
     }
 
     /**
