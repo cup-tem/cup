@@ -1,17 +1,5 @@
 package top.mnilsy.cup.netty;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.commons.lang3.StringUtils;
-
-import com.github.pagehelper.util.StringUtil;
-import com.imooc.SpringUtil;
-import com.imooc.enums.MsgActionEnum;
-import com.imooc.service.UserService;
-import com.imooc.utils.JsonUtils;
-
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -39,7 +27,7 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
 		
 		Channel currentChannel = ctx.channel();
 
-		// 1. 获取客户端发来的消息
+		/*// 1. 获取客户端发来的消息
 		DataContent dataContent = JsonUtils.jsonToPojo(content, DataContent.class);
 		Integer action = dataContent.getAction();
 		// 2. 判断消息类型，根据不同的类型来处理不同的业务
@@ -111,7 +99,7 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
 		} else if (action == MsgActionEnum.KEEPALIVE.type) {
 			//  2.4  心跳类型的消息
 			System.out.println("收到来自channel为[" + currentChannel + "]的心跳包...");
-		}
+		}*/
 	}
 	
 	/**
