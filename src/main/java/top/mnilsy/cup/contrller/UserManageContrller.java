@@ -1,6 +1,10 @@
 package top.mnilsy.cup.contrller;
 
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import top.mnilsy.cup.dao.UserMapper;
+import top.mnilsy.cup.pojo.UserPojo;
 import top.mnilsy.cup.service.UserService;
 import top.mnilsy.cup.util.RequestMessage;
 import top.mnilsy.cup.util.ResponMessage;
@@ -10,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
+
 /**
  * Created by mnilsy on 19-4-18 下午11:59.
  * 用户管理控制器
@@ -17,8 +22,12 @@ import java.util.Map;
 
 @RestController
 public class UserManageContrller {
+
     @Resource(name = "userService")
     private UserService userService;
+
+    @Autowired
+    private UserMapper userMapper;
 
     /**
      * 密码登录，不需要带sessionid
@@ -27,8 +36,16 @@ public class UserManageContrller {
      * @return 请求状态码status，失败信息message，用户信息data.userPojoVO,会话data.sessionid
      */
     @PostMapping("/passwdLogin.api")
-    public ResponMessage passwdLogin(RequestMessage requestMessage) {
-        return new ResponMessage();
+    public ResponMessage passwdLogin(RequestMessage requestMessage, HttpSession session) {
+       String user = userService.getPasswdLogin((String)requestMessage.getData().get("user"),(String)requestMessage.getData().get("passwd"));
+       if (user != null){
+           session.setAttribute("user",user);
+           Map<String, String> map = new HashMap<>();
+           map.put("sessionId", session.getId());
+           map.put("user",user);
+           return ResponMessage.ok(map);
+       }
+       return ResponMessage.error("密码登录失败");
     }
 
     /**
@@ -56,9 +73,17 @@ public class UserManageContrller {
      * @return 请求状态码status，失败信息message，用户信息data.userPojoVO
      */
     @PostMapping("/codeLogin.api")
-    public ResponMessage codeLogin(RequestMessage requestMessage) {
-        return new ResponMessage();
-    }
+    public ResponMessage codeLogin(RequestMessage requestMessage, HttpSession session) {
+        String codeLogin = userService.codeLogin((String)requestMessage.getData().get("user_Phone"),(String)requestMessage.getData().get("code"));
+        String code = userService.getPhoneCode((String)requestMessage.getData().get("code"));
+            if (codeLogin != null){
+                session.setAttribute("codeLogin",codeLogin);
+                Map<String, String> map = new HashMap<>();
+                map.put("codeLogin",codeLogin);
+                return ResponMessage.ok(map);
+            }
+            return ResponMessage.error("验证码登陆失败");
+        }
 
     /**
      * 账号注册
@@ -68,7 +93,13 @@ public class UserManageContrller {
      */
     @PostMapping("/register.api")
     public ResponMessage register(RequestMessage requestMessage) {
-        return new ResponMessage();
+        String register = userService.register((String)requestMessage.getData().get("user_Phone"),(String)requestMessage.getData().get("code"));
+        if (register != null){
+            Map<String, String> map = new HashMap<>();
+            map.put("register",register);
+            return ResponMessage.ok(map);
+        }
+        return ResponMessage.error("账号注册失败");
     }
 
     /**
@@ -79,7 +110,13 @@ public class UserManageContrller {
      */
     @PostMapping("/checkUserName.api")
     public ResponMessage checkUserName(RequestMessage requestMessage) {
-        return new ResponMessage();
+        String checkUserName = userService.checkUserName((String)requestMessage.getData().get("user_Name"));
+        if (checkUserName != null){
+            Map<String, String> map = new HashMap<>();
+            map.put("checkUserName",checkUserName);
+            return ResponMessage.ok(map);
+        }
+        return ResponMessage.error("检测用户名是否唯一失败");
     }
 
     /**
@@ -89,7 +126,7 @@ public class UserManageContrller {
      * @return 请求状态码status，用户信息data.userPojoVO
      */
     @PostMapping("/setUserNamePasswd.api")
-    public ResponMessage setUserNamePasswd(RequestMessage requestMessage) {
+    public ResponMessage setUserNamePasswd(RequestMessage requestMessage,HttpSession session) {
         return new ResponMessage();
     }
 
@@ -100,7 +137,7 @@ public class UserManageContrller {
      * @return 请求状态码status，用户信息data.userPojoVO
      */
     @PostMapping("/uploadingUserHead.api")
-    public ResponMessage uploadingUserHead(RequestMessage requestMessage) {
+    public ResponMessage uploadingUserHead(RequestMessage requestMessage,HttpSession session) {
         return new ResponMessage();
     }
 
@@ -134,7 +171,7 @@ public class UserManageContrller {
      */
     @PostMapping("/updateUserSex.api")
     public ResponMessage updateUserSex(RequestMessage requestMessage) {
-        return new ResponMessage();
+        return new  ResponMessage();
     }
 
     /**
@@ -144,8 +181,12 @@ public class UserManageContrller {
      * @return 请求状态码status，失败信息message
      */
     @PostMapping("/updatePasswd.api")
-    public ResponMessage updatePasswd(RequestMessage requestMessage) {
-        return new ResponMessage();
+    public ResponMessage updatePasswd(RequestMessage requestMessage,HttpSession session) {
+        String updatePasswd = userService.updatePasswd((String)requestMessage.getData().get("oldPasswd"),(String)requestMessage.getData().get("newPasswd"));
+        if (updatePasswd != null){
+
+        }
+        return ResponMessage.error("修改密码失败");
     }
 
     /**
