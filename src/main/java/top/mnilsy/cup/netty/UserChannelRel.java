@@ -1,28 +1,28 @@
 package top.mnilsy.cup.netty;
 
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
-import io.netty.channel.Channel;
+import io.netty.channel.ChannelId;
 
 /**
- * @Description: 用户id和channel的关联关系处理
+ * @Description: user_Name和channel的关联关系处理
  */
 public class UserChannelRel {
 
-	private static HashMap<String, Channel> manager = new HashMap<>();
+    private static ConcurrentHashMap<String, ChannelId> manager = new ConcurrentHashMap<>();
 
-	public static void put(String senderId, Channel channel) {
-		manager.put(senderId, channel);
-	}
-	
-	public static Channel get(String senderId) {
-		return manager.get(senderId);
-	}
-	
-	public static void output() {
-		for (HashMap.Entry<String, Channel> entry : manager.entrySet()) {
-			System.out.println("UserId: " + entry.getKey() 
-							+ ", ChannelId: " + entry.getValue().id().asLongText());
-		}
-	}
+    public static void put(String user_Name, ChannelId channelId) {
+        manager.put(user_Name, channelId);
+    }
+
+    public static ChannelId get(String user_Name) {
+        return manager.get(user_Name);
+    }
+
+    public static void output() {
+        for (ConcurrentHashMap.Entry<String, ChannelId> entry : manager.entrySet()) {
+            System.out.println("user_Name: " + entry.getKey()
+                    + ", ChannelId: " + entry.getValue().asLongText());
+        }
+    }
 }

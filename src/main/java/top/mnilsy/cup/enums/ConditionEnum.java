@@ -1,19 +1,17 @@
-package top.mnilsy.cup.util;
+package top.mnilsy.cup.enums;
 
 /**
- * Created by mnilsy on 19-4-17 下午6:51.
+ * Created by mnilsy on 19-4-17 下午7:30.
  */
-public enum AtFromType {
-    TWEET(0, "推文"),
-    DISCUSS(1, "评论"),
-    WRITE_BACK(2, "回复"),
-    PROCLAMATION(3, "公告"),
-    LIKE(4, "被赞");
+public enum ConditionEnum {
+    NORMAL(0, "正常"),
+    DELETE(1, "停封"),
+    SIGN_FOR(1,"签收");
 
     private int vlue;
     private String desc;
 
-    AtFromType(int vlue, String desc) {
+    ConditionEnum(int vlue, String desc) {
         this.vlue = vlue;
         this.desc = desc;
     }
