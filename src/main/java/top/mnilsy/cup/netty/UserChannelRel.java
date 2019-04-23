@@ -1,5 +1,6 @@
 package top.mnilsy.cup.netty;
 
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import io.netty.channel.ChannelId;
@@ -17,6 +18,14 @@ public class UserChannelRel {
 
     public static ChannelId get(String user_Name) {
         return manager.get(user_Name);
+    }
+
+    public static String get(ChannelId channelId){
+        for (Map.Entry<String,ChannelId> entry:manager.entrySet()){
+            if (channelId.equals(entry.getValue()))
+                return entry.getKey();
+        }
+        return null;
     }
 
     public static void output() {

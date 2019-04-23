@@ -2,8 +2,8 @@ package top.mnilsy.cup.contrller;
 
 import org.springframework.web.bind.annotation.*;
 import top.mnilsy.cup.service.UserService;
-import top.mnilsy.cup.util.RequestMessage;
-import top.mnilsy.cup.util.ResponMessage;
+import top.mnilsy.cup.utils.RequestMessage;
+import top.mnilsy.cup.utils.ResponMessage;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;

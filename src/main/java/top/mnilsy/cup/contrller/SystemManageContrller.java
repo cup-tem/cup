@@ -7,8 +7,8 @@ package top.mnilsy.cup.contrller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-import top.mnilsy.cup.util.RequestMessage;
-import top.mnilsy.cup.util.ResponMessage;
+import top.mnilsy.cup.utils.RequestMessage;
+import top.mnilsy.cup.utils.ResponMessage;
 
 /**
  * 系统管理控制器
