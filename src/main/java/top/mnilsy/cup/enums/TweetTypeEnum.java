@@ -7,24 +7,8 @@ public enum TweetTypeEnum {
     TEXT(0, "纯文本"),
     PHOTO(1, "图片"),
     VIDEO(2, "视频");
-    private int vlue;
-    private String desc;
-
-    public int getVlue() {
-        return vlue;
-    }
-
-    public void setVlue(int vlue) {
-        this.vlue = vlue;
-    }
-
-    public String getDesc() {
-        return desc;
-    }
-
-    public void setDesc(String desc) {
-        this.desc = desc;
-    }
+    public int vlue;
+    public String desc;
 
     TweetTypeEnum(int vlue, String desc) {
         this.vlue = vlue;

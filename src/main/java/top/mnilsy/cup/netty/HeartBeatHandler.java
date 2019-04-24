@@ -27,7 +27,6 @@ public class HeartBeatHandler extends ChannelInboundHandlerAdapter {
                 System.out.println("channel关闭后，users的数量为：" + ChatHandler.users.size());
             }
         }
-
     }
 
 }
