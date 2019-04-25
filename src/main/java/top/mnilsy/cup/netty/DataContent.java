@@ -13,8 +13,8 @@ import java.io.Serializable;
  * 扩展数据extand
  */
 public class DataContent implements Serializable {
-    private static final long serialVersionUID = 4999569467670932331L;
 
+    private static final long serialVersionUID = 8543830607305056646L;
     private int action;
     private Object data;
     private String extand;
@@ -22,9 +22,9 @@ public class DataContent implements Serializable {
     public DataContent() {
     }
 
-    public DataContent(int action, MessageVO messageVO, String extand) {
+    public DataContent(int action, Object data, String extand) {
         this.action = action;
-        this.data = messageVO;
+        this.data = data;
         this.extand = extand;
     }
 
