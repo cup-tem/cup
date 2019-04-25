@@ -8,11 +8,14 @@ package top.mnilsy.cup.enums;
  * netty通讯类型
  */
 public enum NettyActionEnum {
-    LOGIN(1, "上线"),
-    CHAT_TEXT(2, "文字私信"),
+    LOGIN(1, "上线"),//extand存放用户名user_Name
+    CHAT_TEXT(2, "文字私信"),//data存放私信包MessagePojoVO
     CHAT_PHOTO(3, "图片私信"),
-    SIGN_FOR(4, "签收"),
-    KEEPALIVE(5, "保持心跳");
+    SIGNFOR_MESSAGE(4, "签收私信"),//extand存放私信id message_Id
+    KEEPALIVE(5, "保持心跳"),
+    AT(6, "@"),//data存放AtPojoVO
+    SIGNFOR_AT(7, "签收@");//extand存放@id at_Id
+
     public int vule;
     public String desc;
 

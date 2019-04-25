@@ -1,9 +1,9 @@
-package top.mnilsy.cup.pojoVO;
+package top.mnilsy.cup.VO;
 
 /**
  * Created by mnilsy on 19-4-17 下午1:39.
  */
-public class UserPojoVO {
+public class UserVO {
     private String user_Name;
     private String user_NickName;
     private String user_Sex;
@@ -15,10 +15,10 @@ public class UserPojoVO {
     private String user_QRCode;
     private String sessionId;
 
-    public UserPojoVO() {
+    public UserVO() {
     }
 
-    public UserPojoVO(String user_Name, String user_NickName, String user_Sex, String user_Phone, String user_Email, String user_HeadUrl_max, String user_HeadUrl_min, String user_BackgroundUrl, String user_QRCode, String sessionId) {
+    public UserVO(String user_Name, String user_NickName, String user_Sex, String user_Phone, String user_Email, String user_HeadUrl_max, String user_HeadUrl_min, String user_BackgroundUrl, String user_QRCode, String sessionId) {
         this.user_Name = user_Name;
         this.user_NickName = user_NickName;
         this.user_Sex = user_Sex;
@@ -113,7 +113,7 @@ public class UserPojoVO {
 
     @Override
     public String toString() {
-        return "UserPojoVO{" +
+        return "UserVO{" +
                 "user_Name='" + user_Name + '\'' +
                 ", user_NickName='" + user_NickName + '\'' +
                 ", user_Sex='" + user_Sex + '\'' +

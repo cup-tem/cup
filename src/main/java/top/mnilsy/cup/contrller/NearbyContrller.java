@@ -42,7 +42,7 @@ public class NearbyContrller {
      * 获取附近的人的最新推文
      *
      * @param requestMessage 加载次数data.get("count")
-     * @return 请求状态码status，推文内容data.tweetPojoVO[]
+     * @return 请求状态码status，推文内容data.tweetVO[]
      */
     @GetMapping("/getLocationTweet.api")
     public ResponMessage getLocationTweet(RequestMessage requestMessage) {

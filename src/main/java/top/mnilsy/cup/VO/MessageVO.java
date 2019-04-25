@@ -1,11 +1,11 @@
-package top.mnilsy.cup.pojoVO;
+package top.mnilsy.cup.VO;
 
 import java.io.Serializable;
 
 /**
  * Created by mnilsy on 19-4-23 上午1:59.
  */
-public class MessagePojoVO implements Serializable {
+public class MessageVO implements Serializable {
     private static final long serialVersionUID = -2784125080402473724L;
     private String sender_Name;
     private String recipient_Name;
@@ -13,10 +13,10 @@ public class MessagePojoVO implements Serializable {
     private String message_Time;
     private String message_Id;
 
-    public MessagePojoVO() {
+    public MessageVO() {
     }
 
-    public MessagePojoVO(String sender_Name, String recipient_Name, String message_Vlue, String message_Time, String message_Id) {
+    public MessageVO(String sender_Name, String recipient_Name, String message_Vlue, String message_Time, String message_Id) {
         this.sender_Name = sender_Name;
         this.recipient_Name = recipient_Name;
         this.message_Vlue = message_Vlue;
@@ -66,7 +66,7 @@ public class MessagePojoVO implements Serializable {
 
     @Override
     public String toString() {
-        return "MessagePojoVO{" +
+        return "MessageVO{" +
                 "sender_Name='" + sender_Name + '\'' +
                 ", recipient_Name='" + recipient_Name + '\'' +
                 ", message_Vlue='" + message_Vlue + '\'' +

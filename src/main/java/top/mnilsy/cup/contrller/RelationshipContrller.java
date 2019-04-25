@@ -45,7 +45,7 @@ public class RelationshipContrller {
      * 获取关注的人列表
      *
      * @param requestMessage 请求次数data.get("count")
-     * @return 请求状态码status，关注人列表data.follwListPojoVO[]
+     * @return 请求状态码status，关注人列表data.follwListVO[]
      */
     @GetMapping("/getFollowList.api")
     public ResponMessage getFollowList(RequestMessage requestMessage) {
@@ -56,7 +56,7 @@ public class RelationshipContrller {
      * 获取粉丝列表
      *
      * @param requestMessage 请求次数data.get("count")
-     * @return 请求状态码status，关注人列表data.follwListPojoVO[]
+     * @return 请求状态码status，关注人列表data.follwListVO[]
      */
     @GetMapping("/getFans.api")
     public ResponMessage getFans(RequestMessage requestMessage) {
@@ -67,7 +67,7 @@ public class RelationshipContrller {
      * 查看黑名单
      *
      * @param requestMessage 请求次数data.get("count")
-     * @return 请求状态码status，关注人列表data.follwListPojoVO[]
+     * @return 请求状态码status，关注人列表data.follwListVO[]
      */
     @GetMapping("/getBlackList.api")
     public ResponMessage getBlackList(RequestMessage requestMessage) {

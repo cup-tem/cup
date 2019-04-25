@@ -1,11 +1,11 @@
-package top.mnilsy.cup.pojoVO;
+package top.mnilsy.cup.VO;
 
 import java.util.Arrays;
 
 /**
  * Created by mnilsy on 19-4-21 下午3:21.
  */
-public class TweetPojoVO {
+public class TweetVO {
     private String user_HeadUrl_min;
     private String user_Name;
     private String tweet_Id;
@@ -15,10 +15,10 @@ public class TweetPojoVO {
     private int tweet_DiscussCount;
     private String[] accessory;
 
-    public TweetPojoVO() {
+    public TweetVO() {
     }
 
-    public TweetPojoVO(String user_HeadUrl_min, String user_Name, String tweet_Id, String tweet_Time, String tweet_Text, int tweet_LikeCount, int tweet_DiscussCount, String[] accessory) {
+    public TweetVO(String user_HeadUrl_min, String user_Name, String tweet_Id, String tweet_Time, String tweet_Text, int tweet_LikeCount, int tweet_DiscussCount, String[] accessory) {
         this.user_HeadUrl_min = user_HeadUrl_min;
         this.user_Name = user_Name;
         this.tweet_Id = tweet_Id;
@@ -95,7 +95,7 @@ public class TweetPojoVO {
 
     @Override
     public String toString() {
-        return "TweetPojoVO{" +
+        return "TweetVO{" +
                 "user_HeadUrl_min='" + user_HeadUrl_min + '\'' +
                 ", user_Name='" + user_Name + '\'' +
                 ", tweet_Id='" + tweet_Id + '\'' +
