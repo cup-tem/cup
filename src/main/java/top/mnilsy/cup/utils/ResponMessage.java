@@ -1,4 +1,4 @@
-package top.mnilsy.cup.util;
+package top.mnilsy.cup.utils;
 
 /**
  * Created by mnilsy on 19-4-19 上午12:05.

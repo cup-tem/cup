@@ -7,7 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import top.mnilsy.cup.dao.UserMapper;
 import top.mnilsy.cup.pojoVO.UserPojoVO;
-import top.mnilsy.cup.util.ResponMessage;
+import top.mnilsy.cup.utils.ResponMessage;
 
 import javax.annotation.Resource;
 

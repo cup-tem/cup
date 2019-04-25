@@ -1,4 +1,4 @@
-package top.mnilsy.cup.util;
+package top.mnilsy.cup.utils;
 
 import java.util.Map;
 

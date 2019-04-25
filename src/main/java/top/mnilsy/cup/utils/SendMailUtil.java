@@ -1,4 +1,4 @@
-package top.mnilsy.cup.util;
+package top.mnilsy.cup.utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -14,16 +14,16 @@ import java.io.UnsupportedEncodingException;
  * Created by mnilsy on 19-2-27 下午2:09.
  */
 @Component("sendMailUtils")
-public class SendMail {
+public class SendMailUtil {
 
     @Autowired
     private JavaMailSender mailSender;
 
-    public SendMail(JavaMailSender mailSender) {
+    public SendMailUtil(JavaMailSender mailSender) {
         this.mailSender = mailSender;
     }
 
-    public SendMail() {
+    public SendMailUtil() {
     }
 
     @Async

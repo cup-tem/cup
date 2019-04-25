@@ -3,8 +3,8 @@ package top.mnilsy.cup.contrller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-import top.mnilsy.cup.util.RequestMessage;
-import top.mnilsy.cup.util.ResponMessage;
+import top.mnilsy.cup.utils.RequestMessage;
+import top.mnilsy.cup.utils.ResponMessage;
 
 /**
  * Created by mnilsy on 19-4-21 下午12:22.
