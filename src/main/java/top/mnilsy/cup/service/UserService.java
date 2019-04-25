@@ -61,7 +61,7 @@ public interface UserService {
      *
      * @param user_Name 用户名
      * @param passwd 密码
-     * @return 是否设置成功
+     * @return userVO
      */
     String setUserNamePasswd(String user_Name,String passwd);
 

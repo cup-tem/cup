@@ -87,6 +87,13 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public String setUserNamePasswd(String user_Name, String passwd) {
+        if (user_Name != null && passwd != null){
+            UserPojo userPojo = null;
+            PasswdPojo passwdPojo =null;
+            UserVO userVO = null;
+            UserMapper userMapper = null;
+            userPojo = userMapper.setUser(user_Name);
+        }
         return null;
     }
 

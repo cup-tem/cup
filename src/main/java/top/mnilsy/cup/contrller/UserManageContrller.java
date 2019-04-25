@@ -119,7 +119,12 @@ public class UserManageContrller {
      */
     @PostMapping("/setUserNamePasswd.api")
     public ResponMessage setUserNamePasswd(RequestMessage requestMessage,HttpSession session) {
-        return new ResponMessage();
+        String setUserNamePasswd = userService.setUserNamePasswd((String)requestMessage.getData().get("user_Name"),(String)requestMessage.getData().get("passwd"));
+        if (setUserNamePasswd != null){
+            session.setAttribute("userVO",setUserNamePasswd);
+            return ResponMessage.ok("userVO");
+        }
+        return ResponMessage.error("设置用户名和密码失败");
     }
 
     /**

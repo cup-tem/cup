@@ -35,6 +35,15 @@ public interface UserMapper {
     UserVO getUserByNameInfo(String user_Name);
 
     /**
+     * 设置用户名
+     *
+     * @param user_Name 用户名
+     * @return 用户基本资料
+     */
+    @Insert("insert into user where user_Name = #{user_Name}")
+    UserPojo setUser(String user_Name);
+
+    /**
      * 根据user_Name\\user_Phone\\user_email查询用户信息
      *
      * @param user 用户名||用户手机号码||用户电子邮箱
