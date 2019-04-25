@@ -1,6 +1,6 @@
 package top.mnilsy.cup.netty;
 
-import top.mnilsy.cup.pojoVO.MessagePojoVO;
+import top.mnilsy.cup.VO.MessageVO;
 
 import java.io.Serializable;
 
@@ -9,23 +9,27 @@ import java.io.Serializable;
  * 通讯动作类型action
  *
  * @see top.mnilsy.cup.enums.NettyActionEnum
- * 通讯数据messagePojoVO
+ * 通讯数据messageVO
  * 扩展数据extand
  */
 public class DataContent implements Serializable {
     private static final long serialVersionUID = 4999569467670932331L;
 
     private int action;
-    private MessagePojoVO messagePojoVO;
+    private Object data;
     private String extand;
 
     public DataContent() {
     }
 
-    public DataContent(int action, MessagePojoVO messagePojoVO, String extand) {
+    public DataContent(int action, MessageVO messageVO, String extand) {
         this.action = action;
-        this.messagePojoVO = messagePojoVO;
+        this.data = messageVO;
         this.extand = extand;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
     public int getAction() {
@@ -36,12 +40,12 @@ public class DataContent implements Serializable {
         this.action = action;
     }
 
-    public MessagePojoVO getMessagePojoVO() {
-        return messagePojoVO;
+    public Object getData() {
+        return data;
     }
 
-    public void setMessagePojoVO(MessagePojoVO messagePojoVO) {
-        this.messagePojoVO = messagePojoVO;
+    public void setData(Object data) {
+        this.data = data;
     }
 
     public String getExtand() {
@@ -56,13 +60,7 @@ public class DataContent implements Serializable {
     public String toString() {
         return "DataContent{" +
                 "action=" + action +
-                ",MessagePojoVO{" +
-                "sender_Name='" + messagePojoVO.getSender_Name() + '\'' +
-                ", recipient_Name='" + messagePojoVO.getRecipient_Name() + '\'' +
-                ", message_Vlue='" + messagePojoVO.getMessage_Vlue() + '\'' +
-                ", message_Time='" + messagePojoVO.getMessage_Time() + '\'' +
-                ", message_Id='" + messagePojoVO.getMessage_Id() + '\'' +
-                '}' +
+                ", data=" + data +
                 ", extand='" + extand + '\'' +
                 '}';
     }

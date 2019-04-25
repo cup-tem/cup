@@ -1,7 +1,7 @@
 package top.mnilsy.cup.service.impl;
 
 import org.springframework.stereotype.Service;
-import top.mnilsy.cup.pojoVO.UserPojoVO;
+import top.mnilsy.cup.VO.UserVO;
 import top.mnilsy.cup.service.UserService;
 
 /**
@@ -16,7 +16,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserPojoVO codeLogin() {
+    public UserVO codeLogin() {
         return null;
     }
 }

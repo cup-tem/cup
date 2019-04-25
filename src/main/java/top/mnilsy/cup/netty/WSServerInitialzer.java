@@ -27,7 +27,7 @@ public class WSServerInitialzer extends ChannelInitializer<SocketChannel> {
 
 
         // ====================== 增加心跳支持 start    ======================
-        // 针对客户端，如果在40秒时没有向服务端发送读写心跳(ALL)，则主动断开
+        // 针对客户端，如果在40妙没有向服务端发送读写心跳(ALL)，则主动断开
         // 如果是读空闲或者写空闲，不处理
         pipeline.addLast(new IdleStateHandler(40, 40, 40));
         // 自定义的空闲状态检测

@@ -1,8 +1,6 @@
 package top.mnilsy.cup.contrller;
 
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import top.mnilsy.cup.utils.RequestMessage;
 import top.mnilsy.cup.utils.ResponMessage;
 
@@ -23,6 +21,17 @@ public class TweetContrller {
      */
     @PostMapping("/putTweet.api")
     public ResponMessage putTweet(RequestMessage requestMessage) {
+        return new ResponMessage();
+    }
+
+    /**
+     * 查看推文，即点开推文
+     *
+     * @param requestMapping 推文iddata.get("tweet_Id")
+     * @return 请求状态码status，失败信息message，推文data.tweetVO，推文评论discussVO
+     */
+    @GetMapping("/getTweet.api")
+    public ResponMessage getTweet(RequestMapping requestMapping) {
         return new ResponMessage();
     }
 

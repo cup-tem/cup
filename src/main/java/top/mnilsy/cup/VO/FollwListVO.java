@@ -1,17 +1,17 @@
-package top.mnilsy.cup.pojoVO;
+package top.mnilsy.cup.VO;
 
 /**
  * Created by mnilsy on 19-4-21 下午10:37.
  */
-public class FollwListPojoVO {
+public class FollwListVO {
     private String user_HeadUrl_min;
     private String user_NickName;
     private String user_Name;
 
-    public FollwListPojoVO() {
+    public FollwListVO() {
     }
 
-    public FollwListPojoVO(String user_HeadUrl_min, String user_NickName, String user_Name) {
+    public FollwListVO(String user_HeadUrl_min, String user_NickName, String user_Name) {
         this.user_HeadUrl_min = user_HeadUrl_min;
         this.user_NickName = user_NickName;
         this.user_Name = user_Name;
@@ -43,7 +43,7 @@ public class FollwListPojoVO {
 
     @Override
     public String toString() {
-        return "FollwListPojoVO{" +
+        return "FollwListVO{" +
                 "user_HeadUrl_min='" + user_HeadUrl_min + '\'' +
                 ", user_NickName='" + user_NickName + '\'' +
                 ", user_Name='" + user_Name + '\'' +

@@ -8,8 +8,8 @@ import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.util.concurrent.GlobalEventExecutor;
+import top.mnilsy.cup.VO.MessageVO;
 import top.mnilsy.cup.enums.NettyActionEnum;
-import top.mnilsy.cup.pojoVO.MessagePojoVO;
 import top.mnilsy.cup.service.MessageService;
 import top.mnilsy.cup.utils.SpringUtil;
 
@@ -50,20 +50,20 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
 
 
             //发送未签收的信息给客户端
-            List<MessagePojoVO> notSignforMessageList = messageService.getNotSignfor(user_Name);
-            for (MessagePojoVO messagePojoVO : notSignforMessageList) {
-                messageService.sendMessageText(messagePojoVO);
+            List<MessageVO> notSignforMessageList = messageService.getNotSignfor(user_Name);
+            for (MessageVO messageVO : notSignforMessageList) {
+                messageService.sendMessageText(messageVO);
             }
             return;
         }
         if (action == NettyActionEnum.CHAT_TEXT.vule) {
             //聊天类型的消息，把聊天记录保存到数据库
-            MessagePojoVO sendmessagePojoVO = messageService.addMessage(dataContent.getMessagePojoVO());
+            MessageVO sendmessageVO = messageService.addMessage((MessageVO) dataContent.getData());
             //发送消息
-            messageService.sendMessageText(sendmessagePojoVO);
+            messageService.sendMessageText(sendmessageVO);
             return;
         }
-        if (action == NettyActionEnum.SIGN_FOR.vule) {
+        if (action == NettyActionEnum.SIGNFOR_MESSAGE.vule) {
             //签收消息类型，针对具体的消息进行签收，修改数据库中对应消息的签收状态[已签收]
             //扩展字段在signed类型的消息中，代表需要去签收的消息id
             messageService.signfor(dataContent.getExtand());

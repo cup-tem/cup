@@ -5,11 +5,11 @@ import io.netty.channel.Channel;
 import io.netty.channel.ChannelId;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import org.springframework.stereotype.Service;
+import top.mnilsy.cup.VO.MessageVO;
 import top.mnilsy.cup.enums.NettyActionEnum;
 import top.mnilsy.cup.netty.ChatHandler;
 import top.mnilsy.cup.netty.DataContent;
 import top.mnilsy.cup.netty.UserChannelRel;
-import top.mnilsy.cup.pojoVO.MessagePojoVO;
 import top.mnilsy.cup.service.MessageService;
 
 import java.util.List;
@@ -21,7 +21,7 @@ import java.util.List;
 public class MessageServiceImpl implements MessageService {
 
     @Override
-    public MessagePojoVO addMessage(MessagePojoVO messagePojoVO) {
+    public MessageVO addMessage(MessageVO messageVO) {
         return null;
     }
 
@@ -31,20 +31,20 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public List<MessagePojoVO> getNotSignfor(String user_Name) {
+    public List<MessageVO> getNotSignfor(String user_Name) {
         return null;
     }
 
     @Override
-    public boolean sendMessageText(MessagePojoVO messagePojoVO) {
+    public boolean sendMessageText(MessageVO messageVO) {
         // 从全局用户Channel关系中获取接受方的channel
-        ChannelId recipientChannelId = UserChannelRel.get(messagePojoVO.getRecipient_Name());
+        ChannelId recipientChannelId = UserChannelRel.get(messageVO.getRecipient_Name());
         if (recipientChannelId != null) {
             // 当recipientChannelId不为空的时候，从ChannelGroup去查找对应的channel是否存在
             Channel findChannel = ChatHandler.users.find(recipientChannelId);
             if (findChannel != null) {
                 // 用户在线
-                findChannel.writeAndFlush(new TextWebSocketFrame(JSON.toJSONString(new DataContent(NettyActionEnum.CHAT_TEXT.vule, messagePojoVO, null))));
+                findChannel.writeAndFlush(new TextWebSocketFrame(JSON.toJSONString(new DataContent(NettyActionEnum.CHAT_TEXT.vule, messageVO, null))));
             } else {
                 return false;
             }
@@ -52,5 +52,10 @@ public class MessageServiceImpl implements MessageService {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public boolean atUser() {
+        return false;
     }
 }

@@ -1,6 +1,6 @@
 package top.mnilsy.cup.service;
 
-import top.mnilsy.cup.pojoVO.UserPojoVO;
+import top.mnilsy.cup.VO.UserVO;
 
 /**
  * Created by mnilsy on 19-4-20 下午7:15.
@@ -14,5 +14,5 @@ public interface UserService {
      */
     String getPhoneCode(String user_Phone);
 
-    UserPojoVO codeLogin();
+    UserVO codeLogin();
 }

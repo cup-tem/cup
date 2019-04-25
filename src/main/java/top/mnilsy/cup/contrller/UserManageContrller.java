@@ -24,7 +24,7 @@ public class UserManageContrller {
      * 密码登录，不需要带sessionid
      *
      * @param requestMessage 用户名||手机号码||电子邮箱data.get("user")，密码data.get("passwd")
-     * @return 请求状态码status，失败信息message，用户信息data.userPojoVO,会话data.sessionid
+     * @return 请求状态码status，失败信息message，用户信息data.userVO,会话data.sessionid
      */
     @PostMapping("/passwdLogin.api")
     public ResponMessage passwdLogin(RequestMessage requestMessage) {
@@ -53,7 +53,7 @@ public class UserManageContrller {
      * 验证码登录
      *
      * @param requestMessage 手机号码data.get("user_Phone")，验证码data.get("code")
-     * @return 请求状态码status，失败信息message，用户信息data.userPojoVO
+     * @return 请求状态码status，失败信息message，用户信息data.userVO
      */
     @PostMapping("/codeLogin.api")
     public ResponMessage codeLogin(RequestMessage requestMessage) {
@@ -86,7 +86,7 @@ public class UserManageContrller {
      * 设置用户名和密码
      *
      * @param requestMessage 用户名data.get("user_Name")，密码data.get("passwd")
-     * @return 请求状态码status，用户信息data.userPojoVO
+     * @return 请求状态码status，用户信息data.userVO
      */
     @PostMapping("/setUserNamePasswd.api")
     public ResponMessage setUserNamePasswd(RequestMessage requestMessage) {
@@ -97,7 +97,7 @@ public class UserManageContrller {
      * 上传头像
      *
      * @param requestMessage 头像base64编码data.get("user_Head")
-     * @return 请求状态码status，用户信息data.userPojoVO
+     * @return 请求状态码status，用户信息data.userVO
      */
     @PostMapping("/uploadingUserHead.api")
     public ResponMessage uploadingUserHead(RequestMessage requestMessage) {
@@ -108,7 +108,7 @@ public class UserManageContrller {
      * 上传背景图
      *
      * @param requestMessage 背景base64编码data.get("user_Background")
-     * @return 请求状态码status，用户信息data.userPojoVO
+     * @return 请求状态码status，用户信息data.userVO
      */
     @PostMapping("/uploadingUserBackgroundUrl.api")
     public ResponMessage uploadingUserBackgroundUrl(RequestMessage requestMessage) {
@@ -119,7 +119,7 @@ public class UserManageContrller {
      * 修改昵称
      *
      * @param requestMessage 用户昵称data.get("user_NickName")
-     * @return 请求状态码status，用户信息data.userPojoVO
+     * @return 请求状态码status，用户信息data.userVO
      */
     @PostMapping("/updateUserNickName.api")
     public ResponMessage updateUserNickName(RequestMessage requestMessage) {
@@ -130,7 +130,7 @@ public class UserManageContrller {
      * 修改性别
      *
      * @param requestMessage 用户性别data.get("user_Sex")
-     * @return 请求状态码status，用户信息data.userPojoVO
+     * @return 请求状态码status，用户信息data.userVO
      */
     @PostMapping("/updateUserSex.api")
     public ResponMessage updateUserSex(RequestMessage requestMessage) {
@@ -163,7 +163,7 @@ public class UserManageContrller {
      * 修改手机号码
      *
      * @param requestMessage 用户新手机号码data.get("user_Phone")，手机验证码data.get("code")
-     * @return 请求状态码status，用户信息data.userPojoVO
+     * @return 请求状态码status，用户信息data.userVO
      */
     @PostMapping("/updateUserPhone.api")
     public ResponMessage updateUserPhone(RequestMessage requestMessage) {
@@ -185,7 +185,7 @@ public class UserManageContrller {
      * 绑定电子邮箱
      *
      * @param requestMessage 用户邮箱data.get("user_Email")，邮箱验证码data.get("code")
-     * @return 请求状态码status，用户信息data.userPojoVO
+     * @return 请求状态码status，用户信息data.userVO
      */
     @PostMapping("/bindUserEmail.api")
     public ResponMessage bindUserEmail(RequestMessage requestMessage) {
@@ -196,7 +196,7 @@ public class UserManageContrller {
      * 修改电子邮箱
      *
      * @param requestMessage 用户新邮箱data.get("user_Email")，新邮箱验证码data.get("newCode")，旧邮箱验证码data.get("oldCode")
-     * @return 请求状态码status，用户信息data.userPojoVO
+     * @return 请求状态码status，用户信息data.userVO
      */
     @PostMapping("/updateUserEmail.api")
     public ResponMessage updateUserEmail(RequestMessage requestMessage) {
