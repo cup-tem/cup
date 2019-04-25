@@ -8,8 +8,11 @@ import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.util.concurrent.GlobalEventExecutor;
+import top.mnilsy.cup.BO.AtBO;
 import top.mnilsy.cup.VO.MessageVO;
 import top.mnilsy.cup.enums.NettyActionEnum;
+import top.mnilsy.cup.pojo.AtPojo;
+import top.mnilsy.cup.service.AtService;
 import top.mnilsy.cup.service.MessageService;
 import top.mnilsy.cup.utils.SpringUtil;
 
@@ -24,6 +27,7 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
     // 用于记录和管理所有客户端的channle
     public static ChannelGroup users = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
     private MessageService messageService = (MessageService) SpringUtil.getBean("messageService");
+    private AtService atService = (AtService) SpringUtil.getBean("atService");
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, TextWebSocketFrame msg) throws Exception {
@@ -49,10 +53,16 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
             // ====================== 测试 end    ======================
 
 
-            //发送未签收的信息给客户端
+            //发送未签收的私信给客户端
             List<MessageVO> notSignforMessageList = messageService.getNotSignfor(user_Name);
             for (MessageVO messageVO : notSignforMessageList) {
                 messageService.sendMessageText(messageVO);
+            }
+
+            //发送未签收的艾特给客户端
+            List<AtBO> notSignforAtList = atService.getNotSignfor(user_Name);
+            for (AtBO atBO : notSignforAtList) {
+                atService.sendAt(atBO,user_Name);
             }
             return;
         }
@@ -67,6 +77,12 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
             //签收消息类型，针对具体的消息进行签收，修改数据库中对应消息的签收状态[已签收]
             //扩展字段在signed类型的消息中，代表需要去签收的消息id
             messageService.signfor(dataContent.getExtand());
+            return;
+        }
+        if (action == NettyActionEnum.SIGNFOR_AT.vule) {
+            //签收艾特类型，针对具体的艾特进行签收，修改数据库中对应艾特的签收状态[已签收]
+            //扩展字段在signed类型的消息中，代表需要去签收的艾特id
+            atService.signfor(dataContent.getExtand());
             return;
         }
         if (action == NettyActionEnum.KEEPALIVE.vule) {

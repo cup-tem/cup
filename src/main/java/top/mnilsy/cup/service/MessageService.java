@@ -1,5 +1,6 @@
 package top.mnilsy.cup.service;
 
+import top.mnilsy.cup.BO.AtBO;
 import top.mnilsy.cup.VO.MessageVO;
 
 import java.util.List;
@@ -39,7 +40,5 @@ public interface MessageService {
      * @return 是否推送成功
      */
     boolean sendMessageText(MessageVO messageVO);
-
-    boolean atUser();
 
 }

@@ -20,5 +20,11 @@ public interface UserMapper {
     @Select("select * from user where user_Id = #{user_Id}")
     UserPojo getUserInfo(String user_Id);
 
-    
+    /**
+     * 根据用户id获取发推文用户名
+     * @param user_Id 用户id
+     * @return
+     */
+    @Select("")
+    String getUserName(String user_Id);
 }
