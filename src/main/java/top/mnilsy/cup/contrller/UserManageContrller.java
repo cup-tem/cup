@@ -1,10 +1,7 @@
 package top.mnilsy.cup.contrller;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import top.mnilsy.cup.dao.UserMapper;
-import top.mnilsy.cup.pojo.UserPojo;
 import top.mnilsy.cup.service.UserService;
 import top.mnilsy.cup.utils.RequestMessage;
 import top.mnilsy.cup.utils.ResponMessage;
@@ -25,9 +22,6 @@ public class UserManageContrller {
 
     @Resource(name = "userService")
     private UserService userService;
-
-    @Autowired
-    private UserMapper userMapper;
 
     /**
      * 密码登录，不需要带sessionid
@@ -74,12 +68,12 @@ public class UserManageContrller {
      */
     @PostMapping("/codeLogin.api")
     public ResponMessage codeLogin(RequestMessage requestMessage, HttpSession session) {
-        String codeLogin = userService.codeLogin((String)requestMessage.getData().get("user_Phone"),(String)requestMessage.getData().get("code"));
+        String codeLogin = userService.codeLogin((String)requestMessage.getData().get("user_Phone"),(String)requestMessage.getData().get("code"),session.getId());
         String code = userService.getPhoneCode((String)requestMessage.getData().get("code"));
             if (codeLogin != null){
                 session.setAttribute("codeLogin",codeLogin);
                 Map<String, String> map = new HashMap<>();
-                map.put("codeLogin",codeLogin);
+                map.put("sessionId",session.getId());
                 return ResponMessage.ok(map);
             }
             return ResponMessage.error("验证码登陆失败");
@@ -184,7 +178,10 @@ public class UserManageContrller {
     public ResponMessage updatePasswd(RequestMessage requestMessage,HttpSession session) {
         String updatePasswd = userService.updatePasswd((String)requestMessage.getData().get("oldPasswd"),(String)requestMessage.getData().get("newPasswd"));
         if (updatePasswd != null){
-
+            session.setAttribute("updatePasswd",updatePasswd);
+            Map<String, String> map = new HashMap<>();
+            map.put("sessionId",session.getId());
+            return ResponMessage.ok(map);
         }
         return ResponMessage.error("修改密码失败");
     }
