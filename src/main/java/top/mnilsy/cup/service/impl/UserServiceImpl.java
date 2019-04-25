@@ -65,7 +65,13 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public String checkUserName(String user_Name) {
-        return null;
+        UserPojo userPojo = null;
+        UserMapper userMapper = null;
+        userPojo = userMapper.getUserNameByUserName(user_Name);
+        if (userPojo != null){
+            return null;
+        }
+        return "用户名可用";
     }
 
     /**

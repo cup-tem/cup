@@ -59,7 +59,7 @@ public interface UserMapper {
      * @return 用户名
      */
     @Select("select user_Name from user where user_Name = #{user_Name}")
-    UserVO getUserNameByUserName (String user_Name);
+    UserPojo getUserNameByUserName (String user_Name);
 
 
 }

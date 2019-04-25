@@ -106,11 +106,9 @@ public class UserManageContrller {
     public ResponMessage checkUserName(RequestMessage requestMessage) {
         String checkUserName = userService.checkUserName((String)requestMessage.getData().get("user_Name"));
         if (checkUserName != null){
-            Map<String, String> map = new HashMap<>();
-            map.put("checkUserName",checkUserName);
-            return ResponMessage.ok(map);
+            return ResponMessage.ok(checkUserName);
         }
-        return ResponMessage.error("检测用户名是否唯一失败");
+        return ResponMessage.error("用户名重复");
     }
 
     /**
