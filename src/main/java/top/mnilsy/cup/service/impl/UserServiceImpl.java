@@ -1,4 +1,4 @@
-package top.mnilsy.cup.service.impl;
+﻿package top.mnilsy.cup.service.impl;
 
 import org.springframework.stereotype.Service;
 import top.mnilsy.cup.VO.UserVO;
@@ -125,4 +125,78 @@ public class UserServiceImpl implements UserService {
     public UserVO codeLogin() {
         return null;
     }
+
+
+
+ @Override
+    public boolean registerByUserPhone(String user_Phone) {
+        boolean flag=false;
+        if (userMapper.addByUser_Phone(user_Phone)>0){
+            flag=true;
+        }
+        return flag;
+    }
+
+
+    @Override
+    public UserPojo getUserInfoByUserName(String user_Name) {
+        return userMapper.getUserInfoByUserName(user_Name);
+    }
+
+
+    @Override
+    public boolean updateNickName(String user_Name,String user_NickName) {
+        boolean flag=false;
+        if(userMapper.updateNickNameByUserName(user_Name,user_NickName)>0){
+            flag=true;
+        }
+        return flag;
+    }
+
+    @Override
+    public boolean uploadUserBackground(String user_Name, String user_Background) {
+        boolean flag=false;
+        if(userMapper.updateUserBackground(user_Name,user_Background)>0){
+            flag=true;
+        }
+        return flag;
+    }
+
+
+    @Override
+    public boolean updateUserSex(String user_Name, String user_Sex) {
+        boolean flag=false;
+        if(userMapper.updateUserSexByUserName(user_Name,user_Sex)>0){
+            flag=true;
+        }
+        return flag;
+    }
+
+    @Override
+    public boolean updatePasswd(String newPasswd, String oldPasswd) {
+        boolean flag=false;
+        if(userMapper.updatePasswdByOldPasswd(newPasswd,oldPasswd)>0){
+            flag=true;
+        }
+        return flag;
+    }
+
+    @Override
+    public UserPojo getUserInfoByUserPhone(String user_Phone) {
+        return userMapper.selectByUserPhone(user_Phone);
+    }
+
+    @Override
+    public boolean updateUserPhone(String user_Name, String user_Phone) {
+        boolean flag=false;
+        if(userMapper.updateUserPhoneByUserName(user_Name,user_Phone)>0){
+            flag=true;
+        }
+        return false;
+    }
+
+
+
+
+
 }
