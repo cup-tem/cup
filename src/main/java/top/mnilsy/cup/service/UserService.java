@@ -1,4 +1,4 @@
-﻿package top.mnilsy.cup.service;
+package top.mnilsy.cup.service;
 
 import org.springframework.stereotype.Service;
 import top.mnilsy.cup.VO.UserVO;
@@ -91,80 +91,4 @@ public interface UserService {
     String updatePasswd(String oldPasswd, String newPasswd);
 
     UserVO codeLogin();
-
-
-
-
-/**
-     * 账号注册
-     *
-     * @param user_Phone 电话号码
-     * @return 返回注册是否成功
-     */
-    boolean registerByUserPhone(String user_Phone);
-
-    /**
-     * 检测用户名是否唯一
-     *
-     * @param user_Name 用户名
-     * @return 返回是否获取到用户信息
-     */
-    UserPojo getUserInfoByUserName(String user_Name);
-
-
-    /**
-     * 上传背景图
-     *
-     * @param user_Name 用户名 user_Background 背景图
-     * @return 返回是否上传背景图成功
-     */
-    boolean uploadUserBackground (String user_Name,String user_Background);
-
-    /**
-     * 修改昵称
-     *
-     * @param user_NickName 用户昵称 user_Name 用户名
-     * @return 返回是否修改成功
-     */
-    boolean updateNickName(String user_Name,String user_NickName);
-
-
-    /**
-     * 修改性别
-     *
-     * @param user_Sex 用户性别 user_Name 用户名
-     * @return 返回是否修改成功
-     */
-    boolean updateUserSex(String user_Name,String user_Sex);
-
-
-    /**
-     * 修改密码
-     *
-     * @param newPasswd 新密码 oldPasswd 旧密码
-     * @return 返回是否修改成功
-     */
-    boolean updatePasswd(String newPasswd,String oldPasswd);
-
-    /**
-     * 根据手机号码查询用户信息
-     *
-     * @param user_Phone 用户电话号码
-     * @return 用户信息
-     */
-    UserPojo getUserInfoByUserPhone(String user_Phone);
-
-    /**
-     * 修改手机号码
-     *
-     * @param user_Name 用户名 user_Phone 电话号码
-     * @return 修改信息
-     */
-    boolean updateUserPhone(String user_Name,String user_Phone);
-
-
-
-
-
-
 }

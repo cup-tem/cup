@@ -1,4 +1,4 @@
-﻿package top.mnilsy.cup.dao;
+package top.mnilsy.cup.dao;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -77,90 +77,5 @@ public interface UserMapper {
      */
     @Select("")
     String getUserName(String user_Id);
-
-
-
-/**
-     * 检测用户名是否唯一
-     * 通过客户端传来的用户名查询数据库是否该用户信息
-     *
-     * @param user_Name 用户名
-     * @return 用户资料
-     */
-
-    @Select("select * from user where user_Name=#{user_Name}")
-     UserPojo getUserInfoByUserName(String user_Name);
-
-
-    /**
-     * 账号注册
-     *
-     * @param user_Phone 用户电话号码
-     * @return 增加信息
-     */
-    @Insert("insert into user(user_Phone) values #{user_Phone}")
-    int addByUser_Phone(String user_Phone);
-
-
-    /**
-     * 上传背景图
-     *
-     * @param user_Name 用户名 user_Background 背景图
-     * @return 修改信息
-     */
-    @Update("update user set user_Background=#{user_Background} where user_Name=#{user_Name}")
-    int updateUserBackground(String user_Name,String user_Background);
-
-    /**
-     * 修改昵称
-     *
-     * @param user_NickName 用户昵称 user_Name 用户名
-     * @return 修改信息
-     */
-    @Update("update user set user_NickName=#{user_NickName} " +
-            "where user_Name=#{user_Name}")
-    int updateNickNameByUserName(String user_Name,String user_NickName);
-
-
-    /**
-     * 修改性别
-     *
-     * @param user_Sex 用户性别 user_Name 用户名
-     * @return 修改信息
-     */
-    @Update("update user set user_Sex=#{user_Sex} " +
-            "where user_Name=#{user_Name}")
-    int updateUserSexByUserName(String user_Name,String user_Sex);
-
-
-    /**
-     * 修改密码
-     *
-     * @param newPasswd 新密码 oldPasswd 旧密码
-     * @return 修改信息
-     */
-    @Update("update passwd set passwd_Normal=#{newPasswd} " +
-            "where passwd_Normal=#{oldPasswd}")
-    int updatePasswdByOldPasswd(String newPasswd, String oldPasswd);
-
-    /**
-     * 根据手机号码查询用户信息
-     *
-     * @param user_Phone 用户电话号码
-     * @return 用户信息
-     */
-    @Select("select * from user where user_phone=#{user_Phone}")
-    UserPojo selectByUserPhone(String user_Phone);
-
-    /**
-     * 修改手机号码
-     *
-     * @param user_Name 用户名 user_Phone 电话号码
-     * @return 修改信息
-     */
-    @Update("update user set user_Phone=#{user_Phone} where user_Name=#{user_Name}")
-    int updateUserPhoneByUserName(String user_Name,String user_Phone);
-
-
 
 }

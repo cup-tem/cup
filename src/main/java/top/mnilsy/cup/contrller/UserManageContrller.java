@@ -1,4 +1,4 @@
-﻿package top.mnilsy.cup.contrller;
+package top.mnilsy.cup.contrller;
 
 
 import org.springframework.web.bind.annotation.*;
@@ -146,31 +146,7 @@ public class UserManageContrller {
      */
     @PostMapping("/uploadingUserBackgroundUrl.api")
     public ResponMessage uploadingUserBackgroundUrl(RequestMessage requestMessage) {
-          String user_Name=(String) requestMessage.getData().get("user_Name");
-        String user_Background=(String)requestMessage.getData().get("user_Background");
-
-        boolean flag=userService.uploadUserBackground(user_Name,user_Background);
-        if (flag){
-            UserPojo userPojo=userService.getUserInfoByUserName(user_Name);
-
-            UserPojoVO userPojoVO = null;
-            userPojoVO.setSessionId(requestMessage.getSessionid());
-            userPojoVO.setUser_Name(userPojo.getUser_Name());
-            userPojoVO.setUser_BackgroundUrl(userPojo.getUser_BackgroundUrl());
-            userPojoVO.setUser_Email(userPojo.getUser_Email());
-            userPojoVO.setUser_HeadUrl_max(userPojo.getUser_HeadUrl_max());
-            userPojoVO.setUser_HeadUrl_min(userPojo.getUser_HeadUrl_min());
-            userPojoVO.setUser_NickName(userPojo.getUser_NickName());
-            userPojoVO.setUser_Phone(userPojo.getUser_Phone());
-            userPojoVO.setUser_QRCode(userPojo.getUser_QRCode());
-            userPojoVO.setUser_Sex(userPojo.getUser_Sex());
-
-            HashMap<String,UserPojoVO> map=new HashMap<String, UserPojoVO>();
-            map.put("userPojoVo",userPojoVO);
-            return ResponMessage.ok(map);
-        }else {
-            return ResponMessage.error("上传背景图失败。");
-        }
+        return new ResponMessage();
     }
 
     /**
@@ -181,31 +157,7 @@ public class UserManageContrller {
      */
     @PostMapping("/updateUserNickName.api")
     public ResponMessage updateUserNickName(RequestMessage requestMessage) {
-          String user_Name=(String)requestMessage.getData().get("user_Name");
-        String user_NickName=(String) requestMessage.getData().get("user_NickName");
-
-        boolean flag=userService.updateNickName(user_Name,user_NickName);
-        if (flag){
-            UserPojo userPojo=userService.getUserInfoByUserName(user_Name);
-
-            UserPojoVO userPojoVO = null;
-            userPojoVO.setSessionId(requestMessage.getSessionid());
-            userPojoVO.setUser_Name(userPojo.getUser_Name());
-            userPojoVO.setUser_BackgroundUrl(userPojo.getUser_BackgroundUrl());
-            userPojoVO.setUser_Email(userPojo.getUser_Email());
-            userPojoVO.setUser_HeadUrl_max(userPojo.getUser_HeadUrl_max());
-            userPojoVO.setUser_HeadUrl_min(userPojo.getUser_HeadUrl_min());
-            userPojoVO.setUser_NickName(userPojo.getUser_NickName());
-            userPojoVO.setUser_Phone(userPojo.getUser_Phone());
-            userPojoVO.setUser_QRCode(userPojo.getUser_QRCode());
-            userPojoVO.setUser_Sex(userPojo.getUser_Sex());
-
-            HashMap<String,UserPojoVO> map=new HashMap<String, UserPojoVO>();
-            map.put("userPojoVo",userPojoVO);
-            return ResponMessage.ok(map);
-        }else {
-            return ResponMessage.error("修改昵称失败");
-        }
+        return new ResponMessage();
     }
 
     /**
@@ -216,31 +168,7 @@ public class UserManageContrller {
      */
     @PostMapping("/updateUserSex.api")
     public ResponMessage updateUserSex(RequestMessage requestMessage) {
-     String user_Name=(String)requestMessage.getData().get("user_Name");
-        String user_Sex=(String)requestMessage.getData().get("user_Sex");
-
-        boolean flag=userService.updateUserSex(user_Name,user_Sex);
-        if (flag){
-            UserPojo userPojo=userService.getUserInfoByUserName(user_Name);
-            UserPojoVO userPojoVO=null;
-            userPojoVO.setSessionId(requestMessage.getSessionid());
-            userPojoVO.setUser_Name(userPojo.getUser_Name());
-            userPojoVO.setUser_NickName(userPojo.getUser_NickName());
-            userPojoVO.setUser_Sex(userPojo.getUser_Sex());
-            userPojoVO.setUser_Phone(userPojo.getUser_Phone());
-            userPojoVO.setUser_Email(userPojo.getUser_Email());
-            userPojoVO.setUser_HeadUrl_max(userPojo.getUser_HeadUrl_max());
-            userPojoVO.setUser_HeadUrl_min(userPojo.getUser_HeadUrl_min());
-            userPojoVO.setUser_BackgroundUrl(userPojo.getUser_BackgroundUrl());
-            userPojoVO.setUser_QRCode(userPojo.getUser_QRCode());
-
-            HashMap<String,UserPojoVO> map=new HashMap<String, UserPojoVO>();
-            map.put("userPojoVo",userPojoVO);
-            return ResponMessage.ok(map);
-
-        }else {
-            return ResponMessage.error("修改性别失败");
-        }
+        return new  ResponMessage();
     }
 
     /**
@@ -280,36 +208,7 @@ public class UserManageContrller {
      */
     @PostMapping("/updateUserPhone.api")
     public ResponMessage updateUserPhone(RequestMessage requestMessage) {
-          String code=(String)requestMessage.getData().get("code");
-        String user_Name=(String)requestMessage.getData().get("user_Name");
-        String user_Phone=(String)requestMessage.getData().get("user_Phone");
-        boolean flag=userService.updateUserPhone(user_Name,user_Phone);
-
-        if(code.equals(userService.getPhoneCode(user_Phone))){
-            if (flag){
-                UserPojo userPojo=userService.getUserInfoByUserName(user_Name);
-                UserPojoVO userPojoVO=null;
-
-                userPojoVO.setSessionId(requestMessage.getSessionid());
-                userPojoVO.setUser_Name(userPojo.getUser_Name());
-                userPojoVO.setUser_NickName(userPojo.getUser_NickName());
-                userPojoVO.setUser_Sex(userPojo.getUser_Sex());
-                userPojoVO.setUser_Phone(userPojo.getUser_Phone());
-                userPojoVO.setUser_Email(userPojo.getUser_Email());
-                userPojoVO.setUser_HeadUrl_max(userPojo.getUser_HeadUrl_max());
-                userPojoVO.setUser_HeadUrl_min(userPojo.getUser_HeadUrl_min());
-                userPojoVO.setUser_BackgroundUrl(userPojo.getUser_BackgroundUrl());
-                userPojoVO.setUser_QRCode(userPojo.getUser_QRCode());
-
-                HashMap<String,UserPojoVO> map=new HashMap<String, UserPojoVO>();
-                map.put("userPojoVo",userPojoVO);
-                return ResponMessage.ok(map);
-            }else {
-                return ResponMessage.error("修改手机号码失败。");
-            }
-        }else {
-            return ResponMessage.error("验证码错误。");
-        }
+        return new ResponMessage();
     }
 
     /**
