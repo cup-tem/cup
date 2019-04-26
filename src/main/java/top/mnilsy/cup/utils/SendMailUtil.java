@@ -12,7 +12,6 @@ import java.io.UnsupportedEncodingException;
 
 /**
  * Created by mnilsy on 19-2-27 下午2:09.
- * 发送电子邮件
  */
 @Component("sendMailUtils")
 public class SendMailUtil {
@@ -27,14 +26,8 @@ public class SendMailUtil {
     public SendMailUtil() {
     }
 
-    /**
-     * 发现电子邮件验证码
-     *
-     * @param email 电子邮箱
-     * @param code  验证码
-     */
     @Async
-    public void send(String email, String code) {
+    public void send(String email,String code) {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = null;
         try {
