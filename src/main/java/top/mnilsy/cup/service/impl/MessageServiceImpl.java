@@ -53,9 +53,4 @@ public class MessageServiceImpl implements MessageService {
         }
         return true;
     }
-
-    @Override
-    public boolean atUser() {
-        return false;
-    }
 }
