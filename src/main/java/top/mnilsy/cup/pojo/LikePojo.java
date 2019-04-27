@@ -9,15 +9,18 @@ public class LikePojo {
     private String like_Id;
     private String tweet_Id;
     private String user_Id;
+    private String like_Time;
     private int like_Condition;
 
     public LikePojo() {
     }
 
-    public LikePojo(String tweet_Id, String user_Id) {
-        this.like_Id= String.valueOf(UUID.randomUUID());
+    public LikePojo(String like_Id, String tweet_Id, String user_Id, String like_Time, int like_Condition) {
+        this.like_Id = like_Id;
         this.tweet_Id = tweet_Id;
         this.user_Id = user_Id;
+        this.like_Time = like_Time;
+        this.like_Condition = like_Condition;
     }
 
     public String getLike_Id() {
@@ -44,6 +47,14 @@ public class LikePojo {
         this.user_Id = user_Id;
     }
 
+    public String getLike_Time() {
+        return like_Time;
+    }
+
+    public void setLike_Time(String like_Time) {
+        this.like_Time = like_Time;
+    }
+
     public int getLike_Condition() {
         return like_Condition;
     }
@@ -58,6 +69,7 @@ public class LikePojo {
                 "like_Id='" + like_Id + '\'' +
                 ", tweet_Id='" + tweet_Id + '\'' +
                 ", user_Id='" + user_Id + '\'' +
+                ", like_Time='" + like_Time + '\'' +
                 ", like_Condition=" + like_Condition +
                 '}';
     }
