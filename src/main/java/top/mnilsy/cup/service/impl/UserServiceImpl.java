@@ -140,6 +140,7 @@ public class UserServiceImpl implements UserService {
         passwdPojo.setPasswd_Old2(passwd_Old1);
         passwdPojo.setPasswd_Old1(oldPasswd);
         passwdPojo.setPasswd_Normal(newPasswd);
+        passwdPojo.setUser_Id(user_Id);
         userMapper.updatePasswd(passwdPojo);
         return "seccess";
     }

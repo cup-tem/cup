@@ -23,7 +23,7 @@ public interface UserMapper {
      * @return 用户基本资料
      */
     @Select("select * from user where user_Id = #{user_Id}")
-    UserVO getUserByIdInfo(String user_Id);
+    UserPojo getUserByIdInfo(String user_Id);
 
     /**
      * 根据user_Name获取用户基本信息
@@ -78,4 +78,19 @@ public interface UserMapper {
     @Select("")
     String getUserName(String user_Id);
 
+    /**
+     * 修改性别
+     * @param userVO 用户信息
+     * @return userVO
+     */
+    @Update("update user set user_Sex = #{user_Sex} where user_Name = #{user_Name}")
+    UserVO updateUserSex(UserVO userVO);
+
+    /**
+     * 修改密码
+     * @param passwdPojo 用户密码信息
+     * @return passwdPojo
+     */
+    @Update("update passwd set Passwd_Old3 = #{Passwd_Old3} and Passwd_Old2 = #{Passwd_Old2} and Passwd_Old1 = #{Passwd_Old1} and Passwd_Normal = #{Passwd_Normal} where user_Id = #{user_Id}")
+    UserVO updatePasswd(PasswdPojo passwdPojo);
 }

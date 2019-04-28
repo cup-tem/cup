@@ -37,7 +37,6 @@ public class UserManageContrller {
            session.setAttribute("user",user);
            Map<String, String> map = new HashMap<>();
            map.put("sessionId", session.getId());
-           map.put("user",user);
            return ResponMessage.ok(map);
        }
        return ResponMessage.error("密码登录失败");
