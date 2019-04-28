@@ -171,9 +171,7 @@ public class UserManageContrller {
         UserVO updateUserSex = userService.updateUserSex((String)requestMessage.getData().get("user_Sex"),session.getAttribute("user_Name").toString());
         if (updateUserSex != null){
             session.setAttribute("updateUserSex",updateUserSex);
-            Map<String, String> map = new HashMap<>();
-            map.put("sessionId",session.getId());
-            return ResponMessage.ok(map);
+            return ResponMessage.ok(session);
         }
         return ResponMessage.error("修改性别失败");
     }
