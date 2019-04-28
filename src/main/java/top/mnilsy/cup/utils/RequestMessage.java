@@ -7,8 +7,7 @@ import java.util.Map;
  * 用于接收客户端传来的信息包
  * sessionid 为客户端登录时的sessionid
  * data 为客户端传过来的数据包,以map存放
- */
-public class RequestMessage {
+ */public class RequestMessage {
     private String sessionid;
     private Map<String,Object> data;
 
@@ -36,3 +35,4 @@ public class RequestMessage {
         this.data = data;
     }
 }
+
