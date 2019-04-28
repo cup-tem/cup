@@ -39,9 +39,10 @@ public interface AtService {
      * 公告通知
      *
      * @param at_From_Id 公告id
+     * @param user_Id 接受公告的用户id
      * @return 是否艾特成功
      */
-    boolean proclamationAt(String at_From_Id);
+    boolean proclamationAt(String at_From_Id,String user_Id);
 
     /**
      * 点赞通知

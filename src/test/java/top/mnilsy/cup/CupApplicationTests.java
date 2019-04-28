@@ -35,9 +35,5 @@ public class CupApplicationTests {
         System.out.println(SendSMSUtil.send("15876566484","579900"));
     }
 
-    @Test
-    public void addtest(){
-        System.out.println(discussMapper.test());
-    }
 
 }

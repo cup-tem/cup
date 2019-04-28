@@ -9,6 +9,8 @@ import top.mnilsy.cup.VO.UserVO;
 import top.mnilsy.cup.pojo.PasswdPojo;
 import top.mnilsy.cup.pojo.UserPojo;
 
+import java.util.List;
+
 
 /**
  * Created by mnilsy on 19-4-20 上午12:22.
@@ -88,4 +90,13 @@ public interface UserMapper {
      */
     @Select("")
     String getUser_Id(String user_Name);
+
+    /**
+     * 获取所有的可用id
+     *
+     * @return 所有可用的用户id
+     * @author mnilsy
+     */
+    @Select("")
+    List<String> getAllUserId();
 }

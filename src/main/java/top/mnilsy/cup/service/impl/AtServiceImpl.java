@@ -4,11 +4,9 @@ import com.alibaba.fastjson.JSON;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelId;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
+import org.springframework.stereotype.Service;
 import top.mnilsy.cup.BO.AtBO;
-import top.mnilsy.cup.VO.Discuss_AtVO;
-import top.mnilsy.cup.VO.Like_AtVO;
-import top.mnilsy.cup.VO.TweetVO;
-import top.mnilsy.cup.VO.Writeback_AtVO;
+import top.mnilsy.cup.VO.*;
 import top.mnilsy.cup.dao.*;
 import top.mnilsy.cup.enums.AtFromTypeEnum;
 import top.mnilsy.cup.enums.NettyActionEnum;
@@ -25,6 +23,7 @@ import java.util.List;
 /**
  * Created by mnilsy on 19-4-25 上午1:37.
  */
+@Service("atService")
 public class AtServiceImpl implements AtService {
     @Resource(name = "tweetMapper")
     private TweetMapper tweetMapper;
@@ -43,6 +42,9 @@ public class AtServiceImpl implements AtService {
 
     @Resource(name = "likeMapper")
     private LikeMapper likeMapper;
+
+    @Resource(name = "proclamationMapper")
+    private ProclamationMapper proclamationMapper;
 
     @Override
     public boolean tweetAt(String at_From_Id, String user_Name) {
@@ -85,8 +87,14 @@ public class AtServiceImpl implements AtService {
     }
 
     @Override
-    public boolean proclamationAt(String at_From_Id) {
-        return false;
+    public boolean proclamationAt(String at_From_Id, String user_Id) {
+        //组装AtPojo，存库
+        AtPojo atPojo = new AtPojo(user_Id, at_From_Id, AtFromTypeEnum.PROCLAMATION.vlue);
+        if (atMapper.insertAt(atPojo) != 1)
+            return false;
+        ProclamationVO proclamationVO = proclamationMapper.getProclamationVO(at_From_Id);
+        AtBO atBO = new AtBO(atPojo.getAt_Id(), atPojo.getAt_From_Type(), proclamationVO);
+        return sendAt(atBO, userMapper.getUserName(user_Id));
     }
 
     @Override
@@ -128,7 +136,7 @@ public class AtServiceImpl implements AtService {
                 continue;
             }
             if (atPojo.getAt_From_Type() == AtFromTypeEnum.PROCLAMATION.vlue) {
-                AtBO atBO = new AtBO(atPojo.getAt_Id(), atPojo.getAt_From_Type(), new Object());//公告实体待定
+                AtBO atBO = new AtBO(atPojo.getAt_Id(), atPojo.getAt_From_Type(), proclamationMapper.getProclamationVO(atPojo.getAt_From_Id()));
                 atBOList.add(atBO);
                 continue;
             }
