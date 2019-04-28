@@ -14,16 +14,16 @@ public interface AtService {
      * 推文中@用户
      *
      * @param at_From_Id 艾特的推文id
-     * @param user_Id    艾特的目标用户名
+     * @param user_Name    艾特的目标用户名
      * @return 是否艾特成功
      */
-    boolean tweetAt(String at_From_Id, String user_Id);
+    boolean tweetAt(String at_From_Id, String user_Name);
 
     /**
      * 推文评论通知
      *
      * @param at_From_Id 推文的id
-     * @return
+     * @return 是否艾特成功
      */
     boolean discussAt(String at_From_Id);
 
@@ -31,16 +31,15 @@ public interface AtService {
      * 评论回复通知
      *
      * @param at_From_Id 评论的id
-     * @param user_Id    通知目标用户的id
-     * @return
+     * @return 是否艾特成功
      */
-    boolean writebackAt(String at_From_Id, String user_Id);
+    boolean writebackAt(String at_From_Id);
 
     /**
      * 公告通知
      *
      * @param at_From_Id 公告id
-     * @return
+     * @return 是否艾特成功
      */
     boolean proclamationAt(String at_From_Id);
 
@@ -48,10 +47,9 @@ public interface AtService {
      * 点赞通知
      *
      * @param at_From_Id 推文id
-     * @param user_Id    点赞的用户id
-     * @return
+     * @return 是否艾特成功
      */
-    boolean likeAt(String at_From_Id, String user_Id);
+    boolean likeAt(String at_From_Id);
 
     /**
      * 艾特签收
@@ -62,7 +60,7 @@ public interface AtService {
     boolean signfor(String at_Id);
 
     /**
-     * 获取用户还没签收的艾特
+     * 获取用户还没签收的艾特,并转换成艾特BO包
      *
      * @param user_Name 用户名
      * @return 该用户所有还没签收的艾特
@@ -73,7 +71,7 @@ public interface AtService {
      * 发送艾特给客户端
      *
      * @param atBO 艾特包
-     * @return
+     * @return 是否发送成功
      */
     boolean sendAt(AtBO atBO);
 
@@ -82,7 +80,7 @@ public interface AtService {
      *
      * @param atBO      艾特包
      * @param user_Name 用户名
-     * @return
+     * @return 是否发送成功
      */
     boolean sendAt(AtBO atBO, String user_Name);
 }
