@@ -77,18 +77,20 @@ public interface UserService {
      * 修改性别
      *
      * @param user_Sex 性别
+     * @param user_Name 用户名
      * @return 是否修改成功
      */
-    String updateUserSex(String user_Sex);
+    UserVO updateUserSex(String user_Sex,String user_Name);
 
     /**
      * 修改密码
      *
      * @param oldPasswd 用户旧密码
      * @param newPasswd 用户新密码
+     * @param user_Id 用户Id
      * @return 是否修改成功
      */
-    String updatePasswd(String oldPasswd, String newPasswd);
+    String updatePasswd(String oldPasswd, String newPasswd,String user_Id);
 
     UserVO codeLogin();
 }

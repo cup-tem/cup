@@ -2,6 +2,7 @@ package top.mnilsy.cup.contrller;
 
 
 import org.springframework.web.bind.annotation.*;
+import top.mnilsy.cup.VO.UserVO;
 import top.mnilsy.cup.service.UserService;
 import top.mnilsy.cup.utils.RequestMessage;
 import top.mnilsy.cup.utils.ResponMessage;
@@ -25,7 +26,7 @@ public class UserManageContrller {
 
     /**
      * 密码登录，不需要带sessionid
-     *
+     * @author Jason_Jane
      * @param requestMessage 用户名||手机号码||电子邮箱data.get("user")，密码data.get("passwd")
      * @return 请求状态码status，失败信息message，用户信息data.userVO,会话data.sessionid
      */
@@ -36,7 +37,6 @@ public class UserManageContrller {
            session.setAttribute("user",user);
            Map<String, String> map = new HashMap<>();
            map.put("sessionId", session.getId());
-           map.put("user",user);
            return ResponMessage.ok(map);
        }
        return ResponMessage.error("密码登录失败");
@@ -44,7 +44,7 @@ public class UserManageContrller {
 
     /**
      * 请求手机验证码，不需要带sessionid
-     *
+     * @author mnilsy
      * @param requestMessage 手机号码data.get("user_Phone“）
      * @return 请求状态码status，失败信息message，会话data.sessionid
      */
@@ -62,7 +62,7 @@ public class UserManageContrller {
 
     /**
      * 验证码登录
-     *
+     * @author Jason_Jane
      * @param requestMessage 手机号码data.get("user_Phone")，验证码data.get("code")
      * @return 请求状态码status，失败信息message，用户信息data.userVO
      */
@@ -81,7 +81,7 @@ public class UserManageContrller {
 
     /**
      * 账号注册
-     *
+     * @author Jason_Jane
      * @param requestMessage 手机号码data.get("user_Phone")，验证码data.get("code")
      * @return 请求状态码status，失败信息message
      */
@@ -98,7 +98,7 @@ public class UserManageContrller {
 
     /**
      * 检测用户名是否唯一
-     *
+     * @author Jason_Jane
      * @param requestMessage 用户名data.get("user_Name")
      * @return 请求状态码status
      */
@@ -113,7 +113,7 @@ public class UserManageContrller {
 
     /**
      * 设置用户名和密码
-     *
+     * @author Jason_Jane
      * @param requestMessage 用户名data.get("user_Name")，密码data.get("passwd")
      * @return 请求状态码status，用户信息data.userVO
      */
@@ -162,24 +162,31 @@ public class UserManageContrller {
 
     /**
      * 修改性别
-     *
+     * @author Jason_Jane
      * @param requestMessage 用户性别data.get("user_Sex")
      * @return 请求状态码status，用户信息data.userVO
      */
     @PostMapping("/updateUserSex.api")
-    public ResponMessage updateUserSex(RequestMessage requestMessage) {
-        return new  ResponMessage();
+    public ResponMessage updateUserSex(RequestMessage requestMessage,HttpSession session) {
+        UserVO updateUserSex = userService.updateUserSex((String)requestMessage.getData().get("user_Sex"),session.getAttribute("user_Name").toString());
+        if (updateUserSex != null){
+            session.setAttribute("updateUserSex",updateUserSex);
+            Map<String, String> map = new HashMap<>();
+            map.put("sessionId",session.getId());
+            return ResponMessage.ok(map);
+        }
+        return ResponMessage.error("修改性别失败");
     }
 
     /**
      * 修改密码
-     *
+     * @author Jason_Jane
      * @param requestMessage 用户旧密码data.get("oldPasswd")，用户新密码data.get("newPasswd")
      * @return 请求状态码status，失败信息message
      */
     @PostMapping("/updatePasswd.api")
     public ResponMessage updatePasswd(RequestMessage requestMessage,HttpSession session) {
-        String updatePasswd = userService.updatePasswd((String)requestMessage.getData().get("oldPasswd"),(String)requestMessage.getData().get("newPasswd"));
+        String updatePasswd = userService.updatePasswd((String)requestMessage.getData().get("oldPasswd"),(String)requestMessage.getData().get("newPasswd"),session.getAttribute("user_Id").toString());
         if (updatePasswd != null){
             session.setAttribute("updatePasswd",updatePasswd);
             Map<String, String> map = new HashMap<>();

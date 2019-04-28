@@ -109,16 +109,40 @@ public class UserServiceImpl implements UserService {
      * 修改性别
      */
     @Override
-    public String updateUserSex(String user_Sex) {
-        return null;
+    public UserVO updateUserSex(String user_Sex, String user_Name) {
+       UserVO userVO = null;
+       UserMapper userMapper = null;
+       userVO = userMapper.getUserByNameInfo(user_Name);
+       String userSex = userVO.getUser_Sex();
+       if (userSex.equals(user_Sex)){
+           return null;
+       }
+       userVO.setUser_Sex(user_Sex);
+       userMapper.updateUserSex(userVO);
+       return userVO;
     }
 
     /**
      * 修改密码
      */
     @Override
-    public String updatePasswd(String oldPasswd, String newPasswd) {
-        return null;
+    public String updatePasswd(String oldPasswd, String newPasswd, String user_Id) {
+        UserPojo userPojo = null;
+        UserMapper userMapper = null;
+        PasswdPojo passwdPojo = null;
+        if (oldPasswd.equals(newPasswd)){
+            return null;
+        }
+        passwdPojo = userMapper.getPasswdById(user_Id);
+        String passwd_Old2 = passwdPojo.getPasswd_Old2();
+        String passwd_Old1 = passwdPojo.getPasswd_Old1();
+        passwdPojo.setPasswd_Old3(passwd_Old2);
+        passwdPojo.setPasswd_Old2(passwd_Old1);
+        passwdPojo.setPasswd_Old1(oldPasswd);
+        passwdPojo.setPasswd_Normal(newPasswd);
+        passwdPojo.setUser_Id(user_Id);
+        userMapper.updatePasswd(passwdPojo);
+        return "seccess";
     }
 
     @Override
