@@ -52,7 +52,7 @@ public interface UserMapper {
      * @return 用户基本资料
      */
     @Select("select user_Id from user where user_Name = #{user} or user_Phone = #{user} or user_email = #{user}")
-    UserPojo getUserByNamePhoneEmail (String user);
+    UserPojo getUserByNamePhoneEmail(String user);
 
     /**
      * 根据user_Id获取用户密码
@@ -61,7 +61,7 @@ public interface UserMapper {
      * @return passwd_Normal
      */
     @Select("select passwd_Normal from passwd where user_Id = #{user_Id}")
-    PasswdPojo getPasswdById (String user_Id);
+    PasswdPojo getPasswdById(String user_Id);
 
     /**
      * 根据user_Name查询是否重名
@@ -70,7 +70,7 @@ public interface UserMapper {
      * @return 用户名
      */
     @Select("select user_Name from user where user_Name = #{user_Name}")
-    UserPojo getUserNameByUserName (String user_Name);
+    UserPojo getUserNameByUserName(String user_Name);
 
     /**
      * 根据用户id获取发推文用户名
@@ -103,6 +103,7 @@ public interface UserMapper {
 
     /**
      * 修改性别
+     *
      * @param userVO 用户信息
      * @return userVO
      */
@@ -111,6 +112,7 @@ public interface UserMapper {
 
     /**
      * 修改密码
+     *
      * @param passwdPojo 用户密码信息
      * @return passwdPojo
      */

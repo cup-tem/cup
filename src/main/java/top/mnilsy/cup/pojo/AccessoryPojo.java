@@ -10,8 +10,11 @@ public class AccessoryPojo {
     private String tweet_Id;
     private String accessory_Url;
 
+    public AccessoryPojo() {
+    }
+
     public AccessoryPojo(String tweet_Id, String accessory_Url) {
-        this.accessory_Id= String.valueOf(UUID.randomUUID());
+        this.accessory_Id = String.valueOf(UUID.randomUUID());
         this.tweet_Id = tweet_Id;
         this.accessory_Url = accessory_Url;
     }

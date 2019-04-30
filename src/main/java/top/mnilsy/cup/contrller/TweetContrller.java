@@ -1,8 +1,14 @@
 package top.mnilsy.cup.contrller;
 
 import org.springframework.web.bind.annotation.*;
+import top.mnilsy.cup.pojo.UserPojo;
+import top.mnilsy.cup.service.TweetService;
 import top.mnilsy.cup.utils.RequestMessage;
 import top.mnilsy.cup.utils.ResponMessage;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * Created by mnilsy on 19-4-21 上午12:43.
@@ -12,6 +18,9 @@ import top.mnilsy.cup.utils.ResponMessage;
 @RestController
 public class TweetContrller {
 
+    @Resource(name = "tweetService")
+    private TweetService tweetService;
+
     /**
      * 发布推文
      *
@@ -20,18 +29,24 @@ public class TweetContrller {
      * @return 请求状态码 status
      */
     @PostMapping("/putTweet.api")
-    public ResponMessage putTweet(RequestMessage requestMessage) {
-        return new ResponMessage();
+    public ResponMessage putTweet(RequestMessage requestMessage, HttpSession session) {
+        UserPojo userInfo = (UserPojo) session.getAttribute("userInfo");
+        int tweet_Type = Integer.parseInt((String) requestMessage.getData().get("tweet_Type"));
+        String tweet_Text = (String) requestMessage.getData().get("tweet_Text");
+        String accessory[] = (String[]) requestMessage.getData().get("accessory");
+        String user_Name[] = (String[]) requestMessage.getData().get("user_Name");
+        boolean flag = tweetService.addTweet(tweet_Type, tweet_Text, accessory, user_Name, userInfo.getUser_Id());
+        return flag ? ResponMessage.ok() : ResponMessage.error();
     }
 
     /**
      * 查看推文，即点开推文
      *
-     * @param requestMapping 推文iddata.get("tweet_Id")
-     * @return 请求状态码status，失败信息message，推文data.tweetVO，推文评论discussVO
+     * @param requestMapping 推文id data.get("tweet_Id")
+     * @return 请求状态码status，失败信息message，推文data.tweetVO，推文评论data.discussVO
      */
-    @GetMapping("/getTweet.api")
-    public ResponMessage getTweet(RequestMapping requestMapping) {
+    @GetMapping("/openTweet.api")
+    public ResponMessage openTweet(RequestMapping requestMapping) {
         return new ResponMessage();
     }
 
@@ -62,13 +77,15 @@ public class TweetContrller {
     /**
      * 点赞
      *
-     * @param requestMessage
-     * @param tweet_Id       推文id
+     * @param tweet_Id 推文id
      * @return 请求状态码status，失败信息message
+     * @author mnilsy
      */
     @PostMapping("/putLike{tweet_Id}.api")
-    public ResponMessage putLike(RequestMessage requestMessage, @PathVariable String tweet_Id) {
-        return new ResponMessage();
+    public ResponMessage putLike(@PathVariable String tweet_Id, HttpSession session) {
+        UserPojo userPojo = (UserPojo) session.getAttribute("userInfo");
+        boolean flag = tweetService.putLike(tweet_Id, userPojo.getUser_Id());
+        return flag ? ResponMessage.ok() : ResponMessage.error("推文被删除");
     }
 
     /**

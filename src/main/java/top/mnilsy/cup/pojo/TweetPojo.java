@@ -11,7 +11,6 @@ public class TweetPojo {
     private String tweet_Text;
     private String tweet_Time;
     private String user_Id;
-    private int tweet_like;
     private int tweet_Condition;
 
     public TweetPojo() {
@@ -21,6 +20,13 @@ public class TweetPojo {
         this.tweet_Id= String.valueOf(UUID.randomUUID());
         this.tweet_Type = tweet_Type;
         this.tweet_Text = tweet_Text;
+    }
+
+    public TweetPojo(int tweet_Type, String tweet_Text, String user_Id) {
+        this.tweet_Id= String.valueOf(UUID.randomUUID());
+        this.tweet_Type = tweet_Type;
+        this.tweet_Text = tweet_Text;
+        this.user_Id = user_Id;
     }
 
     public String getTweet_Id() {
@@ -63,14 +69,6 @@ public class TweetPojo {
         this.user_Id = user_Id;
     }
 
-    public int getTweet_like() {
-        return tweet_like;
-    }
-
-    public void setTweet_like(int tweet_like) {
-        this.tweet_like = tweet_like;
-    }
-
     public int getTweet_Condition() {
         return tweet_Condition;
     }
@@ -87,7 +85,6 @@ public class TweetPojo {
                 ", tweet_Text='" + tweet_Text + '\'' +
                 ", tweet_Time='" + tweet_Time + '\'' +
                 ", user_Id='" + user_Id + '\'' +
-                ", tweet_like=" + tweet_like +
                 ", tweet_Condition=" + tweet_Condition +
                 '}';
     }
