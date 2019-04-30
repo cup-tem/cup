@@ -4,9 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import top.mnilsy.cup.VO.TweetVO;
 import top.mnilsy.cup.dao.*;
-import top.mnilsy.cup.pojo.AccessoryPojo;
-import top.mnilsy.cup.pojo.LikePojo;
-import top.mnilsy.cup.pojo.TweetPojo;
+import top.mnilsy.cup.pojo.*;
 import top.mnilsy.cup.service.AtService;
 import top.mnilsy.cup.service.TweetService;
 
@@ -93,5 +91,25 @@ public class TweetServiceImpl implements TweetService {
     @Override
     public boolean deleteWriteback(String writeBack_Id, String user_Id) {
         return writebackMapper.updateCondition(writeBack_Id, user_Id) == 1;
+    }
+
+    @Override
+    public boolean putDiscuss(String tweet_Id, String user_Id, String discuss_Vlue) {
+        DiscussPojo discussPojo = new DiscussPojo(tweet_Id, user_Id, discuss_Vlue);
+        boolean flag = discussMapper.insetrDiscuss(discussPojo) == 1;
+        if (flag) {
+            flag = atService.discussAt(discussPojo.getDiscuss_Id());
+        }
+        return flag;
+    }
+
+    @Override
+    public boolean putWriteback(String discuss_Id, String user_Id, String writeBack_User_Id, String writeBack_Vlue) {
+        WritebackPojo writebackPojo = new WritebackPojo(discuss_Id, user_Id, writeBack_User_Id, writeBack_Vlue);
+        boolean flag = writebackMapper.insetrWriteback(writebackPojo) == 1;
+        if (flag) {
+            flag = atService.writebackAt(writebackPojo.getWriteBack_Id());
+        }
+        return flag;
     }
 }

@@ -2,6 +2,7 @@ package top.mnilsy.cup.contrller;
 
 import org.springframework.web.bind.annotation.*;
 import top.mnilsy.cup.dao.DiscussMapper;
+import top.mnilsy.cup.pojo.DiscussPojo;
 import top.mnilsy.cup.pojo.UserPojo;
 import top.mnilsy.cup.service.TweetService;
 import top.mnilsy.cup.utils.RequestMessage;
@@ -60,20 +61,31 @@ public class TweetContrller {
      * @return 请求状态码status，失败信息message
      */
     @PostMapping("/putDiscuss{tweet_Id}.api")
-    public ResponMessage putDiscuss(RequestMessage requestMessage, @PathVariable String tweet_Id) {
-        return new ResponMessage();
+    public ResponMessage putDiscuss(RequestMessage requestMessage, @PathVariable String tweet_Id, HttpSession session) {
+        UserPojo userPojo = (UserPojo) session.getAttribute("userInfo");
+        //获取信息
+        String discuss_Vlue = (String) requestMessage.getData().get("discuss_Vlue");
+        if (discuss_Vlue == null) return ResponMessage.error("评论为空");//过滤空评论
+        boolean flag = tweetService.putDiscuss(tweet_Id, userPojo.getUser_Id(), discuss_Vlue);
+        return flag ? ResponMessage.ok() : ResponMessage.error("推文不存在");
     }
 
     /**
      * 回复评论
      *
-     * @param requestMessage 回复内容data.get("write_Vlue")
-     * @param discuss_Id     评论的id
+     * @param requestMessage    回复内容data.get("writeBack_Vlue")，评论的id data.get("discuss_Id")
+     * @param writeBack_User_Id 回复的用户名的id
      * @return 请求状态码status，失败信息message
      */
-    @PostMapping("/putWriteBack{discuss_Id}.api")
-    public ResponMessage putWriteBack(RequestMessage requestMessage, @PathVariable String discuss_Id) {
-        return new ResponMessage();
+    @PostMapping("/putWriteBack{writeBack_User_Id}.api")
+    public ResponMessage putWriteBack(RequestMessage requestMessage, @PathVariable String writeBack_User_Id, HttpSession session) {
+        UserPojo userPojo = (UserPojo) session.getAttribute("userInfo");
+        //获取信息
+        String writeBack_Vlue = (String) requestMessage.getData().get("writeBack_Vlue");
+        String discuss_Id = (String) requestMessage.getData().get("discuss_Id");
+        if (writeBack_Vlue == null) return ResponMessage.error("回复为空");//过滤空回复
+        boolean flag = tweetService.putWriteback(discuss_Id,userPojo.getUser_Id(),writeBack_User_Id,writeBack_Vlue);
+        return flag ? ResponMessage.ok() : ResponMessage.error("评论不存在");
     }
 
     /**

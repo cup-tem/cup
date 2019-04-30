@@ -1,11 +1,9 @@
 package top.mnilsy.cup.dao;
 
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 import top.mnilsy.cup.VO.Discuss_AtVO;
+import top.mnilsy.cup.pojo.DiscussPojo;
 
 /**
  * Created by mnilsy on 19-4-27 下午10:15.
@@ -43,4 +41,14 @@ public interface DiscussMapper {
      */
     @Update("update discuss set discuss_Condition='1' where discuss_Id=#{discuss_Id} and user_Id=#{user_Id}")
     int updateCondition(@Param("discuss_Id") String discuss_Id, @Param("user_Id") String user_Id);
+
+    /**
+     * 增加一条评论记录
+     *
+     * @param discussPojo 评论的pojo包
+     * @return 增加条数
+     * @author mnilsy
+     */
+    @Insert("insert into discuss (discuss_Id, tweet_Id, user_Id, discuss_Vlue) values (#{discussPojo.discuss_Id},#{discussPojo.tweet_Id},#{discussPojo.user_Id},#{discussPojo.discuss_Vlue})")
+    int insetrDiscuss(DiscussPojo discussPojo);
 }

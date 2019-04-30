@@ -62,9 +62,33 @@ public interface TweetService {
      * 删除评论
      *
      * @param writeBack_Id 回复id
-     * @param user_Id    回复者id
+     * @param user_Id      回复者id
      * @return 是否删除成功
      * @author mnilsy
      */
     boolean deleteWriteback(String writeBack_Id, String user_Id);
+
+    /**
+     * 发表评论
+     *
+     * @param tweet_Id     推文id
+     * @param user_Id      评论者id
+     * @param discuss_Vlue 评论内容
+     * @return 是否发表成功
+     * @author mnilsy
+     */
+    boolean putDiscuss(String tweet_Id, String user_Id, String discuss_Vlue);
+
+
+    /**
+     * 发表评论
+     *
+     * @param discuss_Id        评论id
+     * @param user_Id           回复者id
+     * @param writeBack_User_Id 回复的用户名
+     * @param writeBack_Vlue    回复内容
+     * @return 是否回复成功
+     * @author mnilsy
+     */
+    boolean putWriteback(String discuss_Id, String user_Id,String writeBack_User_Id, String writeBack_Vlue);
 }
