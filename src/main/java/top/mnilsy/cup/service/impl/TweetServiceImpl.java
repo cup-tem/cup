@@ -3,9 +3,7 @@ package top.mnilsy.cup.service.impl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import top.mnilsy.cup.VO.TweetVO;
-import top.mnilsy.cup.dao.AccessoryMapper;
-import top.mnilsy.cup.dao.LikeMapper;
-import top.mnilsy.cup.dao.TweetMapper;
+import top.mnilsy.cup.dao.*;
 import top.mnilsy.cup.pojo.AccessoryPojo;
 import top.mnilsy.cup.pojo.LikePojo;
 import top.mnilsy.cup.pojo.TweetPojo;
@@ -31,6 +29,12 @@ public class TweetServiceImpl implements TweetService {
 
     @Resource(name = "likeMapper")
     private LikeMapper likeMapper;
+
+    @Resource(name = "discussMapper")
+    private DiscussMapper discussMapper;
+
+    @Resource(name = "writebackMapper")
+    private WritebackMapper writebackMapper;
 
     @Override
     public TweetVO getTweet(String tweet_Id) {
@@ -68,11 +72,26 @@ public class TweetServiceImpl implements TweetService {
     @Override
     @Transactional
     public boolean putLike(String tweet_Id, String user_Id) {
-        LikePojo likePojo=new LikePojo(tweet_Id,user_Id);
-        int count=likeMapper.insertLike(likePojo);
-        if(count==0){
-            return likeMapper.updateCondition(tweet_Id,user_Id)==1;
+        LikePojo likePojo = new LikePojo(tweet_Id, user_Id);
+        int count = likeMapper.insertLike(likePojo);
+        if (count == 0) {
+            return likeMapper.updateCondition(tweet_Id, user_Id) == 1;
         }
         return atService.likeAt(likePojo.getLike_Id());
+    }
+
+    @Override
+    public boolean deleteTweet(String tweet_Id, String user_Id) {
+        return tweetMapper.updateCondition(tweet_Id, user_Id) == 1;
+    }
+
+    @Override
+    public boolean deleteDiscuss(String discuss_Id, String user_Id) {
+        return discussMapper.updateCondition(discuss_Id, user_Id) == 1;
+    }
+
+    @Override
+    public boolean deleteWriteback(String writeBack_Id, String user_Id) {
+        return writebackMapper.updateCondition(writeBack_Id, user_Id) == 1;
     }
 }

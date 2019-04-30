@@ -1,7 +1,9 @@
 package top.mnilsy.cup.dao;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 import top.mnilsy.cup.VO.Writeback_AtVO;
 
@@ -28,4 +30,15 @@ public interface WritebackMapper {
      */
     @Select("")
     String getDiscussUserId(String writeBack_Id);
+
+    /**
+     * 更改评论回复记录的状态writeBack_Condition
+     *
+     * @param writeBack_Id 评论id
+     * @param user_Id      评论者id
+     * @return 更改条数
+     * @author mnilsy
+     */
+    @Update("update writeback set writeBack_Condition='1' where writeBack_Id=#{writeBack_Id} and user_Id=#{user_Id}")
+    int updateCondition(@Param("writeBack_Id") String writeBack_Id, @Param("user_Id") String user_Id);
 }

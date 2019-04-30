@@ -1,6 +1,7 @@
 package top.mnilsy.cup.contrller;
 
 import org.springframework.web.bind.annotation.*;
+import top.mnilsy.cup.dao.DiscussMapper;
 import top.mnilsy.cup.pojo.UserPojo;
 import top.mnilsy.cup.service.TweetService;
 import top.mnilsy.cup.utils.RequestMessage;
@@ -27,6 +28,7 @@ public class TweetContrller {
      * @param requestMessage 推文类型data.get("tweet_Type")，推文文字data.get("tweet_Text")，
      *                       推文附件data.get("accessory")[]，@的用户data.get("user_Name")[]
      * @return 请求状态码 status
+     * @author mnilsy
      */
     @PostMapping("/putTweet.api")
     public ResponMessage putTweet(RequestMessage requestMessage, HttpSession session) {
@@ -91,37 +93,42 @@ public class TweetContrller {
     /**
      * 删除推文
      *
-     * @param requestMessage
-     * @param tweet_Id       推文id
+     * @param tweet_Id 推文id
      * @return 请求状态码status
+     * @author mnilsy
      */
     @PostMapping("/deleteTweet{tweet_Id}.api")
-    public ResponMessage deleteTweet(RequestMessage requestMessage, @PathVariable String tweet_Id) {
-        return new ResponMessage();
+    public ResponMessage deleteTweet(@PathVariable String tweet_Id, HttpSession session) {
+        UserPojo userPojo = (UserPojo) session.getAttribute("userInfo");
+        return tweetService.deleteTweet(tweet_Id, userPojo.getUser_Id()) ? ResponMessage.ok() : ResponMessage.error("非发布用户删除");
     }
 
     /**
      * 删除评论
      *
-     * @param requestMessage
-     * @param discuss_Id     评论的id
+     * @param discuss_Id 评论的id
      * @return 请求状态码status
+     * @author mnilsy
      */
     @PostMapping("/deleteDiscuss{discuss_Id}.api")
-    public ResponMessage deleteDiscuss(RequestMessage requestMessage, @PathVariable String discuss_Id) {
-        return new ResponMessage();
+    public ResponMessage deleteDiscuss(@PathVariable String discuss_Id, HttpSession session) {
+        UserPojo userPojo = (UserPojo) session.getAttribute("userInfo");
+        return tweetService.deleteDiscuss(discuss_Id, userPojo.getUser_Id()) ? ResponMessage.ok() : ResponMessage.error("非评论用户删除");
+
     }
 
     /**
      * 删除评论回复
      *
-     * @param requestMessage
-     * @param writeBack_Id   评论回复的id
+     * @param writeBack_Id 评论回复的id
      * @return 请求状态码status
+     * @author mnilsy
      */
     @PostMapping("/deleteWriteBack{writeBack_Id}.api")
-    public ResponMessage deleteWriteBack(RequestMessage requestMessage, @PathVariable String writeBack_Id) {
-        return new ResponMessage();
+    public ResponMessage deleteWriteBack(@PathVariable String writeBack_Id, HttpSession session) {
+        UserPojo userPojo = (UserPojo) session.getAttribute("userInfo");
+        return tweetService.deleteTweet(writeBack_Id, userPojo.getUser_Id()) ? ResponMessage.ok() : ResponMessage.error("非回复用户删除");
+
     }
 
 

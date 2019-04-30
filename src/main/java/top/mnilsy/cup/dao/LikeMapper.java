@@ -51,7 +51,7 @@ public interface LikeMapper {
      * @return 更改条数
      * @author mnilsy
      */
-    @Update("update like set like_Condition=(case when like_Condition='0' then '1' else '0' end) " +
+    @Update("update 'like' set like_Condition=(case when like_Condition='0' then '1' else '0' end) " +
             "where tweet_Id=#{tweet_Id} and user_Id=#{user_Id}")
     int updateCondition(@Param("tweet_Id") String tweet_Id, @Param("user_Id") String user_Id);
 }
