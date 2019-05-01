@@ -86,11 +86,12 @@ public class UserManageContrller {
      * @return 请求状态码status，失败信息message
      */
     @PostMapping("/register.api")
-    public ResponMessage register(RequestMessage requestMessage) {
+    public ResponMessage register(RequestMessage requestMessage,HttpSession session) {
         String register = userService.register((String)requestMessage.getData().get("user_Phone"),(String)requestMessage.getData().get("code"));
         if (register != null){
+            session.setAttribute("register",register);
             Map<String, String> map = new HashMap<>();
-            map.put("register",register);
+            map.put("sessionId",session.getId());
             return ResponMessage.ok(map);
         }
         return ResponMessage.error("账号注册失败");
@@ -103,10 +104,13 @@ public class UserManageContrller {
      * @return 请求状态码status
      */
     @PostMapping("/checkUserName.api")
-    public ResponMessage checkUserName(RequestMessage requestMessage) {
+    public ResponMessage checkUserName(RequestMessage requestMessage,HttpSession session) {
         String checkUserName = userService.checkUserName((String)requestMessage.getData().get("user_Name"));
         if (checkUserName != null){
-            return ResponMessage.ok(checkUserName);
+            session.setAttribute("checkUserName",checkUserName);
+            Map<String, String> map = new HashMap<>();
+            map.put("sessionId",session.getId());
+            return ResponMessage.ok(map);
         }
         return ResponMessage.error("用户名重复");
     }
@@ -119,10 +123,12 @@ public class UserManageContrller {
      */
     @PostMapping("/setUserNamePasswd.api")
     public ResponMessage setUserNamePasswd(RequestMessage requestMessage,HttpSession session) {
-        String setUserNamePasswd = userService.setUserNamePasswd((String)requestMessage.getData().get("user_Name"),(String)requestMessage.getData().get("passwd"));
+        String setUserNamePasswd = userService.setUserNamePasswd((String)requestMessage.getData().get("user_Name"),(String)requestMessage.getData().get("passwd"),session);
         if (setUserNamePasswd != null){
-            session.setAttribute("userVO",setUserNamePasswd);
-            return ResponMessage.ok("userVO");
+            session.setAttribute("setUserNamePasswd",setUserNamePasswd);
+            Map<String, String> map = new HashMap<>();
+            map.put("sessionId",session.getId());
+            return ResponMessage.ok(map);
         }
         return ResponMessage.error("设置用户名和密码失败");
     }
@@ -168,10 +174,12 @@ public class UserManageContrller {
      */
     @PostMapping("/updateUserSex.api")
     public ResponMessage updateUserSex(RequestMessage requestMessage,HttpSession session) {
-        UserVO updateUserSex = userService.updateUserSex((String)requestMessage.getData().get("user_Sex"),session.getAttribute("user_Name").toString());
+        String updateUserSex = userService.updateUserSex((String)requestMessage.getData().get("user_Sex"),session);
         if (updateUserSex != null){
             session.setAttribute("updateUserSex",updateUserSex);
-            return ResponMessage.ok(session);
+            Map<String, String> map = new HashMap<>();
+            map.put("sessionId",session.getId());
+            return ResponMessage.ok(map);
         }
         return ResponMessage.error("修改性别失败");
     }
@@ -186,23 +194,24 @@ public class UserManageContrller {
     public ResponMessage updatePasswd(RequestMessage requestMessage,HttpSession session) {
         String updatePasswd = userService.updatePasswd((String)requestMessage.getData().get("oldPasswd"),(String)requestMessage.getData().get("newPasswd"),session.getAttribute("user_Id").toString());
         if (updatePasswd != null){
-            session.setAttribute("updatePasswd",updatePasswd);
-            Map<String, String> map = new HashMap<>();
-            map.put("sessionId",session.getId());
-            return ResponMessage.ok(map);
+            return ResponMessage.ok();
         }
         return ResponMessage.error("修改密码失败");
     }
 
     /**
      * 找回密码
-     *
+     * @author Jason_Jane
      * @param requestMessage 用户新密码data.get("newPasswd")，手机验证码data.get("code")
      * @return 请求状态码status，失败信息message
      */
     @PostMapping("/retrievePasswd.api")
-    public ResponMessage retrievePasswd(RequestMessage requestMessage) {
-        return new ResponMessage();
+    public ResponMessage retrievePasswd(RequestMessage requestMessage,HttpSession session) {
+        String retrievePasswd = userService.retrievePasswd((String)requestMessage.getData().get("newPasswd"),(String)requestMessage.getData().get("code"),session);
+        if (retrievePasswd != null){
+            return ResponMessage.ok();
+        }
+        return ResponMessage.error("找回密码失败");
     }
 
     /**
@@ -212,7 +221,8 @@ public class UserManageContrller {
      * @return 请求状态码status，用户信息data.userVO
      */
     @PostMapping("/updateUserPhone.api")
-    public ResponMessage updateUserPhone(RequestMessage requestMessage) {
+    public ResponMessage updateUserPhone(RequestMessage requestMessage,HttpSession session) {
+        /*UserVO updateUserPhone = userService*/
         return new ResponMessage();
     }
 

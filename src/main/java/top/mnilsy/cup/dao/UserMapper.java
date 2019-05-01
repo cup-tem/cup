@@ -28,28 +28,51 @@ public interface UserMapper {
     UserPojo getUserByIdInfo(String user_Id);
 
     /**
+     * 根据user_Phone获取用户基本信息
+     *
+     * @param user_Phone 用户手机号
+     * @return 用户基本资料
+     * @author Jason_Jane
+     */
+    @Select("select * from user where user_Phone = #{user_Phone}")
+    UserPojo getUserByPhoneInfo(String user_Phone);
+
+    /**
      * 根据user_Name获取用户基本信息
      *
      * @param user_Name 用户名
      * @return 用户基本资料
+     * @author Jason_Jane
      */
-    @Select("select * from user where user_Name = #{user_Name }")
-    UserVO getUserByNameInfo(String user_Name);
+    @Select("select * from user where user_Name = #{user_Name}")
+    UserVO getUserByName(String user_Name);
 
     /**
      * 设置用户名
      *
-     * @param user_Name 用户名
+     * @param userPojo 用户
      * @return 用户基本资料
+     * @author Jason_Jane
      */
-    @Insert("insert into user where user_Name = #{user_Name}")
-    UserPojo setUser(String user_Name);
+    @Update("update user set user_Name = #{user_Name} where user_Name = #{user_Phone}")
+    UserPojo setUserNameByPhoneInfo(UserPojo userPojo);
+
+    /**
+     * 设置密码
+     *
+     * @param passwdPojo 密码
+     * @return passwdPojo
+     * @author Jason_Jane
+     */
+    @Insert("insert into passwd (user_Id,Passwd_Normal) values(#{User_Id},#{Passwd})")
+    PasswdPojo setPasswd(PasswdPojo passwdPojo);
 
     /**
      * 根据user_Name\\user_Phone\\user_email查询用户信息
      *
      * @param user 用户名||用户手机号码||用户电子邮箱
      * @return 用户基本资料
+     * @author Jason_Jane
      */
     @Select("select user_Id from user where user_Name = #{user} or user_Phone = #{user} or user_email = #{user}")
     UserPojo getUserByNamePhoneEmail(String user);
@@ -59,8 +82,9 @@ public interface UserMapper {
      *
      * @param user_Id 用户账号id
      * @return passwd_Normal
+     * @author Jason_Jane
      */
-    @Select("select passwd_Normal from passwd where user_Id = #{user_Id}")
+    @Select("select * from passwd where user_Id = #{user_Id}")
     PasswdPojo getPasswdById(String user_Id);
 
     /**
@@ -68,9 +92,10 @@ public interface UserMapper {
      *
      * @param user_Name 用户名
      * @return 用户名
+     * @author Jason_Jane
      */
-    @Select("select user_Name from user where user_Name = #{user_Name}")
-    UserPojo getUserNameByUserName(String user_Name);
+    @Select("select * from user where user_Name = #{user_Name}")
+    UserPojo getUserByUserName(String user_Name);
 
     /**
      * 根据用户id获取发推文用户名
@@ -106,6 +131,7 @@ public interface UserMapper {
      *
      * @param userVO 用户信息
      * @return userVO
+     * @author Jason_Jane
      */
     @Update("update user set user_Sex = #{user_Sex} where user_Name = #{user_Name}")
     UserVO updateUserSex(UserVO userVO);
@@ -115,7 +141,29 @@ public interface UserMapper {
      *
      * @param passwdPojo 用户密码信息
      * @return passwdPojo
+     * @author Jason_Jane
      */
     @Update("update passwd set Passwd_Old3 = #{Passwd_Old3} and Passwd_Old2 = #{Passwd_Old2} and Passwd_Old1 = #{Passwd_Old1} and Passwd_Normal = #{Passwd_Normal} where user_Id = #{user_Id}")
-    UserVO updatePasswd(PasswdPojo passwdPojo);
+    PasswdPojo updatePasswd(PasswdPojo passwdPojo);
+
+
+    /**
+     * 增加用户
+     *
+     * @param userPojo 用户info
+     * @return 用户基本资料
+     * @author Jason_Jane
+     */
+    @Insert("insert into user (user_Id,user_Name,user_NickName,user_Phone) values(?,?,?,?)")
+    UserPojo addUserByPhoneInfo(UserPojo userPojo);
+
+    /**
+     * 找回密码
+     *
+     * @param passwdPojo 用户密码信息
+     * @return passwdPojo
+     * @author Jason_Jane
+     */
+    @Update("update passwd set Passwd_Old3 = #{Passwd_Old3} and Passwd_Old2 = #{Passwd_Old2} and Passwd_Old1 = #{Passwd_Old1} and Passwd_Normal = #{Passwd_Normal} where user_Id = #{user_Id}")
+    PasswdPojo findPasswd(PasswdPojo passwdPojo);
 }

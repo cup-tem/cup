@@ -63,7 +63,7 @@ public interface UserService {
      * @param passwd 密码
      * @return userVO
      */
-    String setUserNamePasswd(String user_Name,String passwd);
+    String setUserNamePasswd(String user_Name,String passwd,HttpSession session);
 
     /**
      *上传头像
@@ -77,10 +77,9 @@ public interface UserService {
      * 修改性别
      *
      * @param user_Sex 性别
-     * @param user_Name 用户名
      * @return 是否修改成功
      */
-    UserVO updateUserSex(String user_Sex,String user_Name);
+    String updateUserSex(String user_Sex,HttpSession session);
 
     /**
      * 修改密码
@@ -91,6 +90,24 @@ public interface UserService {
      * @return 是否修改成功
      */
     String updatePasswd(String oldPasswd, String newPasswd,String user_Id);
+
+    /**
+     * 找回密码
+     *
+     * @param newPasswd 用户新密码
+     * @param code 手机验证码
+     * @return 是否找回成功
+     */
+    String retrievePasswd(String newPasswd,String code,HttpSession session);
+
+    /**
+     * 找回密码
+     *
+     * @param  用户新密码
+     * @param  手机验证码
+     * @return userVO
+     */
+    UserVO updateUserPhone();
 
     UserVO codeLogin();
 }
