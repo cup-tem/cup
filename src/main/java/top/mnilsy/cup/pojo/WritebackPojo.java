@@ -9,6 +9,7 @@ public class WritebackPojo {
     private String writeBack_Id;
     private String discuss_Id;
     private String user_Id;
+    private String writeBack_User_Id;
     private String writeBack_Vlue;
     private String write_Date;
     private int writeBack_Condition;
@@ -16,10 +17,11 @@ public class WritebackPojo {
     public WritebackPojo() {
     }
 
-    public WritebackPojo(String discuss_Id, String user_Id, String writeBack_Vlue) {
+    public WritebackPojo(String discuss_Id, String user_Id,String writeBack_User_Id, String writeBack_Vlue) {
         this.writeBack_Id= String.valueOf(UUID.randomUUID());
         this.discuss_Id = discuss_Id;
         this.user_Id = user_Id;
+        this.writeBack_User_Id=writeBack_User_Id;
         this.writeBack_Vlue = writeBack_Vlue;
     }
 
@@ -45,6 +47,14 @@ public class WritebackPojo {
 
     public void setUser_Id(String user_Id) {
         this.user_Id = user_Id;
+    }
+
+    public String getWriteBack_User_Id() {
+        return writeBack_User_Id;
+    }
+
+    public void setWriteBack_User_Id(String writeBack_User_Id) {
+        this.writeBack_User_Id = writeBack_User_Id;
     }
 
     public String getWriteBack_Vlue() {
@@ -77,6 +87,7 @@ public class WritebackPojo {
                 "writeBack_Id='" + writeBack_Id + '\'' +
                 ", discuss_Id='" + discuss_Id + '\'' +
                 ", user_Id='" + user_Id + '\'' +
+                ", writeBack_User_Id='" + writeBack_User_Id + '\'' +
                 ", writeBack_Vlue='" + writeBack_Vlue + '\'' +
                 ", write_Date='" + write_Date + '\'' +
                 ", writeBack_Condition=" + writeBack_Condition +

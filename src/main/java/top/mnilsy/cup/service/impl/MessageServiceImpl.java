@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Created by mnilsy on 19-4-24 上午1:57.
  */
-@Service("messageServiceImpl")
+@Service("messageService")
 public class MessageServiceImpl implements MessageService {
 
     @Override

@@ -15,12 +15,10 @@ public class LikePojo {
     public LikePojo() {
     }
 
-    public LikePojo(String like_Id, String tweet_Id, String user_Id, String like_Time, int like_Condition) {
-        this.like_Id = like_Id;
+    public LikePojo(String tweet_Id, String user_Id) {
+        this.like_Id= String.valueOf(UUID.randomUUID());
         this.tweet_Id = tweet_Id;
         this.user_Id = user_Id;
-        this.like_Time = like_Time;
-        this.like_Condition = like_Condition;
     }
 
     public String getLike_Id() {
