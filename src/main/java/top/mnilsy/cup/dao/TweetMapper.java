@@ -15,9 +15,21 @@ public interface TweetMapper {
      * 获取一条可显示推文
      *
      * @param tweet_Id 推文id
-     * @return
+     * @return 推文的VO包
      */
-    @Select("")
+    @Select("select u.user_HeadUrl_min," +
+            "u.user_Name," +
+            "t.tweet_Id," +
+            "t.tweet_Time," +
+            "t.tweet_Text," +
+            "(select count(*) from `like` where tweet_Id = #{tweet_Id}) as tweet_LikeCount," +
+            "(select count(*) from discuss where tweet_Id = #{tweet_Id}) as tweet_DiscussCount " +
+            "from user u join tweet t on u.user_Id = t.user_Id where t.tweet_Id=#{tweet_Id}")
+    @Results({
+            @Result(property = "accessory", column = "tweet_Id",
+                    many = @Many(select = "top.mnilsy.cup.dao.AccessoryMapper.getAccessoryUrl")
+            )
+    })
     TweetVO getTweetVO(String tweet_Id);
 
     /**
@@ -59,4 +71,8 @@ public interface TweetMapper {
      */
     @Update("update tweet set tweet_Condition='1' where tweet_Id=#{tweet_Id} and user_Id=#{user_Id}")
     int updateCondition(@Param("tweet_Id") String tweet_Id, @Param("user_Id") String user_Id);
+
+
+    @Select("")
+    TweetVO test(String tweet_Id);
 }

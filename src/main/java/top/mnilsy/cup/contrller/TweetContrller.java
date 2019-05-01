@@ -1,7 +1,11 @@
 package top.mnilsy.cup.contrller;
 
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.web.bind.annotation.*;
+import top.mnilsy.cup.VO.DiscussVO;
+import top.mnilsy.cup.VO.TweetVO;
 import top.mnilsy.cup.dao.DiscussMapper;
+import top.mnilsy.cup.dao.TweetMapper;
 import top.mnilsy.cup.pojo.DiscussPojo;
 import top.mnilsy.cup.pojo.UserPojo;
 import top.mnilsy.cup.service.TweetService;
@@ -11,6 +15,8 @@ import top.mnilsy.cup.utils.ResponMessage;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by mnilsy on 19-4-21 上午12:43.
@@ -45,12 +51,36 @@ public class TweetContrller {
     /**
      * 查看推文，即点开推文
      *
-     * @param requestMapping 推文id data.get("tweet_Id")
-     * @return 请求状态码status，失败信息message，推文data.tweetVO，推文评论data.discussVO
+     * @param requestMessage 推文id data.get("tweet_Id")
+     * @return 请求状态码status，失败信息message，推文data.tweetVO，推文评论data.List<discussVO>
+     * @author mnilsy
      */
     @GetMapping("/openTweet.api")
-    public ResponMessage openTweet(RequestMapping requestMapping) {
-        return new ResponMessage();
+    public ResponMessage openTweet(RequestMessage requestMessage) {
+        String tweet_Id = (String) requestMessage.getData().get("tweet_Id");
+        TweetVO tweetVO = tweetService.getTweet(tweet_Id);
+        List<DiscussVO> discussVOList = tweetService.getTweetDiscuss(tweet_Id, 0);
+        if (tweet_Id == null || discussVOList.isEmpty()) return ResponMessage.error("推文不存在");
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("tweetVO", tweetVO);
+        jsonObject.put("discussVO", discussVOList);
+        return ResponMessage.ok(jsonObject);
+    }
+
+    /**
+     * 获取制定推文的更多评论
+     *
+     * @param requestMessage 推文id data.get("tweet_Id")，获取次数 data.get("count")
+     * @return 请求状态码status，失败信息message，推文评论data.List<discussVO>
+     * @author mnilsy
+     */
+    @GetMapping("/getMoreDiscuss.api")
+    public ResponMessage getMoreDiscuss(RequestMessage requestMessage) {
+        String tweet_Id = (String) requestMessage.getData().get("tweet_Id");
+        String count = (String) requestMessage.getData().get("count");
+        List<DiscussVO> discussVOList = tweetService.getTweetDiscuss(tweet_Id, Integer.parseInt(count));
+        if (discussVOList.isEmpty()) return ResponMessage.error("没有更多评论了");
+        return ResponMessage.ok(discussVOList);
     }
 
     /**
@@ -59,6 +89,7 @@ public class TweetContrller {
      * @param requestMessage 评论内容data.get("discuss_Vlue")
      * @param tweet_Id       推文的id
      * @return 请求状态码status，失败信息message
+     * @author mnilsy
      */
     @PostMapping("/putDiscuss{tweet_Id}.api")
     public ResponMessage putDiscuss(RequestMessage requestMessage, @PathVariable String tweet_Id, HttpSession session) {
@@ -76,6 +107,7 @@ public class TweetContrller {
      * @param requestMessage    回复内容data.get("writeBack_Vlue")，评论的id data.get("discuss_Id")
      * @param writeBack_User_Id 回复的用户名的id
      * @return 请求状态码status，失败信息message
+     * @author mnilsy
      */
     @PostMapping("/putWriteBack{writeBack_User_Id}.api")
     public ResponMessage putWriteBack(RequestMessage requestMessage, @PathVariable String writeBack_User_Id, HttpSession session) {
@@ -84,7 +116,7 @@ public class TweetContrller {
         String writeBack_Vlue = (String) requestMessage.getData().get("writeBack_Vlue");
         String discuss_Id = (String) requestMessage.getData().get("discuss_Id");
         if (writeBack_Vlue == null) return ResponMessage.error("回复为空");//过滤空回复
-        boolean flag = tweetService.putWriteback(discuss_Id,userPojo.getUser_Id(),writeBack_User_Id,writeBack_Vlue);
+        boolean flag = tweetService.putWriteback(discuss_Id, userPojo.getUser_Id(), writeBack_User_Id, writeBack_Vlue);
         return flag ? ResponMessage.ok() : ResponMessage.error("评论不存在");
     }
 

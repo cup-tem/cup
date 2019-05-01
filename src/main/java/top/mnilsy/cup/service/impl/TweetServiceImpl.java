@@ -2,6 +2,7 @@ package top.mnilsy.cup.service.impl;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import top.mnilsy.cup.VO.DiscussVO;
 import top.mnilsy.cup.VO.TweetVO;
 import top.mnilsy.cup.dao.*;
 import top.mnilsy.cup.pojo.*;
@@ -10,6 +11,7 @@ import top.mnilsy.cup.service.TweetService;
 
 import javax.annotation.Resource;
 import java.util.Base64;
+import java.util.List;
 
 /**
  * Created by mnilsy on 19-4-29 上午9:38.
@@ -36,7 +38,14 @@ public class TweetServiceImpl implements TweetService {
 
     @Override
     public TweetVO getTweet(String tweet_Id) {
-        return null;
+        if (tweet_Id.length() < 36) return null;
+        return tweetMapper.getTweetVO(tweet_Id);
+    }
+
+    @Override
+    public List<DiscussVO> getTweetDiscuss(String tweet_Id, int count) {
+        if (count < 0 || tweet_Id.length() < 36) return null;
+        return discussMapper.getTweetDiscuss(tweet_Id, count * 10);
     }
 
     @Transactional
@@ -94,6 +103,7 @@ public class TweetServiceImpl implements TweetService {
     }
 
     @Override
+    @Transactional
     public boolean putDiscuss(String tweet_Id, String user_Id, String discuss_Vlue) {
         DiscussPojo discussPojo = new DiscussPojo(tweet_Id, user_Id, discuss_Vlue);
         boolean flag = discussMapper.insetrDiscuss(discussPojo) == 1;
@@ -104,6 +114,7 @@ public class TweetServiceImpl implements TweetService {
     }
 
     @Override
+    @Transactional
     public boolean putWriteback(String discuss_Id, String user_Id, String writeBack_User_Id, String writeBack_Vlue) {
         WritebackPojo writebackPojo = new WritebackPojo(discuss_Id, user_Id, writeBack_User_Id, writeBack_Vlue);
         boolean flag = writebackMapper.insetrWriteback(writebackPojo) == 1;

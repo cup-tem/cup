@@ -1,6 +1,9 @@
 package top.mnilsy.cup.service;
 
+import top.mnilsy.cup.VO.DiscussVO;
 import top.mnilsy.cup.VO.TweetVO;
+
+import java.util.List;
 
 /**
  * Created by mnilsy on 19-4-25 下午1:12.
@@ -10,10 +13,20 @@ public interface TweetService {
      * 获取推文
      *
      * @param tweet_Id 推文id
-     * @return
+     * @return 推文的VO包
      * @author mnilsy
      */
     TweetVO getTweet(String tweet_Id);
+
+    /**
+     * 获取制定推文的10条评论
+     *
+     * @param tweet_Id 推文id
+     * @param count 获取评论的次数
+     * @return 评论的VO包
+     * @author mnilsy
+     */
+    List<DiscussVO> getTweetDiscuss(String tweet_Id,int count);
 
     /**
      * 发布一条推文，并即时通知被@的人

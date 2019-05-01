@@ -1,6 +1,7 @@
 package top.mnilsy.cup.VO;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by mnilsy on 19-4-21 下午3:21.
@@ -13,12 +14,12 @@ public class TweetVO {
     private String tweet_Text;
     private int tweet_LikeCount;
     private int tweet_DiscussCount;
-    private String[] accessory;
+    private List<String> accessory;
 
     public TweetVO() {
     }
 
-    public TweetVO(String user_HeadUrl_min, String user_Name, String tweet_Id, String tweet_Time, String tweet_Text, int tweet_LikeCount, int tweet_DiscussCount, String[] accessory) {
+    public TweetVO(String user_HeadUrl_min, String user_Name, String tweet_Id, String tweet_Time, String tweet_Text, int tweet_LikeCount, int tweet_DiscussCount, List<String> accessory) {
         this.user_HeadUrl_min = user_HeadUrl_min;
         this.user_Name = user_Name;
         this.tweet_Id = tweet_Id;
@@ -85,11 +86,11 @@ public class TweetVO {
         this.tweet_DiscussCount = tweet_DiscussCount;
     }
 
-    public String[] getAccessory() {
+    public List<String> getAccessory() {
         return accessory;
     }
 
-    public void setAccessory(String[] accessory) {
+    public void setAccessory(List<String> accessory) {
         this.accessory = accessory;
     }
 
@@ -103,7 +104,7 @@ public class TweetVO {
                 ", tweet_Text='" + tweet_Text + '\'' +
                 ", tweet_LikeCount=" + tweet_LikeCount +
                 ", tweet_DiscussCount=" + tweet_DiscussCount +
-                ", accessory=" + Arrays.toString(accessory) +
+                ", accessory=" + Arrays.toString(accessory.toArray()) +
                 '}';
     }
 }

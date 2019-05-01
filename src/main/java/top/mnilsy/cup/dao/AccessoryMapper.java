@@ -3,8 +3,11 @@ package top.mnilsy.cup.dao;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 import top.mnilsy.cup.pojo.AccessoryPojo;
+
+import java.util.List;
 
 /**
  * Created by mnilsy on 19-4-29 下午3:50.
@@ -27,4 +30,14 @@ public interface AccessoryMapper {
             "</foreach>" +
             "</script>")
     int insetAccessory(@Param("accessoryPojos") AccessoryPojo[] accessoryPojos);
+
+    /**
+     * 获取指定推文的所有附件
+     *
+     * @param tweet_Id 推文id
+     * @return 该推文所有附件
+     * @author mnilsy
+     */
+    @Select("select accessory_Url from accessory where tweet_Id=#{tweet_Id}")
+    List<String> getAccessoryUrl(String tweet_Id);
 }

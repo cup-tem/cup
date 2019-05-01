@@ -2,8 +2,11 @@ package top.mnilsy.cup.dao;
 
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
+import top.mnilsy.cup.VO.DiscussVO;
 import top.mnilsy.cup.VO.Discuss_AtVO;
 import top.mnilsy.cup.pojo.DiscussPojo;
+
+import java.util.List;
 
 /**
  * Created by mnilsy on 19-4-27 下午10:15.
@@ -51,4 +54,16 @@ public interface DiscussMapper {
      */
     @Insert("insert into discuss (discuss_Id, tweet_Id, user_Id, discuss_Vlue) values (#{discussPojo.discuss_Id},#{discussPojo.tweet_Id},#{discussPojo.user_Id},#{discussPojo.discuss_Vlue})")
     int insetrDiscuss(DiscussPojo discussPojo);
+
+    /**
+     * 获取制定推文10条评论
+     *
+     * @param tweet_Id 评论id
+     * @param count    获取次数
+     * @return 评论VO包
+     * @author mnilsy
+     */
+    @Select("select u.user_HeadUrl_min,u.user_Name,d.discuss_Vlue,d.discuss_Id " +
+            "from user u join discuss d on u.user_Id = d.user_Id where d.tweet_Id=#{tweet_Id} limit #{count},10")
+    List<DiscussVO> getTweetDiscuss(String tweet_Id, int count);
 }
