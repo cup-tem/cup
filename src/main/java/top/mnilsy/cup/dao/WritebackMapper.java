@@ -31,20 +31,20 @@ public interface WritebackMapper {
     String getDiscussUserId(String writeBack_Id);
 
     /**
-     * 更改评论回复记录的状态writeBack_Condition
+     * 更改评论回复记录的状态writeBack_Condition为1
      *
      * @param writeBack_Id 评论id
      * @param user_Id      评论者id
      * @return 更改条数
      * @author mnilsy
      */
-    @Update("update writeback set writeBack_Condition='1' where writeBack_Id=#{writeBack_Id} and user_Id=#{user_Id}")
+    @Update("update writeback set writeBack_Condition=1 where writeBack_Id=#{writeBack_Id} and user_Id=#{user_Id}")
     int updateCondition(@Param("writeBack_Id") String writeBack_Id, @Param("user_Id") String user_Id);
 
     /**
-     * 增加一条评论记录
+     * 增加一条评论回复记录
      *
-     * @param writebackPojo 评论的pojo包
+     * @param writebackPojo 评论回复的pojo包
      * @return 增加条数
      * @author mnilsy
      */

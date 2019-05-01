@@ -35,14 +35,14 @@ public interface DiscussMapper {
     String getTweetUserId(String discuss_Id);
 
     /**
-     * 更改评论记录的状态discuss_Condition
+     * 更改评论记录的状态discuss_Condition为1
      *
      * @param discuss_Id 评论id
      * @param user_Id    评论者id
      * @return 更改条数
      * @author mnilsy
      */
-    @Update("update discuss set discuss_Condition='1' where discuss_Id=#{discuss_Id} and user_Id=#{user_Id}")
+    @Update("update discuss set discuss_Condition=1 where discuss_Id=#{discuss_Id} and user_Id=#{user_Id}")
     int updateCondition(@Param("discuss_Id") String discuss_Id, @Param("user_Id") String user_Id);
 
     /**
@@ -64,6 +64,6 @@ public interface DiscussMapper {
      * @author mnilsy
      */
     @Select("select u.user_HeadUrl_min,u.user_Name,d.discuss_Vlue,d.discuss_Id " +
-            "from user u join discuss d on u.user_Id = d.user_Id where d.tweet_Id=#{tweet_Id} limit #{count},10")
+            "from user u join discuss d on u.user_Id = d.user_Id where d.tweet_Id=#{tweet_Id} and d.discuss_Condition=0 limit #{count},10")
     List<DiscussVO> getTweetDiscuss(String tweet_Id, int count);
 }

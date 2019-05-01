@@ -4,18 +4,13 @@ import com.alibaba.fastjson.JSONObject;
 import org.springframework.web.bind.annotation.*;
 import top.mnilsy.cup.VO.DiscussVO;
 import top.mnilsy.cup.VO.TweetVO;
-import top.mnilsy.cup.dao.DiscussMapper;
-import top.mnilsy.cup.dao.TweetMapper;
-import top.mnilsy.cup.pojo.DiscussPojo;
 import top.mnilsy.cup.pojo.UserPojo;
 import top.mnilsy.cup.service.TweetService;
 import top.mnilsy.cup.utils.RequestMessage;
 import top.mnilsy.cup.utils.ResponMessage;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
