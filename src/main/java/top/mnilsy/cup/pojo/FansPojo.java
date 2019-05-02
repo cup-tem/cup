@@ -10,6 +10,7 @@ public class FansPojo {
     private String firstParty_User_Id;
     private String secondParty_User_Id;
     private String fans_Time;
+    private String fans_Condition;
 
     public FansPojo() {
     }
@@ -52,6 +53,14 @@ public class FansPojo {
         this.fans_Time = fans_Time;
     }
 
+    public String getFans_Condition() {
+        return fans_Condition;
+    }
+
+    public void setFans_Condition(String fans_Condition) {
+        this.fans_Condition = fans_Condition;
+    }
+
     @Override
     public String toString() {
         return "FansPojo{" +
@@ -59,6 +68,7 @@ public class FansPojo {
                 ", firstParty_User_Id='" + firstParty_User_Id + '\'' +
                 ", secondParty_User_Id='" + secondParty_User_Id + '\'' +
                 ", fans_Time='" + fans_Time + '\'' +
+                ", fans_Condition='" + fans_Condition + '\'' +
                 '}';
     }
 }

@@ -10,6 +10,7 @@ public class BlacklistPojo {
     private String firstParty_User_Id;
     private String secondParty_User_Id;
     private String blackList_Time;
+    private String blackList_Condition;
 
     public BlacklistPojo() {
     }
@@ -52,6 +53,14 @@ public class BlacklistPojo {
         this.blackList_Time = blackList_Time;
     }
 
+    public String getBlackList_Condition() {
+        return blackList_Condition;
+    }
+
+    public void setBlackList_Condition(String blackList_Condition) {
+        this.blackList_Condition = blackList_Condition;
+    }
+
     @Override
     public String toString() {
         return "BlacklistPojo{" +
@@ -59,6 +68,7 @@ public class BlacklistPojo {
                 ", firstParty_User_Id='" + firstParty_User_Id + '\'' +
                 ", secondParty_User_Id='" + secondParty_User_Id + '\'' +
                 ", blackList_Time='" + blackList_Time + '\'' +
+                ", blackList_Condition='" + blackList_Condition + '\'' +
                 '}';
     }
 }
