@@ -2,9 +2,11 @@ package top.mnilsy.cup.service.impl;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import top.mnilsy.cup.VO.FollwVO;
+import top.mnilsy.cup.VO.UserListVO;
+import top.mnilsy.cup.dao.BlacklistMapper;
 import top.mnilsy.cup.dao.FansMapper;
 import top.mnilsy.cup.dao.UserMapper;
+import top.mnilsy.cup.pojo.BlacklistPojo;
 import top.mnilsy.cup.pojo.FansPojo;
 import top.mnilsy.cup.service.RelationshipService;
 
@@ -23,6 +25,9 @@ public class RelationshipServiceImpl implements RelationshipService {
     @Resource(name = "userMapper")
     private UserMapper userMapper;
 
+    @Resource(name = "blacklistMapper")
+    private BlacklistMapper blacklistMapper;
+
     @Override
     @Transactional
     public boolean fans(String firstParty_User_Id, String secondParty_User_Name) {
@@ -35,9 +40,30 @@ public class RelationshipServiceImpl implements RelationshipService {
     }
 
     @Override
-    public List<FollwVO> getFollwlist(String user_Id, int count) {
+    public List<UserListVO> getFollwlist(String user_Id, int count) {
         if (count < 0) return null;
-        List<FollwVO> follwVOList = fansMapper.getFollw(user_Id, count * 15);
-        return follwVOList;
+        return fansMapper.getFollw(user_Id, count * 15);
+    }
+
+    @Override
+    public List<UserListVO> getFans(String user_Id, int count) {
+        if (count < 0) return null;
+        return fansMapper.getFans(user_Id, count * 15);
+    }
+
+    @Override
+    public boolean blacklist(String firstParty_User_Id, String secondParty_User_Name) {
+        BlacklistPojo blacklistPojo = new BlacklistPojo(firstParty_User_Id, userMapper.getUser_Id(secondParty_User_Name));
+        boolean flag = blacklistMapper.insertBlacklist(blacklistPojo) == 1;
+        if (!flag) {
+            flag = blacklistMapper.updateCondition(blacklistPojo.getFirstParty_User_Id(), blacklistPojo.getSecondParty_User_Id()) == 1;
+        }
+        return flag;
+    }
+
+    @Override
+    public List<UserListVO> getBalcklist(String user_Id, int count) {
+        if (count < 0) return null;
+        return blacklistMapper.getBlackist(user_Id, count * 15);
     }
 }

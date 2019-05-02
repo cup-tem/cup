@@ -3,15 +3,15 @@ package top.mnilsy.cup.VO;
 /**
  * Created by mnilsy on 19-4-21 下午10:37.
  */
-public class FollwListVO {
+public class UserListVO {
     private String user_HeadUrl_min;
     private String user_NickName;
     private String user_Name;
 
-    public FollwListVO() {
+    public UserListVO() {
     }
 
-    public FollwListVO(String user_HeadUrl_min, String user_NickName, String user_Name) {
+    public UserListVO(String user_HeadUrl_min, String user_NickName, String user_Name) {
         this.user_HeadUrl_min = user_HeadUrl_min;
         this.user_NickName = user_NickName;
         this.user_Name = user_Name;
@@ -43,7 +43,7 @@ public class FollwListVO {
 
     @Override
     public String toString() {
-        return "FollwListVO{" +
+        return "UserListVO{" +
                 "user_HeadUrl_min='" + user_HeadUrl_min + '\'' +
                 ", user_NickName='" + user_NickName + '\'' +
                 ", user_Name='" + user_Name + '\'' +

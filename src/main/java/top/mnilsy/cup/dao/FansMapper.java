@@ -2,7 +2,7 @@ package top.mnilsy.cup.dao;
 
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
-import top.mnilsy.cup.VO.FollwVO;
+import top.mnilsy.cup.VO.UserListVO;
 import top.mnilsy.cup.pojo.FansPojo;
 
 import java.util.List;
@@ -46,7 +46,19 @@ public interface FansMapper {
      * @return 用户关注的人的VO包
      */
     @Select("select u.user_HeadUrl_min,u.user_NickName,u.user_Name " +
-            "from fans f join user u on f.firstParty_User_Id = u.user_Id " +
+            "from fans f join user u on f.secondParty_User_Id = u.user_Id " +
             "where f.fans_Condition=0 and u.user_Condition=0 and firstParty_User_Id=#{user_Id} limit #{count},15")
-    List<FollwVO> getFollw(String user_Id,int count);
+    List<UserListVO> getFollw(String user_Id, int count);
+
+
+    /**
+     * 根据用户id获取关注用户的人，每次获取15个
+     * @param user_Id 用户id
+     * @param count 获取次数
+     * @return 关注用户的人的VO包
+     */
+    @Select("select u.user_HeadUrl_min,u.user_NickName,u.user_Name " +
+            "from fans f join user u on f.firstParty_User_Id = u.user_Id " +
+            "where f.fans_Condition=0 and u.user_Condition=0 and secondParty_User_Id=#{user_Id} limit #{count},15")
+    List<UserListVO> getFans(String user_Id, int count);
 }
