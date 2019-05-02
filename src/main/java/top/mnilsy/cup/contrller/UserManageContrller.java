@@ -166,7 +166,10 @@ public class UserManageContrller {
     public ResponMessage updateUserNickName(RequestMessage requestMessage,HttpSession session) {
         UserPojo userInfo = (UserPojo) session.getAttribute("userInfo");
         UserVO updateUserNickName = userService.updateUserNickName((String)requestMessage.getData().get("user_Sex"),userInfo);
-        return new ResponMessage();
+        if (updateUserNickName != null){
+            return ResponMessage.ok(updateUserNickName);
+        }
+        return ResponMessage.error("修改昵称失败");
     }
 
     /**
