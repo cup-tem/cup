@@ -22,11 +22,21 @@ public interface UserService {
     String getPhoneCode(String user_Phone);
 
     /**
+     * 获取邮箱验证码
+     *
+     * @param user_Email 用户邮箱
+     * @return 返回是否获取成功
+     * @author Jason_Jane
+     */
+    String getEmailCode(String user_Email);
+
+    /**
      * 密码登录
      *
      * @param user 用户
      * @param passwd 密码
      * @return 返回是否成功密码登录成功
+     * @author Jason_Jane
      */
     String getPasswdLogin(String user,String passwd);
 
@@ -36,6 +46,7 @@ public interface UserService {
      * @param user_Phone 用户手机号码
      * @param code 验证码
      * @return 返回是否验证码登录成功
+     * @author Jason_Jane
      */
     String codeLogin(String user_Phone,String code,String sessionId);
 
@@ -44,6 +55,7 @@ public interface UserService {
      *
      * @param user_Name 用户名
      * @return 返回用户名是否唯一
+     * @author Jason_Jane
      */
     String checkUserName(String user_Name);
 
@@ -53,6 +65,7 @@ public interface UserService {
      * @param user_Phone 用户手机号码
      * @param code 验证码
      * @return 是否注册成功
+     * @author Jason_Jane
      */
     String register(String user_Phone,String code);
 
@@ -62,6 +75,7 @@ public interface UserService {
      * @param user_Name 用户名
      * @param passwd 密码
      * @return userVO
+     * @author Jason_Jane
      */
     String setUserNamePasswd(String user_Name,String passwd,HttpSession session);
 
@@ -70,6 +84,7 @@ public interface UserService {
      *
      * @param user_Head 用户头像
      * @return 是否上传头像成功
+     * @author Jason_Jane
      */
     String uploadingUserHead(String user_Head);
 
@@ -78,6 +93,7 @@ public interface UserService {
      *
      * @param user_Sex 性别
      * @return 是否修改成功
+     * @author Jason_Jane
      */
     String updateUserSex(String user_Sex,HttpSession session);
 
@@ -88,6 +104,7 @@ public interface UserService {
      * @param newPasswd 用户新密码
      * @param user_Id 用户Id
      * @return 是否修改成功
+     * @author Jason_Jane
      */
     String updatePasswd(String oldPasswd, String newPasswd,String user_Id);
 
@@ -97,17 +114,40 @@ public interface UserService {
      * @param newPasswd 用户新密码
      * @param code 手机验证码
      * @return 是否找回成功
+     * @author Jason_Jane
      */
     String retrievePasswd(String newPasswd,String code,HttpSession session);
 
     /**
      * 找回密码
      *
-     * @param  用户新密码
-     * @param  手机验证码
+     * @param user_Phone 用户手机号
+     * @param code 手机验证码
+     * @return userVO
+     * @author Jason_Jane
+     */
+    UserVO updateUserPhone(String user_Phone,String code,String oldPhone);
+
+    /**
+     * 绑定电子邮箱
+     *
+     * @param user_Email 电子邮箱
+     * @param code 邮箱验证码
+     * @param userPojo 用户
      * @return userVO
      */
-    UserVO updateUserPhone();
+    UserVO bindUserEmail(String user_Email,String code,UserPojo userPojo);
+
+    /**
+     * 修改电子邮箱
+     *
+     * @param user_Email 电子邮箱
+     * @param newCode 新邮箱验证码
+     * @param oldCode 旧邮箱验证码
+     * @param userPojo 用户
+     * @return userVO
+     */
+    UserVO updateUserEmail(String user_Email,String newCode,String oldCode,UserPojo userPojo);
 
     UserVO codeLogin();
 }

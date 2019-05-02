@@ -38,6 +38,16 @@ public interface UserMapper {
     UserPojo getUserByPhoneInfo(String user_Phone);
 
     /**
+     * 根据user_Phone获取用户基本信息
+     *
+     * @param user_Phone 用户手机号
+     * @return 用户基本资料
+     * @author Jason_Jane
+     */
+    @Select("select * from user where user_Phone = #{user_Phone}")
+    UserVO getUserByPhone(String user_Phone);
+
+    /**
      * 根据user_Name获取用户基本信息
      *
      * @param user_Name 用户名
@@ -64,7 +74,7 @@ public interface UserMapper {
      * @return passwdPojo
      * @author Jason_Jane
      */
-    @Insert("insert into passwd (user_Id,Passwd_Normal) values(#{User_Id},#{Passwd})")
+    @Insert("insert into passwd (user_Id,passwd_Normal) values(#{User_Id},#{Passwd})")
     PasswdPojo setPasswd(PasswdPojo passwdPojo);
 
     /**
@@ -143,7 +153,7 @@ public interface UserMapper {
      * @return passwdPojo
      * @author Jason_Jane
      */
-    @Update("update passwd set Passwd_Old3 = #{Passwd_Old3} and Passwd_Old2 = #{Passwd_Old2} and Passwd_Old1 = #{Passwd_Old1} and Passwd_Normal = #{Passwd_Normal} where user_Id = #{user_Id}")
+    @Update("update passwd set passwd_Old3 = #{Passwd_Old3} and passwd_Old2 = #{Passwd_Old2} and passwd_Old1 = #{Passwd_Old1} and passwd_Normal = #{Passwd_Normal} where user_Id = #{user_Id}")
     PasswdPojo updatePasswd(PasswdPojo passwdPojo);
 
 
@@ -164,6 +174,36 @@ public interface UserMapper {
      * @return passwdPojo
      * @author Jason_Jane
      */
-    @Update("update passwd set Passwd_Old3 = #{Passwd_Old3} and Passwd_Old2 = #{Passwd_Old2} and Passwd_Old1 = #{Passwd_Old1} and Passwd_Normal = #{Passwd_Normal} where user_Id = #{user_Id}")
+    @Update("update passwd set passwd_Old3 = #{Passwd_Old3} and passwd_Old2 = #{Passwd_Old2} and passwd_Old1 = #{Passwd_Old1} and passwd_Normal = #{Passwd_Normal} where user_Id = #{user_Id}")
     PasswdPojo findPasswd(PasswdPojo passwdPojo);
+
+    /**
+     * 修改手机号
+     *
+     * @param userVO 用户信息
+     * @return userVO
+     * @author Jason_Jane
+     */
+    @Update("update user set user_Phone = #{User_Phone} where user_Phone = #{oldPhone}")
+    UserVO updatePhone(UserVO userVO,String oldPhone);
+
+    /**
+     * 绑定电子邮箱
+     *
+     * @param userVO 用户信息
+     * @return userVO
+     * @author Jason_Jane
+     */
+    @Update("update user set user_email = #{user_Email} where user_Name = #{User_Name}")
+    UserVO bindUserEmail(UserVO userVO);
+
+    /**
+     * 修改电子邮箱
+     *
+     * @param userVO 用户信息
+     * @return userVO
+     * @author Jason_Jane
+     */
+    @Update("update user set user_email = #{user_Email} where user_Name = #{User_Name}")
+    UserVO updateUserEmail(UserVO userVO);
 }

@@ -8,6 +8,7 @@ import top.mnilsy.cup.pojo.PasswdPojo;
 import top.mnilsy.cup.pojo.UserPojo;
 
 import top.mnilsy.cup.service.UserService;
+import top.mnilsy.cup.utils.SendMailUtil;
 
 import javax.servlet.http.HttpSession;
 import java.io.ByteArrayOutputStream;
@@ -29,6 +30,17 @@ public class UserServiceImpl implements UserService {
     public String getPhoneCode(String user_Phone) {
         System.out.println("输出一个验证码");
         return "TestCode";
+    }
+
+    /**
+     *获取邮箱验证码
+     */
+    @Override
+    public String getEmailCode(String user_Email) {
+        String ecode = "TestEcode";
+        SendMailUtil sendMailUtil = new SendMailUtil();
+        sendMailUtil.send(user_Email,ecode);
+        return ecode;
     }
 
     /**
@@ -70,6 +82,8 @@ public class UserServiceImpl implements UserService {
 
     /**
      *检测用户名是否唯一
+     *
+     * @author Jason_Jane
      */
     @Override
     public String checkUserName(String user_Name) {
@@ -214,6 +228,66 @@ public class UserServiceImpl implements UserService {
             passwdPojo.setPasswd_Old1(passwdNormal);
             passwdPojo.setPasswd_Normal(newPasswd);
             userMapper.findPasswd(passwdPojo);
+        }
+        return null;
+    }
+
+    /**
+     * 修改手机号
+     *
+     * @author Jason_Jane
+     */
+    @Override
+    public UserVO updateUserPhone(String user_Phone, String code,String oldPhone) {
+        UserVO userVO = null;
+        UserMapper userMapper = null;
+        if (this.getPhoneCode(user_Phone).equals(code)){
+            userVO = userMapper.getUserByPhone(oldPhone);
+            userVO.setUser_Phone(user_Phone);
+            userMapper.updatePhone(userVO,oldPhone);
+            return userVO;
+        }
+        return null;
+    }
+
+    /**
+     * 绑定邮箱
+     *
+     * @author Jason_Jane
+     */
+    @Override
+    public UserVO bindUserEmail(String user_Email, String code, UserPojo userPojo) {
+        UserVO userVO = null;
+        UserMapper userMapper = null;
+        if (this.getEmailCode(user_Email).equals(code)){
+            String userName = userPojo.getUser_Name();
+            userVO = userMapper.getUserByName(userName);
+            userVO.setUser_Email(user_Email);
+            userMapper.bindUserEmail(userVO);
+            return userVO;
+        }
+        return null;
+    }
+
+    /**
+     * 修改邮箱
+     *
+     * @author Jason_Jane
+     */
+    @Override
+    public UserVO updateUserEmail(String user_Email, String newCode, String oldCode, UserPojo userPojo) {
+        UserVO userVO = null;
+        UserMapper userMapper =null;
+        String oldEmail = userPojo.getUser_Email();
+        String userName = userPojo.getUser_Name();
+        if (this.getEmailCode(oldEmail).equals(oldCode)){
+            if (this.getEmailCode(user_Email).equals(newCode)){
+                userVO = userMapper.getUserByName(userName);
+                userVO.setUser_Email(user_Email);
+                userMapper.updateUserEmail(userVO);
+                return userVO;
+            }
+            return null;
         }
         return null;
     }
