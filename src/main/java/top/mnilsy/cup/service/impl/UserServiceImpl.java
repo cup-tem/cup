@@ -292,6 +292,25 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
+    /**
+     * 修改昵称
+     *
+     * @author Jason_Jane
+     */
+    @Override
+    public UserVO updateUserNickName(String user_NickName, UserPojo userPojo) {
+        UserVO userVO = null;
+        UserMapper userMapper = null;
+        String userName = userPojo.getUser_Name();
+        if (user_NickName != null){
+            userVO = userMapper.getUserByName(userName);
+            userVO.setUser_NickName(user_NickName);
+            userMapper.updateUserNickName(userVO);
+            return userVO;
+        }
+        return null;
+    }
+
     @Override
     public UserVO codeLogin() {
         return null;

@@ -163,7 +163,9 @@ public class UserManageContrller {
      * @return 请求状态码status，用户信息data.userVO
      */
     @PostMapping("/updateUserNickName.api")
-    public ResponMessage updateUserNickName(RequestMessage requestMessage) {
+    public ResponMessage updateUserNickName(RequestMessage requestMessage,HttpSession session) {
+        UserPojo userInfo = (UserPojo) session.getAttribute("userInfo");
+        UserVO updateUserNickName = userService.updateUserNickName((String)requestMessage.getData().get("user_Sex"),userInfo);
         return new ResponMessage();
     }
 

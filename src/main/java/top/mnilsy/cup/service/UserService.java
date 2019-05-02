@@ -149,5 +149,14 @@ public interface UserService {
      */
     UserVO updateUserEmail(String user_Email,String newCode,String oldCode,UserPojo userPojo);
 
+    /**
+     * 修改昵称
+     *
+     * @param user_NickName 昵称
+     * @param userPojo 用户
+     * @return userVO
+     */
+    UserVO updateUserNickName(String user_NickName,UserPojo userPojo);
+
     UserVO codeLogin();
 }

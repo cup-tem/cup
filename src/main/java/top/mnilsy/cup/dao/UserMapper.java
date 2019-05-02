@@ -206,4 +206,14 @@ public interface UserMapper {
      */
     @Update("update user set user_email = #{user_Email} where user_Name = #{User_Name}")
     UserVO updateUserEmail(UserVO userVO);
+
+    /**
+     * 修改昵称
+     *
+     * @param userVO 用户信息
+     * @return userVO
+     * @author Jason_Jane
+     */
+    @Update("update user set user_NickName = #{user_NickName} where user_Name = #{User_Name}")
+    UserVO updateUserNickName(UserVO userVO);
 }
