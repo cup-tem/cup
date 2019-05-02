@@ -3,6 +3,7 @@ package top.mnilsy.cup.contrller;
 
 import org.springframework.web.bind.annotation.*;
 import top.mnilsy.cup.VO.UserVO;
+import top.mnilsy.cup.pojo.PasswdPojo;
 import top.mnilsy.cup.pojo.UserPojo;
 import top.mnilsy.cup.service.UserService;
 import top.mnilsy.cup.utils.RequestMessage;
@@ -33,9 +34,9 @@ public class UserManageContrller {
      */
     @PostMapping("/passwdLogin.api")
     public ResponMessage passwdLogin(RequestMessage requestMessage, HttpSession session) {
-       String user = userService.getPasswdLogin((String)requestMessage.getData().get("user"),(String)requestMessage.getData().get("passwd"));
-       if (user != null){
-           session.setAttribute("user",user);
+       UserVO userVO = userService.getPasswdLogin((String)requestMessage.getData().get("user"),(String)requestMessage.getData().get("passwd"));
+       if (userVO != null){
+           session.setAttribute("userVO",userVO);
            Map<String, String> map = new HashMap<>();
            map.put("sessionId", session.getId());
            return ResponMessage.ok(map);
@@ -69,13 +70,10 @@ public class UserManageContrller {
      */
     @PostMapping("/codeLogin.api")
     public ResponMessage codeLogin(RequestMessage requestMessage, HttpSession session) {
-        String codeLogin = userService.codeLogin((String)requestMessage.getData().get("user_Phone"),(String)requestMessage.getData().get("code"),session.getId());
-        String code = userService.getPhoneCode((String)requestMessage.getData().get("code"));
-            if (codeLogin != null){
-                session.setAttribute("codeLogin",codeLogin);
-                Map<String, String> map = new HashMap<>();
-                map.put("sessionId",session.getId());
-                return ResponMessage.ok(map);
+        UserVO userVO = userService.codeLogin((String)requestMessage.getData().get("user_Phone"),(String)requestMessage.getData().get("code"));
+            if (userVO != null){
+                session.setAttribute("userVO",userVO);
+                return ResponMessage.ok(userVO);
             }
             return ResponMessage.error("验证码登陆失败");
         }
@@ -87,13 +85,10 @@ public class UserManageContrller {
      * @return 请求状态码status，失败信息message
      */
     @PostMapping("/register.api")
-    public ResponMessage register(RequestMessage requestMessage,HttpSession session) {
+    public ResponMessage register(RequestMessage requestMessage) {
         String register = userService.register((String)requestMessage.getData().get("user_Phone"),(String)requestMessage.getData().get("code"));
         if (register != null){
-            session.setAttribute("register",register);
-            Map<String, String> map = new HashMap<>();
-            map.put("sessionId",session.getId());
-            return ResponMessage.ok(map);
+            return ResponMessage.ok();
         }
         return ResponMessage.error("账号注册失败");
     }
@@ -105,13 +100,10 @@ public class UserManageContrller {
      * @return 请求状态码status
      */
     @PostMapping("/checkUserName.api")
-    public ResponMessage checkUserName(RequestMessage requestMessage,HttpSession session) {
+    public ResponMessage checkUserName(RequestMessage requestMessage) {
         String checkUserName = userService.checkUserName((String)requestMessage.getData().get("user_Name"));
         if (checkUserName != null){
-            session.setAttribute("checkUserName",checkUserName);
-            Map<String, String> map = new HashMap<>();
-            map.put("sessionId",session.getId());
-            return ResponMessage.ok(map);
+            return ResponMessage.ok();
         }
         return ResponMessage.error("用户名重复");
     }
@@ -124,12 +116,10 @@ public class UserManageContrller {
      */
     @PostMapping("/setUserNamePasswd.api")
     public ResponMessage setUserNamePasswd(RequestMessage requestMessage,HttpSession session) {
-        String setUserNamePasswd = userService.setUserNamePasswd((String)requestMessage.getData().get("user_Name"),(String)requestMessage.getData().get("passwd"),session);
-        if (setUserNamePasswd != null){
-            session.setAttribute("setUserNamePasswd",setUserNamePasswd);
-            Map<String, String> map = new HashMap<>();
-            map.put("sessionId",session.getId());
-            return ResponMessage.ok(map);
+        UserVO userVO = userService.setUserNamePasswd((String)requestMessage.getData().get("user_Name"),(String)requestMessage.getData().get("passwd"),session);
+        if (userVO != null){
+            session.setAttribute("userVO",userVO);
+            return ResponMessage.ok(userVO);
         }
         return ResponMessage.error("设置用户名和密码失败");
     }
@@ -164,8 +154,8 @@ public class UserManageContrller {
      */
     @PostMapping("/updateUserNickName.api")
     public ResponMessage updateUserNickName(RequestMessage requestMessage,HttpSession session) {
-        UserPojo userInfo = (UserPojo) session.getAttribute("userInfo");
-        UserVO updateUserNickName = userService.updateUserNickName((String)requestMessage.getData().get("user_Sex"),userInfo);
+        UserVO userVO = (UserVO) session.getAttribute("userVO");
+        UserVO updateUserNickName = userService.updateUserNickName((String)requestMessage.getData().get("user_Sex"),userVO);
         if (updateUserNickName != null){
             return ResponMessage.ok(updateUserNickName);
         }
@@ -180,7 +170,8 @@ public class UserManageContrller {
      */
     @PostMapping("/updateUserSex.api")
     public ResponMessage updateUserSex(RequestMessage requestMessage,HttpSession session) {
-        String updateUserSex = userService.updateUserSex((String)requestMessage.getData().get("user_Sex"),session);
+        UserVO userVO = (UserVO) session.getAttribute("userVO");
+        UserVO updateUserSex = userService.updateUserSex((String)requestMessage.getData().get("user_Sex"),userVO);
         if (updateUserSex != null){
             session.setAttribute("updateUserSex",updateUserSex);
             Map<String, String> map = new HashMap<>();
@@ -198,7 +189,8 @@ public class UserManageContrller {
      */
     @PostMapping("/updatePasswd.api")
     public ResponMessage updatePasswd(RequestMessage requestMessage,HttpSession session) {
-        String updatePasswd = userService.updatePasswd((String)requestMessage.getData().get("oldPasswd"),(String)requestMessage.getData().get("newPasswd"),session.getAttribute("user_Id").toString());
+        PasswdPojo passwdPojo = (PasswdPojo) session.getAttribute("passwdPojo");
+        String updatePasswd = userService.updatePasswd((String)requestMessage.getData().get("oldPasswd"),(String)requestMessage.getData().get("newPasswd"),passwdPojo);
         if (updatePasswd != null){
             return ResponMessage.ok();
         }
@@ -213,7 +205,8 @@ public class UserManageContrller {
      */
     @PostMapping("/retrievePasswd.api")
     public ResponMessage retrievePasswd(RequestMessage requestMessage,HttpSession session) {
-        String retrievePasswd = userService.retrievePasswd((String)requestMessage.getData().get("newPasswd"),(String)requestMessage.getData().get("code"),session);
+        UserVO userVO = (UserVO) session.getAttribute("userVO");
+        String retrievePasswd = userService.retrievePasswd((String)requestMessage.getData().get("newPasswd"),(String)requestMessage.getData().get("code"),userVO);
         if (retrievePasswd != null){
             return ResponMessage.ok();
         }
@@ -262,8 +255,8 @@ public class UserManageContrller {
      */
     @PostMapping("/bindUserEmail.api")
     public ResponMessage bindUserEmail(RequestMessage requestMessage,HttpSession session) {
-        UserPojo userInfo = (UserPojo) session.getAttribute("userInfo");
-        UserVO bindUserEmail = userService.bindUserEmail((String) requestMessage.getData().get("user_Email"),(String) requestMessage.getData().get("code"),userInfo);
+        UserVO userVO = (UserVO) session.getAttribute("userVO");
+        UserVO bindUserEmail = userService.bindUserEmail((String) requestMessage.getData().get("user_Email"),(String) requestMessage.getData().get("code"),userVO);
         if (bindUserEmail != null){
             return ResponMessage.ok(bindUserEmail);
         }
@@ -278,8 +271,8 @@ public class UserManageContrller {
      */
     @PostMapping("/updateUserEmail.api")
     public ResponMessage updateUserEmail(RequestMessage requestMessage,HttpSession session) {
-        UserPojo userInfo = (UserPojo) session.getAttribute("userInfo");
-        UserVO updateUserEmail = userService.updateUserEmail((String) requestMessage.getData().get("user_Email"),(String) requestMessage.getData().get("newCode"),(String) requestMessage.getData().get("oldCode"),userInfo);
+        UserVO userVO = (UserVO) session.getAttribute("userVO");
+        UserVO updateUserEmail = userService.updateUserEmail((String) requestMessage.getData().get("user_Email"),(String) requestMessage.getData().get("newCode"),(String) requestMessage.getData().get("oldCode"),userVO);
         if (updateUserEmail != null){
             return ResponMessage.ok(updateUserEmail);
         }
