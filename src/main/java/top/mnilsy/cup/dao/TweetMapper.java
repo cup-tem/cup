@@ -46,7 +46,7 @@ public interface TweetMapper {
      * 根据推文id获取发推文用户名
      *
      * @param tweet_Id 推文id
-     * @return
+     * @return 发推文的用户名
      */
     @Select("")
     String getUserName(String tweet_Id);
