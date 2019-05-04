@@ -38,7 +38,16 @@ public interface UserService {
      * @return 返回是否成功密码登录成功
      * @author Jason_Jane
      */
-    UserVO getPasswdLogin(String user,String passwd);
+    UserPojo getPasswdLogin(String user,String passwd);
+
+    /**
+     * 获取用户
+     *
+     * @param user_Name 用户名
+     * @return userVO
+     * @author Jason_Jane
+     */
+    UserVO getUserByUsername(String user_Name);
 
     /**
      * 验证码登录

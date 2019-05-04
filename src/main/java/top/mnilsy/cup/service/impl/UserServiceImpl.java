@@ -49,23 +49,32 @@ public class UserServiceImpl implements UserService {
      * @author Jason_Jane
      */
     @Override
-    public UserVO getPasswdLogin(String user,String passwd) {
+    public UserPojo getPasswdLogin(String user,String passwd) {
         UserMapper userMapper = null;
-        UserVO userVO = null;
         UserPojo userPojo = null;
         PasswdPojo passwdPojo = null;
         if (user != null || passwd != null){
            userPojo = userMapper.getUserByNamePhoneEmail(user);
            String name = userPojo.getUser_Name();
            String id = userPojo.getUser_Id();
-           userVO = userMapper.getUserByName(name);
            passwdPojo = userMapper.getPasswdById(id);
            String pw = passwdPojo.getPasswd_Normal();
            if (pw.equals(passwd)){
-               return userVO;
+               return userPojo;
            }else {
                return null;
            }
+        }
+        return null;
+    }
+
+    @Override
+    public UserVO getUserByUsername(String user_Name) {
+        UserVO userVO = null;
+        UserMapper userMapper = null;
+        userVO = userMapper.getUserByName(user_Name);
+        if (userVO != null){
+            return userVO;
         }
         return null;
     }

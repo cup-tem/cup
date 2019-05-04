@@ -34,11 +34,13 @@ public class UserManageContrller {
      */
     @PostMapping("/passwdLogin.api")
     public ResponMessage passwdLogin(RequestMessage requestMessage, HttpSession session) {
-       UserVO userVO = userService.getPasswdLogin((String)requestMessage.getData().get("user"),(String)requestMessage.getData().get("passwd"));
-       if (userVO != null){
-           session.setAttribute("userVO",userVO);
+       UserPojo userPojo = userService.getPasswdLogin((String)requestMessage.getData().get("user"),(String)requestMessage.getData().get("passwd"));
+       if (userPojo != null){
+           session.setAttribute("userPojo",userPojo);
+           UserVO userVO = userService.getUserByUsername(userPojo.getUser_Name());
            Map<String, String> map = new HashMap<>();
            map.put("sessionId", session.getId());
+           map.put("userVO",userVO.toString());
            return ResponMessage.ok(map);
        }
        return ResponMessage.error("密码登录失败");
