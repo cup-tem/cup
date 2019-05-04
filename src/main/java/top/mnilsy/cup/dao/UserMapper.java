@@ -108,12 +108,13 @@ public interface UserMapper {
     UserPojo getUserByUserName(String user_Name);
 
     /**
-     * 根据用户id获取发推文用户名
+     * 根据用户id获取用户名
      *
      * @param user_Id 用户id
      * @return 用户名
+     * @author mnilsy
      */
-    @Select("")
+    @Select("select user_Name from user where user_Id=#{user_Id}")
     String getUserName(String user_Id);
 
     /**
@@ -123,7 +124,7 @@ public interface UserMapper {
      * @return 用户id
      * @author mnilsy
      */
-    @Select("")
+    @Select("select user_Id from user where user_Name=#{user_Name}")
     String getUser_Id(String user_Name);
 
     /**
@@ -132,7 +133,7 @@ public interface UserMapper {
      * @return 所有可用的用户id
      * @author mnilsy
      */
-    @Select("")
+    @Select("select user_Id from user where user_Condition=0")
     List<String> getAllUserId();
 
 
@@ -185,7 +186,7 @@ public interface UserMapper {
      * @author Jason_Jane
      */
     @Update("update user set user_Phone = #{User_Phone} where user_Phone = #{oldPhone}")
-    UserVO updatePhone(UserVO userVO,String oldPhone);
+    UserVO updatePhone(UserVO userVO, String oldPhone);
 
     /**
      * 绑定电子邮箱

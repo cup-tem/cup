@@ -12,22 +12,39 @@ import top.mnilsy.cup.pojo.WritebackPojo;
 @Repository("writebackMapper")
 @Mapper
 public interface WritebackMapper {
+
     /**
+     * 根据回复的id获取回复的atVO包
+     *
      * @param writeBack_Id 回复的id
      * @return 回复的atVO包
      * @author mnilsy
-     * 根据回复的id获取回复的atVO包
      */
+    @Select("select user.user_HeadUrl_min," +
+            "user.user_Name," +
+            "writeback.writeBack_Time," +
+            "writeback.writeBack_Vlue," +
+            "writeback.writeBack_User_Id," +
+            "discuss.discuss_Id," +
+            "discuss.discuss_Vlue" +
+            "from user" +
+            "join writeback on user.user_Id = writeback.user_Id" +
+            "join discuss on writeback.discuss_Id = discuss.discuss_Id" +
+            "where writeBack_Id=#{writeBack_Id}")
     Writeback_AtVO getWriteback_AtVO(String writeBack_Id);
 
     /**
-     * 根据回复获取评论者id
+     * 根据回复id获取评论者id
      *
      * @param writeBack_Id 回复id
      * @return 评论者id
      * @author mnilsy
      */
-    @Select("")
+    @Select("select user.user_Id" +
+            "from user" +
+            "join discuss on user.user_Id = discuss.user_Id" +
+            "join writeback on discuss.discuss_Id = writeback.discuss_Id" +
+            "where writeback.writeBack_Id = #{writeBack_Id}")
     String getDiscussUserId(String writeBack_Id);
 
     /**
@@ -49,6 +66,6 @@ public interface WritebackMapper {
      * @author mnilsy
      */
     @Insert("insert into writeback (writeBack_Id, discuss_Id, user_Id, writeBack_User_Id, writeBack_Vlue) " +
-            "values (#{writebackPojo.writeBack_Id},#{writebackPojo.discuss_Id},#{writebackPojo.user_Id},#{writebackPojo.writeBack_Vlue})")
+            "values (#{writeBack_Id},#{discuss_Id},#{user_Id},#{writeBack_Vlue})")
     int insetrWriteback(WritebackPojo writebackPojo);
 }

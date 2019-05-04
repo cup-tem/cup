@@ -38,9 +38,9 @@ public interface LikeMapper {
      * @author mnilsy
      */
     @Insert("INSERT INTO `like` (like_Id, tweet_Id, user_Id) " +
-            "SELECT #{likePojo.like_Id},#{likePojo.tweet_Id},#{likePojo.user_Id} " +
+            "SELECT #{like_Id},#{tweet_Id},#{user_Id} " +
             "from DUAL" +
-            "where not exists(select * from 'like' where tweet_Id=#{likePojo.tweet_Id} and user_Id=#{likePojo.user_Id})")
+            "where not exists(select * from 'like' where tweet_Id=#{tweet_Id} and user_Id=#{user_Id})")
     int insertLike(LikePojo likePojo);
 
     /**

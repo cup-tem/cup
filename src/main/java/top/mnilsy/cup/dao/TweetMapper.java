@@ -72,7 +72,4 @@ public interface TweetMapper {
     @Update("update tweet set tweet_Condition='1' where tweet_Id=#{tweet_Id} and user_Id=#{user_Id}")
     int updateCondition(@Param("tweet_Id") String tweet_Id, @Param("user_Id") String user_Id);
 
-
-    @Select("")
-    TweetVO test(String tweet_Id);
 }

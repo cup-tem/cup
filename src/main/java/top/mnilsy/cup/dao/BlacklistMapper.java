@@ -22,9 +22,9 @@ public interface BlacklistMapper {
      * @author mnilsy
      */
     @Insert("INSERT INTO blacklist (blackList_Id, firstParty_User_Id, secondParty_User_Id) " +
-            "SELECT #{blacklistPojo.blackList_Id},#{blacklistPojo.firstParty_User_Id},#{blacklistPojo.secondParty_User_Id} " +
+            "SELECT #{blackList_Id},#{firstParty_User_Id},#{secondParty_User_Id} " +
             "from DUAL" +
-            "where not exists(select * from fans where firstParty_User_Id=#{blacklistPojo.firstParty_User_Id} and secondParty_User_Id=#{blacklistPojo.secondParty_User_Id})")
+            "where not exists(select * from fans where firstParty_User_Id=#{firstParty_User_Id} and secondParty_User_Id=#{secondParty_User_Id})")
     int insertBlacklist(BlacklistPojo blacklistPojo);
 
     /**
@@ -49,5 +49,5 @@ public interface BlacklistMapper {
     @Select("select u.user_HeadUrl_min,u.user_NickName,u.user_Name " +
             "from blacklist b join user u on b.secondParty_User_Id = u.user_Id " +
             "where b.blackList_Condition=0 and u.user_Condition=0 and firstParty_User_Id=#{user_Id} limit #{count},15")
-    List<UserListVO> getBlackist(String user_Id, int count);
+    List<UserListVO> getBlackist(@Param("user_Id") String user_Id,@Param("count") int count);
 }

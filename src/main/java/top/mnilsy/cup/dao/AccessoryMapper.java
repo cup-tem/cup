@@ -26,7 +26,7 @@ public interface AccessoryMapper {
             "insert into accessory(accessory_Id, tweet_Id, accessory_Url) " +
             "values" +
             "<foreach collection = 'accessoryPojos' item = 'accessoryPojo' separator = ','>" +
-            "(#{accessoryPojo.accessory_Id},#{accessoryPojo.tweet_Id},#{accessoryPojo.accessory_Url})" +
+            "(#{accessory_Id},#{tweet_Id},#{accessory_Url})" +
             "</foreach>" +
             "</script>")
     int insetAccessory(@Param("accessoryPojos") AccessoryPojo[] accessoryPojos);

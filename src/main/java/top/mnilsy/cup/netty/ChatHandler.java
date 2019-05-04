@@ -62,13 +62,14 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
             //发送未签收的艾特给客户端
             List<AtBO> notSignforAtList = atService.getNotSignfor(user_Name);
             for (AtBO atBO : notSignforAtList) {
-                atService.sendAt(atBO,user_Name);
+                atService.sendAt(atBO, user_Name);
             }
             return;
         }
         if (action == NettyActionEnum.CHAT_TEXT.vule) {
             //聊天类型的消息，把聊天记录保存到数据库
             MessageVO sendmessageVO = messageService.addMessage((MessageVO) dataContent.getData());
+            if (sendmessageVO == null) return;
             //发送消息
             messageService.sendMessageText(sendmessageVO);
             return;

@@ -111,7 +111,8 @@ public class AtServiceImpl implements AtService {
 
     @Override
     public boolean signfor(String at_Id) {
-        return false;
+        if (at_Id.length() != 36) return false;
+        return atMapper.updateCondition(at_Id) == 1;
     }
 
     @Override

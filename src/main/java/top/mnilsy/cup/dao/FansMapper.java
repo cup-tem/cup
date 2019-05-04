@@ -22,9 +22,9 @@ public interface FansMapper {
      * @author mnilsy
      */
     @Insert("INSERT INTO fans (fans_Id, firstParty_User_Id, secondParty_User_Id) " +
-            "SELECT #{fansPojo.fans_Id},#{fansPojo.firstParty_User_Id},#{fansPojo.secondParty_User_Id} " +
+            "SELECT #{fans_Id},#{firstParty_User_Id},#{secondParty_User_Id} " +
             "from DUAL" +
-            "where not exists(select * from fans where firstParty_User_Id=#{fansPojo.firstParty_User_Id} and secondParty_User_Id=#{fansPojo.secondParty_User_Id})")
+            "where not exists(select * from fans where firstParty_User_Id=#{firstParty_User_Id} and secondParty_User_Id=#{secondParty_User_Id})")
     int insertFans(FansPojo fansPojo);
 
     /**
@@ -41,24 +41,26 @@ public interface FansMapper {
 
     /**
      * 根据用户id获取用户关注的人，每次获取15个
+     *
      * @param user_Id 用户id
-     * @param count 获取次数
+     * @param count   获取次数
      * @return 用户关注的人的VO包
      */
     @Select("select u.user_HeadUrl_min,u.user_NickName,u.user_Name " +
             "from fans f join user u on f.secondParty_User_Id = u.user_Id " +
             "where f.fans_Condition=0 and u.user_Condition=0 and firstParty_User_Id=#{user_Id} limit #{count},15")
-    List<UserListVO> getFollw(String user_Id, int count);
+    List<UserListVO> getFollw(@Param("user_Id") String user_Id, @Param("count") int count);
 
 
     /**
      * 根据用户id获取关注用户的人，每次获取15个
+     *
      * @param user_Id 用户id
-     * @param count 获取次数
+     * @param count   获取次数
      * @return 关注用户的人的VO包
      */
     @Select("select u.user_HeadUrl_min,u.user_NickName,u.user_Name " +
             "from fans f join user u on f.firstParty_User_Id = u.user_Id " +
             "where f.fans_Condition=0 and u.user_Condition=0 and secondParty_User_Id=#{user_Id} limit #{count},15")
-    List<UserListVO> getFans(String user_Id, int count);
+    List<UserListVO> getFans(@Param("user_Id") String user_Id, @Param("count") int count);
 }

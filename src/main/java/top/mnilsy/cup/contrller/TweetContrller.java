@@ -63,7 +63,7 @@ public class TweetContrller {
     }
 
     /**
-     * 获取制定推文的更多评论
+     * 获取指定推文的更多评论
      *
      * @param requestMessage 推文id data.get("tweet_Id")，获取次数 data.get("count")
      * @return 请求状态码status，失败信息message，推文评论data.List<discussVO>

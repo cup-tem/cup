@@ -17,10 +17,18 @@ public class MessagePojo {
     }
 
     public MessagePojo(String message_Vlue, String message_Sender_u_Id, String message_Recipient_u_Id) {
-        this.message_Id= String.valueOf(UUID.randomUUID());
+        this.message_Id = String.valueOf(UUID.randomUUID());
         this.message_Vlue = message_Vlue;
         this.message_Sender_u_Id = message_Sender_u_Id;
         this.message_Recipient_u_Id = message_Recipient_u_Id;
+    }
+
+    public MessagePojo(String message_Vlue, String message_Sender_u_Id, String message_Recipient_u_Id, String message_Time) {
+        this.message_Id = String.valueOf(UUID.randomUUID());
+        this.message_Vlue = message_Vlue;
+        this.message_Sender_u_Id = message_Sender_u_Id;
+        this.message_Recipient_u_Id = message_Recipient_u_Id;
+        this.message_Time = message_Time;
     }
 
     public String getMessage_Id() {
