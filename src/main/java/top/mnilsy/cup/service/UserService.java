@@ -57,7 +57,7 @@ public interface UserService {
      * @return 返回是否验证码登录成功
      * @author Jason_Jane
      */
-    UserVO codeLogin(String user_Phone,String code);
+    UserPojo codeLogin(String user_Phone,String code);
 
     /**
      * 检测用户名是否唯一
@@ -86,7 +86,7 @@ public interface UserService {
      * @return userVO
      * @author Jason_Jane
      */
-    UserVO setUserNamePasswd(String user_Name,String passwd,HttpSession session);
+    UserVO setUserNamePasswd(String user_Name,String passwd,UserPojo userPojo);
 
     /**
      *上传头像
@@ -101,22 +101,22 @@ public interface UserService {
      * 修改性别
      *
      * @param user_Sex 性别
-     * @param userVO 用户信息
+     * @param userPojo 用户信息
      * @return 是否修改成功
      * @author Jason_Jane
      */
-    UserVO updateUserSex(String user_Sex,UserVO userVO);
+    UserVO updateUserSex(String user_Sex,UserPojo userPojo);
 
     /**
      * 修改密码
      *
      * @param oldPasswd 用户旧密码
      * @param newPasswd 用户新密码
-     * @param passwdPojo 用户密码信息
+     * @param userPojo 用户信息
      * @return 是否修改成功
      * @author Jason_Jane
      */
-    String updatePasswd(String oldPasswd, String newPasswd,PasswdPojo passwdPojo);
+    String updatePasswd(String oldPasswd, String newPasswd,UserPojo userPojo);
 
     /**
      * 找回密码
@@ -126,7 +126,7 @@ public interface UserService {
      * @return 是否找回成功
      * @author Jason_Jane
      */
-    String retrievePasswd(String newPasswd,String code,UserVO userVO);
+    String retrievePasswd(String newPasswd,String code,UserPojo userPojo);
 
     /**
      * 找回密码
@@ -143,10 +143,10 @@ public interface UserService {
      *
      * @param user_Email 电子邮箱
      * @param code 邮箱验证码
-     * @param userVO 用户
+     * @param userPojo 用户
      * @return userVO
      */
-    UserVO bindUserEmail(String user_Email,String code,UserVO userVO);
+    UserVO bindUserEmail(String user_Email,String code,UserPojo userPojo);
 
     /**
      * 修改电子邮箱
@@ -154,19 +154,19 @@ public interface UserService {
      * @param user_Email 电子邮箱
      * @param newCode 新邮箱验证码
      * @param oldCode 旧邮箱验证码
-     * @param userVO 用户
+     * @param userPojo 用户
      * @return userVO
      */
-    UserVO updateUserEmail(String user_Email,String newCode,String oldCode,UserVO userVO);
+    UserVO updateUserEmail(String user_Email,String newCode,String oldCode,UserPojo userPojo);
 
     /**
      * 修改昵称
      *
      * @param user_NickName 昵称
-     * @param userVO 用户
+     * @param userPojo 用户
      * @return userVO
      */
-    UserVO updateUserNickName(String user_NickName,UserVO userVO);
+    UserVO updateUserNickName(String user_NickName,UserPojo userPojo);
 
     UserVO codeLogin();
 }

@@ -85,13 +85,13 @@ public class UserServiceImpl implements UserService {
      * @author Jason_Jane
      */
     @Override
-    public UserVO codeLogin(String user_Phone,String code) {
-        UserVO userVO = null;
+    public UserPojo codeLogin(String user_Phone,String code) {
+        UserPojo userPojo = null;
         UserMapper userMapper = null;
         if (this.getPhoneCode(user_Phone).equals(code)){
-            userVO = userMapper.getUserByPhone(user_Phone);
-            if (userVO != null){
-                return userVO;
+            userPojo = userMapper.getUserByPhoneInfo(user_Phone);
+            if (userPojo != null){
+                return userPojo;
             }
             return null;
         }
@@ -150,13 +150,11 @@ public class UserServiceImpl implements UserService {
      * @author Jason_Jane
      */
     @Override
-    public UserVO setUserNamePasswd(String user_Name, String passwd,HttpSession session) {
+    public UserVO setUserNamePasswd(String user_Name, String passwd,UserPojo userPojo) {
         if (user_Name != null && passwd != null){
-            UserPojo userPojo = null;
             UserVO userVO = null;
             PasswdPojo passwdPojo = null;
             UserMapper userMapper = null;
-            userPojo = userMapper.getUserByPhoneInfo(session.getAttribute("user_Phone").toString());
             userPojo.setUser_Name(user_Name);
             passwdPojo.setPasswd_Normal(passwd);
             userMapper.setUserNameByPhoneInfo(userPojo);
@@ -186,12 +184,14 @@ public class UserServiceImpl implements UserService {
      * @author Jason_Jane
      */
     @Override
-    public UserVO updateUserSex(String user_Sex,UserVO userVO) {
+    public UserVO updateUserSex(String user_Sex,UserPojo userPojo) {
        UserMapper userMapper = null;
-       String userSex = userVO.getUser_Sex();
+       UserVO userVO = null;
+       String userSex = userPojo.getUser_Sex();
        if (userSex.equals(user_Sex)){
            return null;
        }
+       userVO = userMapper.getUserByName(userPojo.getUser_Name());
        userVO.setUser_Sex(user_Sex);
        userMapper.updateUserSex(userVO);
        return userVO;
@@ -203,11 +203,13 @@ public class UserServiceImpl implements UserService {
      * @author Jason_Jane
      */
     @Override
-    public String updatePasswd(String oldPasswd, String newPasswd,PasswdPojo passwdPojo) {
+    public String updatePasswd(String oldPasswd, String newPasswd,UserPojo userPojo) {
         UserMapper userMapper = null;
+        PasswdPojo passwdPojo = null;
         if (oldPasswd.equals(newPasswd)){
             return null;
         }
+        passwdPojo = userMapper.getPasswdById(userPojo.getUser_Id());
         String passwdOld2 = passwdPojo.getPasswd_Old2();
         String passwdOld1 = passwdPojo.getPasswd_Old1();
         passwdPojo.setPasswd_Old3(passwdOld2);
@@ -224,13 +226,11 @@ public class UserServiceImpl implements UserService {
      * @author Jason_Jane
      */
     @Override
-    public String retrievePasswd(String newPasswd, String code,UserVO userVO) {
-        UserPojo userPojo = null;
+    public String retrievePasswd(String newPasswd, String code,UserPojo userPojo) {
         PasswdPojo passwdPojo = null;
         UserMapper userMapper = null;
-        String userPhone = userVO.getUser_Phone();
+        String userPhone = userPojo.getUser_Phone();
         if (this.getPhoneCode(userPhone).equals(code)){
-            userPojo = userMapper.getUserByPhoneInfo(userPhone);
             String userId = userPojo.getUser_Id();
             passwdPojo = userMapper.getPasswdById(userId);
             String passwdOld2 = passwdPojo.getPasswd_Old2();
@@ -270,9 +270,11 @@ public class UserServiceImpl implements UserService {
      * @author Jason_Jane
      */
     @Override
-    public UserVO bindUserEmail(String user_Email, String code, UserVO userVO) {
+    public UserVO bindUserEmail(String user_Email, String code, UserPojo userPojo) {
         UserMapper userMapper = null;
+        UserVO userVO = null;
         if (this.getEmailCode(user_Email).equals(code)){
+            userVO = userMapper.getUserByName(userPojo.getUser_Name());
             userVO.setUser_Email(user_Email);
             userMapper.bindUserEmail(userVO);
             return userVO;
@@ -286,11 +288,13 @@ public class UserServiceImpl implements UserService {
      * @author Jason_Jane
      */
     @Override
-    public UserVO updateUserEmail(String user_Email, String newCode, String oldCode, UserVO userVO) {
+    public UserVO updateUserEmail(String user_Email, String newCode, String oldCode, UserPojo userPojo) {
         UserMapper userMapper =null;
-        String oldEmail = userVO.getUser_Email();
+        UserVO userVO = null;
+        String oldEmail = userPojo.getUser_Email();
         if (this.getEmailCode(oldEmail).equals(oldCode)){
             if (this.getEmailCode(user_Email).equals(newCode)){
+                userVO = userMapper.getUserByName(userPojo.getUser_Name());
                 userVO.setUser_Email(user_Email);
                 userMapper.updateUserEmail(userVO);
                 return userVO;
@@ -306,10 +310,12 @@ public class UserServiceImpl implements UserService {
      * @author Jason_Jane
      */
     @Override
-    public UserVO updateUserNickName(String user_NickName, UserVO userVO) {
+    public UserVO updateUserNickName(String user_NickName, UserPojo userPojo) {
         UserMapper userMapper = null;
-        String userName = userVO.getUser_Name();
+        UserVO userVO =null;
+        String userName = userPojo.getUser_Name();
         if (user_NickName != null){
+            userVO = userMapper.getUserByName(userName);
             userVO.setUser_NickName(user_NickName);
             userMapper.updateUserNickName(userVO);
             return userVO;
