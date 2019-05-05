@@ -31,7 +31,7 @@ public class RelationshipContrller {
      * 关注用户
      *
      * @param user_Name 用户名
-     * @return 请求状态码status
+     * @return 请求状态码status，失败信息 message
      * @author mnilsy
      */
     @GetMapping("/follow{user_Name}.api")

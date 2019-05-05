@@ -16,6 +16,7 @@ public interface TweetMapper {
      *
      * @param tweet_Id 推文id
      * @return 推文的VO包
+     * @author mnilsy
      */
     @Select("select u.user_HeadUrl_min," +
             "u.user_Name," +
@@ -37,6 +38,7 @@ public interface TweetMapper {
      *
      * @param tweet_Id 推文id
      * @return 用户id
+     * @author mnilsy
      */
     @Select("")
     String getUserId(String tweet_Id);
@@ -47,6 +49,7 @@ public interface TweetMapper {
      *
      * @param tweet_Id 推文id
      * @return 发推文的用户名
+     * @author mnilsy
      */
     @Select("")
     String getUserName(String tweet_Id);

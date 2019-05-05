@@ -16,6 +16,14 @@ public class LocationPojo {
     public LocationPojo() {
     }
 
+
+    public LocationPojo(String user_Id, double location_X, double location_Y) {
+        this.location_Id = String.valueOf(UUID.randomUUID());
+        this.user_Id = user_Id;
+        this.location_X = location_X;
+        this.location_Y = location_Y;
+    }
+
     public LocationPojo(String user_Id, double location_X, double location_Y, String newTweetTime) {
         this.location_Id = String.valueOf(UUID.randomUUID());
         this.user_Id = user_Id;
