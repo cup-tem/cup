@@ -21,7 +21,16 @@ public interface DiscussMapper {
      * @return 评论atVO包
      * @author mnilsy
      */
-    @Select("")
+    @Select("select user.user_HeadUrl_min," +
+            "user.user_Name," +
+            "discuss.discuss_Time," +
+            "discuss.discuss_Vlue," +
+            "discuss.discuss_Id," +
+            "tweet.tweet_Id," +
+            "tweet.tweet_Text" +
+            "from discuss" +
+            "join user on discuss.user_Id = user.user_Id" +
+            "join tweet on discuss.tweet_Id = tweet.tweet_Id")
     Discuss_AtVO getDiscuss_AtVO(String discuss_Id);
 
     /**
@@ -31,7 +40,10 @@ public interface DiscussMapper {
      * @return 评论者id
      * @author mnilsy
      */
-    @Select("")
+    @Select("select user.user_Id" +
+            "from user join tweet on user.user_Id = tweet.user_Id" +
+            "join discuss on tweet.tweet_Id = discuss.tweet_Id" +
+            "where discuss.discuss_Id=#{discuss_Id}")
     String getTweetUserId(String discuss_Id);
 
     /**
@@ -52,11 +64,11 @@ public interface DiscussMapper {
      * @return 增加条数
      * @author mnilsy
      */
-    @Insert("insert into discuss (discuss_Id, tweet_Id, user_Id, discuss_Vlue) values (#{discussPojo.discuss_Id},#{discussPojo.tweet_Id},#{discussPojo.user_Id},#{discussPojo.discuss_Vlue})")
+    @Insert("insert into discuss (discuss_Id, tweet_Id, user_Id, discuss_Vlue) values (#{discuss_Id},#{tweet_Id},#{user_Id},#{discuss_Vlue})")
     int insetrDiscuss(DiscussPojo discussPojo);
 
     /**
-     * 获取制定推文10条评论
+     * 获取指定推文10条评论
      *
      * @param tweet_Id 评论id
      * @param count    获取次数
@@ -65,5 +77,5 @@ public interface DiscussMapper {
      */
     @Select("select u.user_HeadUrl_min,u.user_Name,d.discuss_Vlue,d.discuss_Id " +
             "from user u join discuss d on u.user_Id = d.user_Id where d.tweet_Id=#{tweet_Id} and d.discuss_Condition=0 limit #{count},10")
-    List<DiscussVO> getTweetDiscuss(String tweet_Id, int count);
+    List<DiscussVO> getTweetDiscuss(@Param("tweet_Id") String tweet_Id, @Param("count") int count);
 }

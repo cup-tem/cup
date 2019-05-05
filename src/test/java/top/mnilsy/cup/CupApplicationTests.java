@@ -17,6 +17,7 @@ import top.mnilsy.cup.utils.ResponMessage;
 import top.mnilsy.cup.utils.SendSMSUtil;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @RunWith(SpringRunner.class)
@@ -74,6 +75,6 @@ public class CupApplicationTests {
     }
     @Test
     public void listtoString(){
-        System.out.println("dfadsfadsf".length());
+        System.out.println();
     }
 }

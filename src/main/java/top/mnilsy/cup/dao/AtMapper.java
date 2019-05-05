@@ -17,29 +17,32 @@ import java.util.List;
 public interface AtMapper {
     /**
      * 增加一条at记录
-     * @author mnilsy
+     *
      * @param atPojo 艾特pojo
      * @return 是否增加成功
+     * @author mnilsy
      */
-    @Insert("")
+    @Insert("insert into at(at_Id, user_Id, at_From_Id, at_From_Type) values (#{at_Id},#{user_Id},#{at_From_Id},#{at_From_Type})")
     int insertAt(AtPojo atPojo);
 
     /**
-     * 签收@
+     * 更改@的状态
      *
      * @param at_Id 艾特的id
-     * @return 是否更新成功
+     * @return 更新条数
+     * @author mnilsy
      */
-    @Update("")
-    int updateAt_Condition(String at_Id);
+    @Update("update at set at_Condition=1 where at_Id=#{at_Id}")
+    int updateCondition(String at_Id);
 
     /**
      * 根据艾特的id查询被艾特用户名
      *
      * @param at_Id 艾特的id
      * @return 被艾特的用户名
+     * @author mnilsy
      */
-    @Select("")
+    @Select("select user.user_Name from user join at on user.user_Id = at.user_Id where at.at_Id=#{at_Id}")
     String selectUser_Name(String at_Id);
 
     /**
@@ -47,8 +50,9 @@ public interface AtMapper {
      *
      * @param user_Id 用户id
      * @return 查询到的所有艾特
+     * @author mnilsy
      */
-    @Select("")
+    @Select("select * from at where at_Condition=0 and user_Id=#{user_Id}")
     List<AtPojo> selectNotSignforByUser_Id(String user_Id);
 
     /**
@@ -56,7 +60,9 @@ public interface AtMapper {
      *
      * @param user_Name 用户名
      * @return 查询到的所有艾特
+     * @author mnilsy
      */
-    @Select("")
+    @Select("select at.* from at join user on at.user_Id = user.user_Id " +
+            "where at.at_Condition=0 and user.user_Name=#{user_Name}")
     List<AtPojo> selectNotSignforByUserName(String user_Name);
 }

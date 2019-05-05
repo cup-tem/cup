@@ -1,6 +1,5 @@
 package top.mnilsy.cup.service;
 
-import top.mnilsy.cup.BO.AtBO;
 import top.mnilsy.cup.VO.MessageVO;
 
 import java.util.List;
@@ -12,8 +11,9 @@ public interface MessageService {
     /**
      * 存储聊天记录
      *
-     * @param messageVO 用户发送的信息
+     * @param messageVO 用户发送的信息,带发送者id，接受者id，聊天内容
      * @return 带message_id, message_Time的聊天记录包
+     * @author mnilsy
      */
     MessageVO addMessage(MessageVO messageVO);
 
@@ -22,6 +22,7 @@ public interface MessageService {
      *
      * @param message_Id 信息的id
      * @return 是否签收成功
+     * @author mnilsy
      */
     boolean signfor(String message_Id);
 
@@ -30,6 +31,7 @@ public interface MessageService {
      *
      * @param user_Name 接受用户的用户名
      * @return 是否发送成功
+     * @author mnilsy
      */
     List<MessageVO> getNotSignfor(String user_Name);
 
@@ -38,6 +40,7 @@ public interface MessageService {
      *
      * @param messageVO 信息包
      * @return 是否推送成功
+     * @author mnilsy
      */
     boolean sendMessageText(MessageVO messageVO);
 
