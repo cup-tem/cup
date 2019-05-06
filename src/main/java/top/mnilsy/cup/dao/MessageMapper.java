@@ -22,11 +22,11 @@ public interface MessageMapper {
      * @return 增加条数
      * @author mnilsy
      */
-    @Insert("insert into message (message_Id, message_Vlue, message_Sender_u_Id, message_Recipient_u_Id, message_Time)" +
-            "(select #{message_Id}, #{message_Vlue}, u1.user_Id as message_Sender_u_Id, u2.user_Id as message_Recipient_u_Id, #{message_Time}" +
+    @Insert("insert into message (message_Id, message_Vlue, message_Sender_u_Id, message_Recipient_u_Id, message_Time) " +
+            "(select #{message_Id}, #{message_Vlue}, u1.user_Id as message_Sender_u_Id, u2.user_Id as message_Recipient_u_Id, #{message_Time} " +
             "from user u1," +
-            "user u2" +
-            "where u1.user_Name = #{sender_Name}" +
+            "user u2 " +
+            "where u1.user_Name = #{sender_Name} " +
             "and u2.user_Name = #{recipient_Name})")
     int insertMessage(MessageVO messageVO);
 
@@ -47,13 +47,13 @@ public interface MessageMapper {
      * @return 私信的VO包
      * @author mnilsy
      */
-    @Select("select message_Id, message_Time, message_Vlue, u1.user_Name as sender_Name,u1.user_NickName as sender_NickName,#{user_Name} as recipient_Name,u2.user_NickName as recipient_NickName" +
+    @Select("select message_Id, message_Time, message_Vlue, u1.user_Name as sender_Name,u1.user_NickName as sender_NickName,#{user_Name} as recipient_Name,u2.user_NickName as recipient_NickName " +
             "from message," +
             "user u1," +
-            "user u2" +
-            "where u2.user_Name = #{user_Name}" +
-            "and message_Recipient_u_Id = u2.user_Id" +
-            "and message_Condition = 0" +
+            "user u2 " +
+            "where u2.user_Name = #{user_Name} " +
+            "and message_Recipient_u_Id = u2.user_Id " +
+            "and message_Condition = 0 " +
             "and u1.user_Id = message_Sender_u_Id")
     List<MessageVO> getRecipientAllCondition_0(String user_Name);
 }

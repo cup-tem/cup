@@ -21,7 +21,7 @@ public interface LocationMapper {
      * @return 增加条数
      * @author mnilsy
      */
-    @Insert("insert into location (location_Id, user_Id, location_X, location_Y, newTweetTime)" +
+    @Insert("insert into location (location_Id, user_Id, location_X, location_Y, newTweetTime) " +
             "(select #{location_Id},#{user_Id},#{location_X},#{location_Y},tweet_Time from tweet " +
             "where user_Id=#{user_Id} order by tweet_Time desc limit 1)")
     int insertLocation(LocationPojo locationPojo);
@@ -36,11 +36,11 @@ public interface LocationMapper {
     @Update("update location" +
             "set location_X = #{location_X}," +
             "location_Y = #{location_Y}," +
-            "newTweetTime = (select tweet_Time" +
+            "newTweetTime = (select tweet_Time " +
             "from tweet" +
-            "where tweet.user_Id = #{user_Id}" +
-            "order by tweet_Time desc" +
-            "limit 1)" +
+            "where tweet.user_Id = #{user_Id} " +
+            "order by tweet_Time desc " +
+            "limit 1) " +
             "where user_Id = #{user_Id}")
     int updateLocation(LocationPojo locationPojo);
 
@@ -60,20 +60,20 @@ public interface LocationMapper {
             "t.tweet_Time," +
             "t.tweet_Text," +
             "(select count(*) from `like` where tweet_Id = ?)  as tweet_LikeCount," +
-            "(select count(*) from discuss where tweet_Id = ?) as tweet_DiscussCount" +
-            "from user u" +
-            "join tweet t on u.user_Id = t.user_Id" +
-            "where u.user_Id in" +
-            "(select l1.user_Id" +
+            "(select count(*) from discuss where tweet_Id = ?) as tweet_DiscussCount " +
+            "from user u " +
+            "join tweet t on u.user_Id = t.user_Id " +
+            "where u.user_Id in " +
+            "(select l1.user_Id " +
             "from location l1," +
-            "location l2" +
-            "where l1.location_X >= l2.location_X - 0.01" +
-            "and l1.location_X <= l2.location_X + 0.01" +
-            "and l1.location_Y >= l2.location_Y - 0.01" +
-            "and l1.location_Y <= l2.location_Y + 0.01" +
-            "and timestampdiff(day, l1.location_Time, now()) <= 3" +
-            "and l2.user_Id = #{user_Id}" +
-            "order by newTweetTime desc" +
+            "location l2 " +
+            "where l1.location_X >= l2.location_X - 0.01 " +
+            "and l1.location_X <= l2.location_X + 0.01 " +
+            "and l1.location_Y >= l2.location_Y - 0.01 " +
+            "and l1.location_Y <= l2.location_Y + 0.01 " +
+            "and timestampdiff(day, l1.location_Time, now()) <= 3 " +
+            "and l2.user_Id = #{user_Id} " +
+            "order by newTweetTime desc " +
             "limit #{count},10)")
     @Results({
             @Result(property = "accessory", column = "tweet_Id",

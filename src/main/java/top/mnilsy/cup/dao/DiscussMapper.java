@@ -28,9 +28,9 @@ public interface DiscussMapper {
             "discuss.discuss_Vlue," +
             "discuss.discuss_Id," +
             "tweet.tweet_Id," +
-            "tweet.tweet_Text" +
-            "from discuss" +
-            "join user on discuss.user_Id = user.user_Id" +
+            "tweet.tweet_Text " +
+            "from discuss " +
+            "join user on discuss.user_Id = user.user_Id " +
             "join tweet on discuss.tweet_Id = tweet.tweet_Id")
     Discuss_AtVO getDiscuss_AtVO(String discuss_Id);
 
@@ -41,9 +41,9 @@ public interface DiscussMapper {
      * @return 评论者id
      * @author mnilsy
      */
-    @Select("select user.user_Id" +
-            "from user join tweet on user.user_Id = tweet.user_Id" +
-            "join discuss on tweet.tweet_Id = discuss.tweet_Id" +
+    @Select("select user.user_Id " +
+            "from user join tweet on user.user_Id = tweet.user_Id " +
+            "join discuss on tweet.tweet_Id = discuss.tweet_Id " +
             "where discuss.discuss_Id=#{discuss_Id}")
     String getTweetUserId(String discuss_Id);
 

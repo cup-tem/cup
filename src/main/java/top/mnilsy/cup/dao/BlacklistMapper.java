@@ -23,7 +23,7 @@ public interface BlacklistMapper {
      */
     @Insert("INSERT INTO blacklist (blackList_Id, firstParty_User_Id, secondParty_User_Id) " +
             "SELECT #{blackList_Id},#{firstParty_User_Id},#{secondParty_User_Id} " +
-            "from DUAL" +
+            "from DUAL " +
             "where not exists(select * from fans where firstParty_User_Id=#{firstParty_User_Id} and secondParty_User_Id=#{secondParty_User_Id})")
     int insertBlacklist(BlacklistPojo blacklistPojo);
 

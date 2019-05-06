@@ -18,7 +18,11 @@ public interface LikeMapper {
      * @return 赞的atVO包
      * @author mnilsy
      */
-    @Select("")
+    @Select("select u.user_HeadUrl_min, u.user_Name, u.user_NickName, l.like_Time, t.tweet_Id, t.tweet_Text " +
+            "from user u " +
+            "join `like` l on u.user_Id = l.user_Id " +
+            "join tweet t on l.tweet_Id = t.tweet_Id " +
+            "where l.like_Id = #{like_Id}")
     Like_AtVO getLike_AtVO(String like_Id);
 
     /**
@@ -28,7 +32,7 @@ public interface LikeMapper {
      * @return 推文发布用户id
      * @author mnilsy
      */
-    @Select("")
+    @Select("select t.user_Id from `like` l join tweet t on l.tweet_Id = t.tweet_Id where l.like_Id=#{like_Id}")
     String getTweetUserId(String like_Id);
 
     /**
@@ -40,7 +44,7 @@ public interface LikeMapper {
      */
     @Insert("INSERT INTO `like` (like_Id, tweet_Id, user_Id) " +
             "SELECT #{like_Id},#{tweet_Id},#{user_Id} " +
-            "from DUAL" +
+            "from DUAL " +
             "where not exists(select * from 'like' where tweet_Id=#{tweet_Id} and user_Id=#{user_Id})")
     int insertLike(LikePojo likePojo);
 

@@ -13,6 +13,7 @@ import top.mnilsy.cup.dao.DiscussMapper;
 import top.mnilsy.cup.dao.TweetMapper;
 import top.mnilsy.cup.dao.UserMapper;
 import top.mnilsy.cup.pojo.AccessoryPojo;
+import top.mnilsy.cup.pojo.UserPojo;
 import top.mnilsy.cup.utils.ResponMessage;
 import top.mnilsy.cup.utils.SendSMSUtil;
 
@@ -76,5 +77,13 @@ public class CupApplicationTests {
     @Test
     public void listtoString(){
         System.out.println();
+    }
+
+    @Test
+    public void testMapper(){
+        UserPojo userPojo=new UserPojo();
+        userPojo.setUser_Name("TestName");
+        userPojo.setUser_Phone("13536497415");
+        System.out.println(userMapper.setUserNameByPhoneInfo(userPojo));
     }
 }

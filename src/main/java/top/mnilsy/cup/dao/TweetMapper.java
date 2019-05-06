@@ -35,27 +35,6 @@ public interface TweetMapper {
     TweetVO getTweetVO(String tweet_Id);
 
     /**
-     * 根据推文id获取发推文用户的id
-     *
-     * @param tweet_Id 推文id
-     * @return 用户id
-     * @author mnilsy
-     */
-    @Select("")
-    String getUserId(String tweet_Id);
-
-
-    /**
-     * 根据推文id获取发推文用户名
-     *
-     * @param tweet_Id 推文id
-     * @return 发推文的用户名
-     * @author mnilsy
-     */
-    @Select("")
-    String getUserName(String tweet_Id);
-
-    /**
      * 增加一条推文记录
      *
      * @param tweetPojo 推文pojo包

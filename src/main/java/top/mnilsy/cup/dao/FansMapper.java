@@ -23,7 +23,7 @@ public interface FansMapper {
      */
     @Insert("INSERT INTO fans (fans_Id, firstParty_User_Id, secondParty_User_Id) " +
             "SELECT #{fans_Id},#{firstParty_User_Id},#{secondParty_User_Id} " +
-            "from DUAL" +
+            "from DUAL " +
             "where not exists(select * from fans where firstParty_User_Id=#{firstParty_User_Id} and secondParty_User_Id=#{secondParty_User_Id})")
     int insertFans(FansPojo fansPojo);
 
