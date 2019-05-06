@@ -23,6 +23,7 @@ public interface DiscussMapper {
      */
     @Select("select user.user_HeadUrl_min," +
             "user.user_Name," +
+            "user.user_NickName," +
             "discuss.discuss_Time," +
             "discuss.discuss_Vlue," +
             "discuss.discuss_Id," +
@@ -75,7 +76,7 @@ public interface DiscussMapper {
      * @return 评论VO包
      * @author mnilsy
      */
-    @Select("select u.user_HeadUrl_min,u.user_Name,d.discuss_Vlue,d.discuss_Id " +
+    @Select("select u.user_HeadUrl_min,u.user_Name,u.user_NickName,d.discuss_Vlue,d.discuss_Id " +
             "from user u join discuss d on u.user_Id = d.user_Id where d.tweet_Id=#{tweet_Id} and d.discuss_Condition=0 limit #{count},10")
     List<DiscussVO> getTweetDiscuss(@Param("tweet_Id") String tweet_Id, @Param("count") int count);
 }

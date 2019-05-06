@@ -5,6 +5,7 @@ import io.netty.channel.Channel;
 import io.netty.channel.ChannelId;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import top.mnilsy.cup.BO.AtBO;
 import top.mnilsy.cup.VO.*;
 import top.mnilsy.cup.dao.*;
@@ -58,6 +59,7 @@ public class AtServiceImpl implements AtService {
     }
 
     @Override
+    @Transactional
     public boolean discussAt(String at_From_Id) {
         //组装AtPojo，存库
         String user_Id = discussMapper.getTweetUserId(at_From_Id);//获取推文发送者id

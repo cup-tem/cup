@@ -45,6 +45,7 @@ public interface FansMapper {
      * @param user_Id 用户id
      * @param count   获取次数
      * @return 用户关注的人的VO包
+     * @author mnilsy
      */
     @Select("select u.user_HeadUrl_min,u.user_NickName,u.user_Name " +
             "from fans f join user u on f.secondParty_User_Id = u.user_Id " +
@@ -58,6 +59,7 @@ public interface FansMapper {
      * @param user_Id 用户id
      * @param count   获取次数
      * @return 关注用户的人的VO包
+     * @author mnilsy
      */
     @Select("select u.user_HeadUrl_min,u.user_NickName,u.user_Name " +
             "from fans f join user u on f.firstParty_User_Id = u.user_Id " +

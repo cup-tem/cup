@@ -6,6 +6,7 @@ package top.mnilsy.cup.VO;
 public class Discuss_AtVO {
     private String user_HeadUrl_min;
     private String user_Name;
+    private String user_NickName;
     private String discuss_Time;
     private String discuss_Vlue;
     private String discuss_Id;
@@ -15,9 +16,10 @@ public class Discuss_AtVO {
     public Discuss_AtVO() {
     }
 
-    public Discuss_AtVO(String user_HeadUrl_min, String user_Name, String discuss_Time, String discuss_Vlue, String discuss_Id, String tweet_Id, String tweet_Text) {
+    public Discuss_AtVO(String user_HeadUrl_min, String user_Name, String user_NickName, String discuss_Time, String discuss_Vlue, String discuss_Id, String tweet_Id, String tweet_Text) {
         this.user_HeadUrl_min = user_HeadUrl_min;
         this.user_Name = user_Name;
+        this.user_NickName = user_NickName;
         this.discuss_Time = discuss_Time;
         this.discuss_Vlue = discuss_Vlue;
         this.discuss_Id = discuss_Id;
@@ -39,6 +41,14 @@ public class Discuss_AtVO {
 
     public void setUser_Name(String user_Name) {
         this.user_Name = user_Name;
+    }
+
+    public String getUser_NickName() {
+        return user_NickName;
+    }
+
+    public void setUser_NickName(String user_NickName) {
+        this.user_NickName = user_NickName;
     }
 
     public String getDiscuss_Time() {
@@ -79,5 +89,19 @@ public class Discuss_AtVO {
 
     public void setTweet_Text(String tweet_Text) {
         this.tweet_Text = tweet_Text;
+    }
+
+    @Override
+    public String toString() {
+        return "Discuss_AtVO{" +
+                "user_HeadUrl_min='" + user_HeadUrl_min + '\'' +
+                ", user_Name='" + user_Name + '\'' +
+                ", user_NickName='" + user_NickName + '\'' +
+                ", discuss_Time='" + discuss_Time + '\'' +
+                ", discuss_Vlue='" + discuss_Vlue + '\'' +
+                ", discuss_Id='" + discuss_Id + '\'' +
+                ", tweet_Id='" + tweet_Id + '\'' +
+                ", tweet_Text='" + tweet_Text + '\'' +
+                '}';
     }
 }

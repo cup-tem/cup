@@ -9,6 +9,7 @@ import java.util.List;
 public class TweetVO {
     private String user_HeadUrl_min;
     private String user_Name;
+    private String user_NickName;
     private String tweet_Id;
     private String tweet_Time;
     private String tweet_Text;
@@ -19,9 +20,10 @@ public class TweetVO {
     public TweetVO() {
     }
 
-    public TweetVO(String user_HeadUrl_min, String user_Name, String tweet_Id, String tweet_Time, String tweet_Text, int tweet_LikeCount, int tweet_DiscussCount, List<String> accessory) {
+    public TweetVO(String user_HeadUrl_min, String user_Name, String user_NickName, String tweet_Id, String tweet_Time, String tweet_Text, int tweet_LikeCount, int tweet_DiscussCount, List<String> accessory) {
         this.user_HeadUrl_min = user_HeadUrl_min;
         this.user_Name = user_Name;
+        this.user_NickName = user_NickName;
         this.tweet_Id = tweet_Id;
         this.tweet_Time = tweet_Time;
         this.tweet_Text = tweet_Text;
@@ -44,6 +46,14 @@ public class TweetVO {
 
     public void setUser_Name(String user_Name) {
         this.user_Name = user_Name;
+    }
+
+    public String getUser_NickName() {
+        return user_NickName;
+    }
+
+    public void setUser_NickName(String user_NickName) {
+        this.user_NickName = user_NickName;
     }
 
     public String getTweet_Id() {
@@ -99,6 +109,7 @@ public class TweetVO {
         return "TweetVO{" +
                 "user_HeadUrl_min='" + user_HeadUrl_min + '\'' +
                 ", user_Name='" + user_Name + '\'' +
+                ", user_NickName='" + user_NickName + '\'' +
                 ", tweet_Id='" + tweet_Id + '\'' +
                 ", tweet_Time='" + tweet_Time + '\'' +
                 ", tweet_Text='" + tweet_Text + '\'' +

@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 import top.mnilsy.cup.VO.MessageVO;
-import top.mnilsy.cup.pojo.MessagePojo;
 
 import java.util.List;
 
@@ -42,13 +41,13 @@ public interface MessageMapper {
     int updataCondition(String message_Id);
 
     /**
-     * 获取制定接收用户所有状态为0的私信
+     * 获取指定接收用户所有状态为0的私信
      *
      * @param user_Name 接受用户名
      * @return 私信的VO包
      * @author mnilsy
      */
-    @Select("select message_Id, message_Time, message_Vlue, u1.user_Name as sender_Name, #{user_Name} as recipient_Name" +
+    @Select("select message_Id, message_Time, message_Vlue, u1.user_Name as sender_Name,u1.user_NickName as sender_NickName,#{user_Name} as recipient_Name,u2.user_NickName as recipient_NickName" +
             "from message," +
             "user u1," +
             "user u2" +

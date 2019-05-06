@@ -12,10 +12,11 @@ import top.mnilsy.cup.pojo.LikePojo;
 @Mapper
 public interface LikeMapper {
     /**
+     * 根据赞的id获取赞的atVO包
+     *
      * @param like_Id 赞的id
      * @return 赞的atVO包
      * @author mnilsy
-     * 根据赞的id获取赞的atVO包
      */
     @Select("")
     Like_AtVO getLike_AtVO(String like_Id);

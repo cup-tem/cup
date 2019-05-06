@@ -45,6 +45,7 @@ public interface BlacklistMapper {
      * @param user_Id 用户id
      * @param count 获取次数
      * @return 用户拉黑的人的VO包
+     * @author mnilsy
      */
     @Select("select u.user_HeadUrl_min,u.user_NickName,u.user_Name " +
             "from blacklist b join user u on b.secondParty_User_Id = u.user_Id " +

@@ -6,6 +6,7 @@ package top.mnilsy.cup.VO;
 public class Like_AtVO {
     private String user_HeadUrl_min;
     private String user_Name;
+    private String user_NickName;
     private String like_Time;
     private String tweet_Id;
     private String tweet_Text;
@@ -13,9 +14,10 @@ public class Like_AtVO {
     public Like_AtVO() {
     }
 
-    public Like_AtVO(String user_HeadUrl_min, String user_Name, String like_Time, String tweet_Id, String tweet_Text) {
+    public Like_AtVO(String user_HeadUrl_min, String user_Name, String user_NickName, String like_Time, String tweet_Id, String tweet_Text) {
         this.user_HeadUrl_min = user_HeadUrl_min;
         this.user_Name = user_Name;
+        this.user_NickName = user_NickName;
         this.like_Time = like_Time;
         this.tweet_Id = tweet_Id;
         this.tweet_Text = tweet_Text;
@@ -35,6 +37,14 @@ public class Like_AtVO {
 
     public void setUser_Name(String user_Name) {
         this.user_Name = user_Name;
+    }
+
+    public String getUser_NickName() {
+        return user_NickName;
+    }
+
+    public void setUser_NickName(String user_NickName) {
+        this.user_NickName = user_NickName;
     }
 
     public String getLike_Time() {
@@ -66,6 +76,7 @@ public class Like_AtVO {
         return "Like_AtVO{" +
                 "user_HeadUrl_min='" + user_HeadUrl_min + '\'' +
                 ", user_Name='" + user_Name + '\'' +
+                ", user_NickName='" + user_NickName + '\'' +
                 ", like_Time='" + like_Time + '\'' +
                 ", tweet_Id='" + tweet_Id + '\'' +
                 ", tweet_Text='" + tweet_Text + '\'' +

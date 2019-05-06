@@ -6,12 +6,14 @@ package top.mnilsy.cup.VO;
 public class DiscussVO {
     private String user_HeadUrl_min;
     private String user_Name;
+    private String user_NickName;
     private String discuss_Vlue;
     private String discuss_Id;
 
-    public DiscussVO(String user_HeadUrl_min, String user_Name, String discuss_Vlue, String discuss_Id) {
+    public DiscussVO(String user_HeadUrl_min, String user_Name, String user_NickName, String discuss_Vlue, String discuss_Id) {
         this.user_HeadUrl_min = user_HeadUrl_min;
         this.user_Name = user_Name;
+        this.user_NickName = user_NickName;
         this.discuss_Vlue = discuss_Vlue;
         this.discuss_Id = discuss_Id;
     }
@@ -35,6 +37,14 @@ public class DiscussVO {
         this.user_Name = user_Name;
     }
 
+    public String getUser_NickName() {
+        return user_NickName;
+    }
+
+    public void setUser_NickName(String user_NickName) {
+        this.user_NickName = user_NickName;
+    }
+
     public String getDiscuss_Vlue() {
         return discuss_Vlue;
     }
@@ -56,6 +66,7 @@ public class DiscussVO {
         return "DiscussVO{" +
                 "user_HeadUrl_min='" + user_HeadUrl_min + '\'' +
                 ", user_Name='" + user_Name + '\'' +
+                ", user_NickName='" + user_NickName + '\'' +
                 ", discuss_Vlue='" + discuss_Vlue + '\'' +
                 ", discuss_Id='" + discuss_Id + '\'' +
                 '}';

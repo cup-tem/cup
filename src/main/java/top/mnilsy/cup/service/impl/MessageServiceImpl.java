@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelId;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import top.mnilsy.cup.VO.MessageVO;
 import top.mnilsy.cup.dao.MessageMapper;
@@ -12,7 +11,6 @@ import top.mnilsy.cup.enums.NettyActionEnum;
 import top.mnilsy.cup.netty.ChatHandler;
 import top.mnilsy.cup.netty.DataContent;
 import top.mnilsy.cup.netty.UserChannelRel;
-import top.mnilsy.cup.pojo.MessagePojo;
 import top.mnilsy.cup.service.MessageService;
 
 import javax.annotation.Resource;

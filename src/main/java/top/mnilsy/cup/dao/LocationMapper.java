@@ -55,6 +55,7 @@ public interface LocationMapper {
      */
     @Select("select u.user_HeadUrl_min," +
             "u.user_Name," +
+            "u.user_NickName," +
             "t.tweet_Id," +
             "t.tweet_Time," +
             "t.tweet_Text," +

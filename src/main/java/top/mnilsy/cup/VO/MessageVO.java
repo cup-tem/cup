@@ -9,6 +9,8 @@ public class MessageVO implements Serializable {
     private static final long serialVersionUID = -2784125080402473724L;
     private String sender_Name;
     private String recipient_Name;
+    private String sender_NickName;
+    private String recipient_NickName;
     private String message_Vlue;
     private String message_Time;
     private String message_Id;
@@ -16,9 +18,11 @@ public class MessageVO implements Serializable {
     public MessageVO() {
     }
 
-    public MessageVO(String sender_Name, String recipient_Name, String message_Vlue, String message_Time, String message_Id) {
+    public MessageVO(String sender_Name, String recipient_Name, String sender_NickName, String recipient_NickName, String message_Vlue, String message_Time, String message_Id) {
         this.sender_Name = sender_Name;
         this.recipient_Name = recipient_Name;
+        this.sender_NickName = sender_NickName;
+        this.recipient_NickName = recipient_NickName;
         this.message_Vlue = message_Vlue;
         this.message_Time = message_Time;
         this.message_Id = message_Id;
@@ -38,6 +42,26 @@ public class MessageVO implements Serializable {
 
     public void setRecipient_Name(String recipient_Name) {
         this.recipient_Name = recipient_Name;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public String getSender_NickName() {
+        return sender_NickName;
+    }
+
+    public void setSender_NickName(String sender_NickName) {
+        this.sender_NickName = sender_NickName;
+    }
+
+    public String getRecipient_NickName() {
+        return recipient_NickName;
+    }
+
+    public void setRecipient_NickName(String recipient_NickName) {
+        this.recipient_NickName = recipient_NickName;
     }
 
     public String getMessage_Vlue() {
@@ -69,6 +93,8 @@ public class MessageVO implements Serializable {
         return "MessageVO{" +
                 "sender_Name='" + sender_Name + '\'' +
                 ", recipient_Name='" + recipient_Name + '\'' +
+                ", sender_NickName='" + sender_NickName + '\'' +
+                ", recipient_NickName='" + recipient_NickName + '\'' +
                 ", message_Vlue='" + message_Vlue + '\'' +
                 ", message_Time='" + message_Time + '\'' +
                 ", message_Id='" + message_Id + '\'' +

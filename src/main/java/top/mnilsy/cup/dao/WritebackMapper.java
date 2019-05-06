@@ -22,6 +22,7 @@ public interface WritebackMapper {
      */
     @Select("select user.user_HeadUrl_min," +
             "user.user_Name," +
+            "user.user_NickName," +
             "writeback.writeBack_Time," +
             "writeback.writeBack_Vlue," +
             "writeback.writeBack_User_Id," +
