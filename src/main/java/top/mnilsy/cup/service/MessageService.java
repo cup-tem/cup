@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface MessageService {
     /**
-     * 存储聊天记录
+     * 判断聊天是否可被允许，存储聊天记录
      *
      * @param messageVO 用户发送的信息,带发送者id，接受者id，聊天内容
      * @return 带message_id, message_Time的聊天记录包

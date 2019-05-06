@@ -8,10 +8,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import top.mnilsy.cup.VO.TweetVO;
 import top.mnilsy.cup.VO.UserVO;
-import top.mnilsy.cup.dao.AccessoryMapper;
-import top.mnilsy.cup.dao.DiscussMapper;
-import top.mnilsy.cup.dao.TweetMapper;
-import top.mnilsy.cup.dao.UserMapper;
+import top.mnilsy.cup.dao.*;
 import top.mnilsy.cup.pojo.AccessoryPojo;
 import top.mnilsy.cup.pojo.UserPojo;
 import top.mnilsy.cup.utils.ResponMessage;
@@ -36,6 +33,9 @@ public class CupApplicationTests {
 
     @Resource(name = "tweetMapper")
     private TweetMapper tweetMapper;
+
+    @Resource(name = "blacklistMapper")
+    private BlacklistMapper blacklistMapper;
 
     @Test
     public void contextLoads() {
@@ -81,9 +81,6 @@ public class CupApplicationTests {
 
     @Test
     public void testMapper(){
-        UserPojo userPojo=new UserPojo();
-        userPojo.setUser_Name("TestName");
-        userPojo.setUser_Phone("13536497415");
-        System.out.println(userMapper.setUserNameByPhoneInfo(userPojo));
+
     }
 }

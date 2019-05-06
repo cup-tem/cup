@@ -69,7 +69,10 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
         if (action == NettyActionEnum.CHAT_TEXT.vule) {
             //聊天类型的消息，把聊天记录保存到数据库
             MessageVO sendmessageVO = messageService.addMessage((MessageVO) dataContent.getData());
-            if (sendmessageVO == null) return;
+            if (sendmessageVO == null) {
+                currentChannel.writeAndFlush(new TextWebSocketFrame(JSON.toJSONString(new DataContent(NettyActionEnum.ERROR.vule, null, null))));
+                return;
+            }
             //发送消息
             messageService.sendMessageText(sendmessageVO);
             return;

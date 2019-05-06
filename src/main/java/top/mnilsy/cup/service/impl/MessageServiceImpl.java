@@ -6,6 +6,7 @@ import io.netty.channel.ChannelId;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import org.springframework.stereotype.Service;
 import top.mnilsy.cup.VO.MessageVO;
+import top.mnilsy.cup.dao.BlacklistMapper;
 import top.mnilsy.cup.dao.MessageMapper;
 import top.mnilsy.cup.enums.NettyActionEnum;
 import top.mnilsy.cup.netty.ChatHandler;
@@ -27,9 +28,13 @@ public class MessageServiceImpl implements MessageService {
     @Resource(name = "messageMapper")
     private MessageMapper messageMapper;
 
+    @Resource(name = "blacklistMapper")
+    private BlacklistMapper blacklistMapper;
+
     @Override
     public MessageVO addMessage(MessageVO messageVO) {
         if (messageVO.getMessage_Vlue() == null || messageVO.getMessage_Vlue().trim().length() == 0) return null;
+        if (blacklistMapper.isBlacklist(messageVO.getSender_Name(), messageVO.getRecipient_Name()) == 1) return null;
         messageVO.setMessage_Id(UUID.randomUUID().toString());
         messageVO.setMessage_Time(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
         if (messageMapper.insertMessage(messageVO) == 1)

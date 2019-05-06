@@ -42,13 +42,29 @@ public interface BlacklistMapper {
 
     /**
      * 根据用户id黑名单的人，每次获取15个
+     *
      * @param user_Id 用户id
-     * @param count 获取次数
+     * @param count   获取次数
      * @return 用户拉黑的人的VO包
      * @author mnilsy
      */
     @Select("select u.user_HeadUrl_min,u.user_NickName,u.user_Name " +
             "from blacklist b join user u on b.secondParty_User_Id = u.user_Id " +
             "where b.blackList_Condition=0 and u.user_Condition=0 and firstParty_User_Id=#{user_Id} limit #{count},15")
-    List<UserListVO> getBlackist(@Param("user_Id") String user_Id,@Param("count") int count);
+    List<UserListVO> getBlackist(@Param("user_Id") String user_Id, @Param("count") int count);
+
+    /**
+     * 根据两用户名查询是否为黑名单关系
+     *
+     * @param message_Recipient_user_Name 被拉黑者用户名
+     * @param message_Recipient_user_Name 拉黑者用户名
+     * @return
+     */
+    @Select("select count(*) " +
+            "from blacklist b " +
+            "join user u1 on b.firstParty_User_Id = u1.user_Id " +
+            "join user u2 on b.secondParty_User_Id = u2.user_Id " +
+            "where u1.user_Name = #{message_Recipient_user_Name} " +
+            "and u2.user_Name = #{message_Sender_User_Name}")
+    int isBlacklist(@Param("message_Sender_User_Name") String message_Sender_User_Name, @Param("message_Recipient_user_Name") String message_Recipient_user_Name);
 }

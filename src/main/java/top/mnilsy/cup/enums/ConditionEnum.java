@@ -8,27 +8,11 @@ public enum ConditionEnum {
     DELETE(1, "停封"),
     SIGN_FOR(1,"签收");
 
-    private int vlue;
-    private String desc;
+    public int vlue;
+    public String desc;
 
     ConditionEnum(int vlue, String desc) {
         this.vlue = vlue;
-        this.desc = desc;
-    }
-
-    public int getVlue() {
-        return vlue;
-    }
-
-    public void setVlue(int vlue) {
-        this.vlue = vlue;
-    }
-
-    public String getDesc() {
-        return desc;
-    }
-
-    public void setDesc(String desc) {
         this.desc = desc;
     }
 }

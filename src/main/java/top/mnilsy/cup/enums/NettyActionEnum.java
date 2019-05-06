@@ -14,7 +14,8 @@ public enum NettyActionEnum {
     SIGNFOR_MESSAGE(4, "签收私信"),//extand存放私信id message_Id
     KEEPALIVE(5, "保持心跳"),
     AT(6, "@"),//data存放AtPojoVO
-    SIGNFOR_AT(7, "签收@");//extand存放@id at_Id
+    SIGNFOR_AT(7, "签收@"),//extand存放@id at_Id
+    ERROR(8,"失败");
 
     public int vule;
     public String desc;

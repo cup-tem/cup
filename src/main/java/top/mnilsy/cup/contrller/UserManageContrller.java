@@ -32,7 +32,7 @@ public class UserManageContrller {
      * @param requestMessage 用户名||手机号码||电子邮箱data.get("user")，密码data.get("passwd")
      * @return 请求状态码status，失败信息message，用户信息data.userVO,会话data.sessionid
      */
-    @PostMapping("/passwdLogin.api")
+    @PostMapping("/open/passwdLogin.api")
     public ResponMessage passwdLogin(RequestMessage requestMessage, HttpSession session) {
        UserPojo userPojo = userService.getPasswdLogin((String)requestMessage.getData().get("user"),(String)requestMessage.getData().get("passwd"));
        if (userPojo != null){
@@ -52,7 +52,7 @@ public class UserManageContrller {
      * @param requestMessage 手机号码data.get("user_Phone“）
      * @return 请求状态码status，失败信息message，会话data.sessionid
      */
-    @GetMapping("/getPhoneCode.api")
+    @GetMapping("/open/getPhoneCode.api")
     public ResponMessage getPhoneCode(RequestMessage requestMessage, HttpSession session) {
         String code = userService.getPhoneCode((String) requestMessage.getData().get("user_Phone"));
         if (code != null) {
@@ -70,7 +70,7 @@ public class UserManageContrller {
      * @param requestMessage 手机号码data.get("user_Phone")，验证码data.get("code")
      * @return 请求状态码status，失败信息message，用户信息data.userVO
      */
-    @PostMapping("/codeLogin.api")
+    @PostMapping("/open/codeLogin.api")
     public ResponMessage codeLogin(RequestMessage requestMessage, HttpSession session) {
         UserPojo userPojo = userService.codeLogin((String)requestMessage.getData().get("user_Phone"),(String)requestMessage.getData().get("code"));
             if (userPojo != null){
@@ -87,7 +87,7 @@ public class UserManageContrller {
      * @param requestMessage 手机号码data.get("user_Phone")，验证码data.get("code")
      * @return 请求状态码status，失败信息message
      */
-    @PostMapping("/register.api")
+    @PostMapping("/open/register.api")
     public ResponMessage register(RequestMessage requestMessage) {
         String register = userService.register((String)requestMessage.getData().get("user_Phone"),(String)requestMessage.getData().get("code"));
         if (register != null){
@@ -102,7 +102,7 @@ public class UserManageContrller {
      * @param requestMessage 用户名data.get("user_Name")
      * @return 请求状态码status
      */
-    @PostMapping("/checkUserName.api")
+    @PostMapping("/open/checkUserName.api")
     public ResponMessage checkUserName(RequestMessage requestMessage) {
         String checkUserName = userService.checkUserName((String)requestMessage.getData().get("user_Name"));
         if (checkUserName != null){
@@ -203,7 +203,7 @@ public class UserManageContrller {
      * @param requestMessage 用户新密码data.get("newPasswd")，手机验证码data.get("code")
      * @return 请求状态码status，失败信息message
      */
-    @PostMapping("/retrievePasswd.api")
+    @PostMapping("/open/retrievePasswd.api")
     public ResponMessage retrievePasswd(RequestMessage requestMessage,HttpSession session) {
         UserPojo userPojo = (UserPojo) session.getAttribute("userPojo");
         String retrievePasswd = userService.retrievePasswd((String)requestMessage.getData().get("newPasswd"),(String)requestMessage.getData().get("code"),userPojo);
@@ -235,7 +235,7 @@ public class UserManageContrller {
      * @param requestMessage 用户电子邮箱data.get("user_Email")
      * @return 请求状态码status，失败信息message
      */
-    @GetMapping("/getEmailCode.api")
+    @GetMapping("/open/getEmailCode.api")
     public ResponMessage getEmailCode(RequestMessage requestMessage,HttpSession session) {
         String eCode = userService.getEmailCode((String) requestMessage.getData().get("user_Email"));
         if (eCode != null) {

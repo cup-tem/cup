@@ -1,12 +1,13 @@
 package top.mnilsy.cup.utils;
 
+import top.mnilsy.cup.enums.ResponMessageTypeEnum;
+
 /**
  * Created by mnilsy on 19-4-19 上午12:05.
  * 用于返回客户端信息包
  * statu为返回状态码
- * 200为成功||true
- * 500为失败
- * 400为false
+ *
+ * @see top.mnilsy.cup.enums.ResponMessageTypeEnum
  * message为返回信息
  * data为返回对象，多对象时存储Map
  */
@@ -43,7 +44,7 @@ public class ResponMessage {
     }
 
     public ResponMessage(Object data) {
-        this.status = 200;
+        this.status = ResponMessageTypeEnum.SUCCEE.vlue;
         this.data = data;
     }
 
@@ -51,6 +52,11 @@ public class ResponMessage {
         this.status = status;
         this.message = message;
         this.data = data;
+    }
+
+    public ResponMessage(int status, String message) {
+        this.status = status;
+        this.message = message;
     }
 
     /**
@@ -78,7 +84,7 @@ public class ResponMessage {
      * @return
      */
     public static ResponMessage error() {
-        return new ResponMessage(500, null, null);
+        return new ResponMessage(ResponMessageTypeEnum.ERROR.vlue, null, null);
     }
 
     /**
@@ -88,7 +94,16 @@ public class ResponMessage {
      * @return
      */
     public static ResponMessage error(String message) {
-        return new ResponMessage(500, message, null);
+        return new ResponMessage(ResponMessageTypeEnum.ERROR.vlue, message, null);
+    }
+
+    /**
+     * 未登录
+     *
+     * @return
+     */
+    public static ResponMessage not_login() {
+        return new ResponMessage(ResponMessageTypeEnum.NOT_LOGIN.vlue, "未登录，权限不够", null);
     }
 
     /**
@@ -97,6 +112,6 @@ public class ResponMessage {
      * @return
      */
     public static ResponMessage no() {
-        return new ResponMessage(400, null, null);
+        return new ResponMessage(ResponMessageTypeEnum.FALSE.vlue, null, null);
     }
 }
