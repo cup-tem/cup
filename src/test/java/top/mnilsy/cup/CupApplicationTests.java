@@ -89,4 +89,9 @@ public class CupApplicationTests {
         int name = userMapper.updateUserNickName(userVO);
         System.out.println(name);
     }
+
+    @Test
+    public void testController(){
+
+    }
 }
