@@ -55,7 +55,6 @@ public class UserServiceImpl implements UserService {
         PasswdPojo passwdPojo = null;
         if (user != null || passwd != null){
            userPojo = userMapper.getUserByNamePhoneEmail(user);
-           String name = userPojo.getUser_Name();
            String id = userPojo.getUser_Id();
            passwdPojo = userMapper.getPasswdById(id);
            String pw = passwdPojo.getPasswd_Normal();
@@ -123,6 +122,7 @@ public class UserServiceImpl implements UserService {
     public String register(String user_Phone, String code) {
         UserVO userVO = null;
         UserPojo userPojo = null;
+        PasswdPojo passwdPojo = null;
         UserMapper userMapper = null;
         String telRegex = "^[1](([3|5|8][\\\\d])|([4][5-9])|([6][5,6])|([7][3-8])|([9][8,9]))[\\\\d]{8}$";
         String thiscode = this.getPhoneCode(user_Phone);
@@ -133,6 +133,8 @@ public class UserServiceImpl implements UserService {
                     if (thiscode.equals(code)){
                         userPojo.setUser_Phone(user_Phone);
                         userMapper.addUserByPhoneInfo(userPojo);
+                        passwdPojo.setUser_Id(userPojo.getUser_Id());
+                        userMapper.setPasswd(passwdPojo);
                         return userPojo.toString();
                     }
                     return null;
@@ -151,19 +153,21 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public UserVO setUserNamePasswd(String user_Name, String passwd,UserPojo userPojo) {
+        UserMapper userMapper = null;
+        PasswdPojo passwdPojo = null;
+        UserVO userVO = null;
         if (user_Name != null && passwd != null){
-            UserVO userVO = null;
-            PasswdPojo passwdPojo = null;
-            UserMapper userMapper = null;
             userPojo.setUser_Name(user_Name);
-            passwdPojo.setPasswd_Normal(passwd);
-            userMapper.setUserNameByPhoneInfo(userPojo);
-            String userId = userPojo.getUser_Id();
-            passwdPojo.setUser_Id(userId);
-            passwdPojo.setPasswd_Normal(passwd);
-            userMapper.setPasswd(passwdPojo);
-            userVO = userMapper.getUserByName(userPojo.getUser_Name());
-            return userVO;
+            int  number = userMapper.setUserNameByPhoneInfo(userPojo);
+            if (number == 1){
+                String userId = userPojo.getUser_Id();
+                passwdPojo.setUser_Id(userId);
+                passwdPojo.setPasswd_Normal(passwd);
+                userMapper.setPasswd(passwdPojo);
+                userVO = userMapper.getUserByName(userPojo.getUser_Name());
+                return userVO;
+            }
+            return null;
         }
         return null;
     }

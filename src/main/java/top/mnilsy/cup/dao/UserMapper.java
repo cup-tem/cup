@@ -64,8 +64,8 @@ public interface UserMapper {
      * @return 用户基本资料
      * @author Jason_Jane
      */
-    @Update("update user set user_Name = #{user_Name} where user_Name = #{user_Phone}")
-    UserPojo setUserNameByPhoneInfo(UserPojo userPojo);
+    @Update("update user set user_Name = #{user_Name} where user_Phone = #{user_Phone}")
+    int setUserNameByPhoneInfo(UserPojo userPojo);
 
     /**
      * 设置密码
@@ -74,8 +74,8 @@ public interface UserMapper {
      * @return passwdPojo
      * @author Jason_Jane
      */
-    @Insert("insert into passwd (user_Id,passwd_Normal) values(#{User_Id},#{Passwd})")
-    PasswdPojo setPasswd(PasswdPojo passwdPojo);
+    @Insert("insert into passwd (user_Id,passwd_Normal) values(#{pser_Id},#{passwd})")
+    int setPasswd(PasswdPojo passwdPojo);
 
     /**
      * 根据user_Name\\user_Phone\\user_email查询用户信息
@@ -84,7 +84,7 @@ public interface UserMapper {
      * @return 用户基本资料
      * @author Jason_Jane
      */
-    @Select("select user_Id from user where user_Name = #{user} or user_Phone = #{user} or user_email = #{user}")
+    @Select("select * from user where user_Name = #{user} or user_Phone = #{user} or user_email = #{user}")
     UserPojo getUserByNamePhoneEmail(String user);
 
     /**
@@ -145,7 +145,7 @@ public interface UserMapper {
      * @author Jason_Jane
      */
     @Update("update user set user_Sex = #{user_Sex} where user_Name = #{user_Name}")
-    UserVO updateUserSex(UserVO userVO);
+    int updateUserSex(UserVO userVO);
 
     /**
      * 修改密码
@@ -154,8 +154,8 @@ public interface UserMapper {
      * @return passwdPojo
      * @author Jason_Jane
      */
-    @Update("update passwd set passwd_Old3 = #{Passwd_Old3} and passwd_Old2 = #{Passwd_Old2} and passwd_Old1 = #{Passwd_Old1} and passwd_Normal = #{Passwd_Normal} where user_Id = #{user_Id}")
-    PasswdPojo updatePasswd(PasswdPojo passwdPojo);
+    @Update("update passwd set passwd_Old3 = #{psswd_Old3} and passwd_Old2 = #{psswd_Old2} and passwd_Old1 = #{psswd_Old1} and passwd_Normal = #{psswd_Normal} where user_Id = #{user_Id}")
+    int updatePasswd(PasswdPojo passwdPojo);
 
 
     /**
@@ -166,7 +166,7 @@ public interface UserMapper {
      * @author Jason_Jane
      */
     @Insert("insert into user (user_Id,user_Name,user_NickName,user_Phone) values(?,?,?,?)")
-    UserPojo addUserByPhoneInfo(UserPojo userPojo);
+    int addUserByPhoneInfo(UserPojo userPojo);
 
     /**
      * 找回密码
@@ -175,8 +175,8 @@ public interface UserMapper {
      * @return passwdPojo
      * @author Jason_Jane
      */
-    @Update("update passwd set passwd_Old3 = #{Passwd_Old3} and passwd_Old2 = #{Passwd_Old2} and passwd_Old1 = #{Passwd_Old1} and passwd_Normal = #{Passwd_Normal} where user_Id = #{user_Id}")
-    PasswdPojo findPasswd(PasswdPojo passwdPojo);
+    @Update("update passwd set passwd_Old3 = #{passwd_Old3} and passwd_Old2 = #{passwd_Old2} and passwd_Old1 = #{psswd_Old1} and passwd_Normal = #{psswd_Normal} where user_Id = #{user_Id}")
+    int findPasswd(PasswdPojo passwdPojo);
 
     /**
      * 修改手机号
@@ -186,7 +186,7 @@ public interface UserMapper {
      * @author Jason_Jane
      */
     @Update("update user set user_Phone = #{User_Phone} where user_Phone = #{oldPhone}")
-    UserVO updatePhone(UserVO userVO, String oldPhone);
+    int updatePhone(UserVO userVO, String oldPhone);
 
     /**
      * 绑定电子邮箱
@@ -195,8 +195,8 @@ public interface UserMapper {
      * @return userVO
      * @author Jason_Jane
      */
-    @Update("update user set user_email = #{user_Email} where user_Name = #{User_Name}")
-    UserVO bindUserEmail(UserVO userVO);
+    @Update("update user set user_email = #{user_Email} where user_Name = #{user_Name}")
+    int bindUserEmail(UserVO userVO);
 
     /**
      * 修改电子邮箱
@@ -205,8 +205,8 @@ public interface UserMapper {
      * @return userVO
      * @author Jason_Jane
      */
-    @Update("update user set user_email = #{user_Email} where user_Name = #{User_Name}")
-    UserVO updateUserEmail(UserVO userVO);
+    @Update("update user set user_email = #{user_Email} where user_Name = #{user_Name}")
+    int updateUserEmail(UserVO userVO);
 
     /**
      * 修改昵称
@@ -215,6 +215,6 @@ public interface UserMapper {
      * @return userVO
      * @author Jason_Jane
      */
-    @Update("update user set user_NickName = #{user_NickName} where user_Name = #{User_Name}")
-    UserVO updateUserNickName(UserVO userVO);
+    @Update("update user set user_NickName = #{user_NickName} where user_Name = #{user_Name}")
+    int updateUserNickName(UserVO userVO);
 }
