@@ -3,7 +3,7 @@ package top.mnilsy.cup.contrller;
 
 import org.springframework.web.bind.annotation.*;
 import top.mnilsy.cup.VO.UserVO;
-import top.mnilsy.cup.pojo.PasswdPojo;
+import top.mnilsy.cup.dao.UserMapper;
 import top.mnilsy.cup.pojo.UserPojo;
 import top.mnilsy.cup.service.UserService;
 import top.mnilsy.cup.utils.RequestMessage;
@@ -160,6 +160,9 @@ public class UserManageContrller {
         UserPojo userPojo = (UserPojo) session.getAttribute("userPojo");
         UserVO userVO = userService.updateUserNickName((String)requestMessage.getData().get("user_Sex"),userPojo);
         if (userVO != null){
+            UserMapper userMapper = null;
+            userPojo = userMapper.getUserByUserName(userVO.getUser_Name());
+            session.setAttribute("userPojo",userPojo);
             return ResponMessage.ok(userVO);
         }
         return ResponMessage.error("修改昵称失败");
@@ -176,6 +179,9 @@ public class UserManageContrller {
         UserPojo userPojo = (UserPojo) session.getAttribute("userPojo");
         UserVO userVO = userService.updateUserSex((String)requestMessage.getData().get("user_Sex"),userPojo);
         if (userVO != null){
+            UserMapper userMapper = null;
+            userPojo = userMapper.getUserByUserName(userVO.getUser_Name());
+            session.setAttribute("userPojo",userPojo);
             return ResponMessage.ok(userVO);
         }
         return ResponMessage.error("修改性别失败");
@@ -221,10 +227,14 @@ public class UserManageContrller {
      */
     @PostMapping("/updateUserPhone.api")
     public ResponMessage updateUserPhone(RequestMessage requestMessage,HttpSession session) {
-        String oldPhone = session.getAttribute("user_Phone").toString();
-        UserVO updateUserPhone = userService.updateUserPhone((String)requestMessage.getData().get("user_Phone"),(String)requestMessage.getData().get("code"),oldPhone);
-        if (updateUserPhone != null){
-            return ResponMessage.ok(updateUserPhone);
+        UserPojo userPojo = (UserPojo) session.getAttribute("userPojo");
+        String oldPhone = userPojo.getUser_Phone();
+        UserVO userVO = userService.updateUserPhone((String)requestMessage.getData().get("user_Phone"),(String)requestMessage.getData().get("code"),oldPhone);
+        if (userVO != null){
+            UserMapper userMapper = null;
+            userPojo = userMapper.getUserByUserName(userVO.getUser_Name());
+            session.setAttribute("userPojo",userPojo);
+            return ResponMessage.ok(userVO);
         }
         return ResponMessage.error("修改手机号码失败");
     }
@@ -258,6 +268,9 @@ public class UserManageContrller {
         UserPojo userPojo = (UserPojo) session.getAttribute("userPojo");
         UserVO userVO = userService.bindUserEmail((String) requestMessage.getData().get("user_Email"),(String) requestMessage.getData().get("code"),userPojo);
         if (userVO != null){
+            UserMapper userMapper = null;
+            userPojo = userMapper.getUserByUserName(userVO.getUser_Name());
+            session.setAttribute("userPojo",userPojo);
             return ResponMessage.ok(userVO);
         }
         return ResponMessage.error("绑定电子邮箱失败");
@@ -274,6 +287,9 @@ public class UserManageContrller {
         UserPojo userPojo = (UserPojo) session.getAttribute("userPojo");
         UserVO userVO = userService.updateUserEmail((String) requestMessage.getData().get("user_Email"),(String) requestMessage.getData().get("newCode"),(String) requestMessage.getData().get("oldCode"),userPojo);
         if (userVO != null){
+            UserMapper userMapper = null;
+            userPojo = userMapper.getUserByUserName(userVO.getUser_Name());
+            session.setAttribute("userPojo",userPojo);
             return ResponMessage.ok(userVO);
         }
         return ResponMessage.error("修改电子邮箱失败");

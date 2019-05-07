@@ -1,7 +1,6 @@
 package top.mnilsy.cup;
 
 import com.alibaba.fastjson.JSON;
-import net.coobird.thumbnailator.Thumbnails;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,9 +15,6 @@ import top.mnilsy.cup.utils.ResponMessage;
 import top.mnilsy.cup.utils.SendSMSUtil;
 
 import javax.annotation.Resource;
-import java.io.File;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -43,50 +39,48 @@ public class CupApplicationTests {
 
     @Test
     public void contextLoads() {
-        UserVO userVO = new UserVO("mnilsy", "ShuyL", "男", "13536497415", "mnilsy.top@gmail.com", "大头像", "小头像", "背景", "二维码", "sesionid");
-        UserVO userV1 = new UserVO("emmmmm", "ShuyLv", "男", "15876566484", "mnilsy.top@gmail.com", "大头像", "小头像", "背景", "二维码", "sesionid");
-        List<Object> list = new ArrayList<>();
+        UserVO userVO =new UserVO("mnilsy","ShuyL","男","13536497415","mnilsy.top@gmail.com","大头像","小头像","背景","二维码","sesionid");
+        UserVO userV1 =new UserVO("emmmmm","ShuyLv","男","15876566484","mnilsy.top@gmail.com","大头像","小头像","背景","二维码","sesionid");
+        List<Object> list=new ArrayList<>();
         list.add(userVO);
         list.add(userV1);
-        ResponMessage responMessage = new ResponMessage(200, "TestMessage", list);
+        ResponMessage responMessage=new ResponMessage(200,"TestMessage", list);
         System.out.println(JSON.toJSONString(responMessage));
     }
 
     @Test
-    public void sendsms() {
-        System.out.println(SendSMSUtil.send("15876566484", "579900"));
+    public void sendsms(){
+        System.out.println(SendSMSUtil.send("15876566484","579900"));
     }
 
     @Test
     @Transactional
-    public void addtest() {
-        AccessoryPojo[] accessoryPojos = new AccessoryPojo[3];
-        for (int i = 0; i < accessoryPojos.length; i++) {
-            accessoryPojos[i] = new AccessoryPojo("tweet" + i, "url" + i);
+    public void addtest(){
+        AccessoryPojo[] accessoryPojos= new AccessoryPojo[3];
+        for (int i=0;i<accessoryPojos.length;i++){
+            accessoryPojos[i]=new AccessoryPojo("tweet"+i,"url"+i);
         }
         System.out.println(accessoryMapper.insetAccessory(accessoryPojos));
 
-        accessoryPojos = new AccessoryPojo[3];
-        accessoryPojos[2] = new AccessoryPojo(null, null);
-        for (int i = 0; i < accessoryPojos.length - 1; i++) {
-            accessoryPojos[i] = new AccessoryPojo("tweet" + i, "url" + i);
+        accessoryPojos= new AccessoryPojo[3];
+        accessoryPojos[2]=new AccessoryPojo(null,null);
+        for (int i=0;i<accessoryPojos.length-1;i++){
+            accessoryPojos[i]=new AccessoryPojo("tweet"+i,"url"+i);
         }
         System.out.println(accessoryMapper.insetAccessory(accessoryPojos));
     }
 
     @Test
-    public void creUUid() {
+    public void creUUid(){
         System.out.println(UUID.randomUUID().toString());
     }
-
     @Test
-    public void listtoString() {
+    public void listtoString(){
         System.out.println();
     }
 
     @Test
-    public void testMapper() {
-        File file=new File("/home/mnilsy/nginxFile/123.jpg");
-        System.out.println(file.delete());
+    public void testMapper(){
+
     }
 }
