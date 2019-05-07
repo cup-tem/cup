@@ -82,8 +82,12 @@ public class CupApplicationTests {
 
     @Test
     public void testMapper(){
-        UserPojo userPojo = userMapper.getUserByUserName("MNILSY");
-        System.out.println(userPojo);
+
+        UserPojo userPojo = userMapper.getUserByIdInfo("23b005ac-cae6-412f-b4c8-f568b07c0a02");
+        UserVO userVO = userMapper.getUserByName(userPojo.getUser_Name());
+        userVO.setUser_NickName("baby");
+        int name = userMapper.updateUserNickName(userVO);
+        System.out.println(name);
     }
 
     @Test

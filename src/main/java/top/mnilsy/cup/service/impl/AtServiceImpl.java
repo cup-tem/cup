@@ -16,6 +16,7 @@ import top.mnilsy.cup.netty.DataContent;
 import top.mnilsy.cup.netty.UserChannelRel;
 import top.mnilsy.cup.pojo.AtPojo;
 import top.mnilsy.cup.service.AtService;
+import top.mnilsy.cup.service.TweetService;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -26,8 +27,8 @@ import java.util.List;
  */
 @Service("atService")
 public class AtServiceImpl implements AtService {
-    @Resource(name = "tweetMapper")
-    private TweetMapper tweetMapper;
+    @Resource(name = "tweetService")
+    private TweetService tweetService;
 
     @Resource(name = "atMapper")
     private AtMapper atMapper;
@@ -53,7 +54,7 @@ public class AtServiceImpl implements AtService {
         AtPojo atPojo = new AtPojo(userMapper.getUser_Id(user_Name), at_From_Id, AtFromTypeEnum.TWEET.vlue);
         if (atMapper.insertAt(atPojo) != 1)
             return false;
-        TweetVO tweetVO = tweetMapper.getTweetVO(atPojo.getAt_From_Id());
+        TweetVO tweetVO = tweetService.getTweet(atPojo.getAt_From_Id());
         AtBO atBO = new AtBO(atPojo.getAt_Id(), atPojo.getAt_From_Type(), tweetVO);
         return sendAt(atBO, user_Name);
     }
@@ -124,7 +125,7 @@ public class AtServiceImpl implements AtService {
         for (AtPojo atPojo : pojoList) {
             //判断类型
             if (atPojo.getAt_From_Type() == AtFromTypeEnum.TWEET.vlue) {
-                AtBO atBO = new AtBO(atPojo.getAt_Id(), atPojo.getAt_From_Type(), tweetMapper.getTweetVO(atPojo.getAt_From_Id()));
+                AtBO atBO = new AtBO(atPojo.getAt_Id(), atPojo.getAt_From_Type(), tweetService.getTweet(atPojo.getAt_From_Id()));
                 atBOList.add(atBO);
                 continue;
             }

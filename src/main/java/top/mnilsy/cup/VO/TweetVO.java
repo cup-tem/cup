@@ -13,23 +13,27 @@ public class TweetVO {
     private String tweet_Id;
     private String tweet_Time;
     private String tweet_Text;
+    private int tweet_Type;
     private int tweet_LikeCount;
     private int tweet_DiscussCount;
     private List<String> accessory;
+    private List<String> accessory_Id;
 
     public TweetVO() {
     }
 
-    public TweetVO(String user_HeadUrl_min, String user_Name, String user_NickName, String tweet_Id, String tweet_Time, String tweet_Text, int tweet_LikeCount, int tweet_DiscussCount, List<String> accessory) {
+    public TweetVO(String user_HeadUrl_min, String user_Name, String user_NickName, String tweet_Id, String tweet_Time, String tweet_Text, int tweet_Type, int tweet_LikeCount, int tweet_DiscussCount, List<String> accessory, List<String> accessory_Id) {
         this.user_HeadUrl_min = user_HeadUrl_min;
         this.user_Name = user_Name;
         this.user_NickName = user_NickName;
         this.tweet_Id = tweet_Id;
         this.tweet_Time = tweet_Time;
         this.tweet_Text = tweet_Text;
+        this.tweet_Type = tweet_Type;
         this.tweet_LikeCount = tweet_LikeCount;
         this.tweet_DiscussCount = tweet_DiscussCount;
         this.accessory = accessory;
+        this.accessory_Id = accessory_Id;
     }
 
     public String getUser_HeadUrl_min() {
@@ -80,6 +84,14 @@ public class TweetVO {
         this.tweet_Text = tweet_Text;
     }
 
+    public int getTweet_Type() {
+        return tweet_Type;
+    }
+
+    public void setTweet_Type(int tweet_Type) {
+        this.tweet_Type = tweet_Type;
+    }
+
     public int getTweet_LikeCount() {
         return tweet_LikeCount;
     }
@@ -104,6 +116,14 @@ public class TweetVO {
         this.accessory = accessory;
     }
 
+    public List<String> getAccessory_Id() {
+        return accessory_Id;
+    }
+
+    public void setAccessory_Id(List<String> accessory_Id) {
+        this.accessory_Id = accessory_Id;
+    }
+
     @Override
     public String toString() {
         return "TweetVO{" +
@@ -113,9 +133,11 @@ public class TweetVO {
                 ", tweet_Id='" + tweet_Id + '\'' +
                 ", tweet_Time='" + tweet_Time + '\'' +
                 ", tweet_Text='" + tweet_Text + '\'' +
+                ", tweet_Type=" + tweet_Type +
                 ", tweet_LikeCount=" + tweet_LikeCount +
                 ", tweet_DiscussCount=" + tweet_DiscussCount +
                 ", accessory=" + Arrays.toString(accessory.toArray()) +
+                ", accessory_Id=" + Arrays.toString(accessory_Id.toArray()) +
                 '}';
     }
 }

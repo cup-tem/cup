@@ -24,12 +24,16 @@ public interface TweetMapper {
             "t.tweet_Id," +
             "t.tweet_Time," +
             "t.tweet_Text," +
+            "t.tweet_Type," +
             "(select count(*) from `like` where tweet_Id = #{tweet_Id}) as tweet_LikeCount," +
             "(select count(*) from discuss where tweet_Id = #{tweet_Id}) as tweet_DiscussCount " +
             "from user u join tweet t on u.user_Id = t.user_Id where t.tweet_Id=#{tweet_Id}")
     @Results({
             @Result(property = "accessory", column = "tweet_Id",
-                    many = @Many(select = "top.mnilsy.cup.dao.AccessoryMapper.getAccessoryUrl")
+                    many = @Many(select = "top.mnilsy.cup.dao.AccessoryMapper.getAccessoryListUrl")
+            ),
+            @Result(property = "accessory_Id", column = "tweet_Id",
+                    many = @Many(select = "top.mnilsy.cup.dao.AccessoryMapper.getAccessory_Id")
             )
     })
     TweetVO getTweetVO(String tweet_Id);

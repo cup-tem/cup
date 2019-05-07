@@ -29,7 +29,7 @@ public interface AccessoryMapper {
             "(#{accessory_Id},#{tweet_Id},#{accessory_Url})" +
             "</foreach>" +
             "</script>")
-    int insetAccessory(@Param("accessoryPojos") AccessoryPojo[] accessoryPojos);
+    int insetAccessory(AccessoryPojo[] accessoryPojos);
 
     /**
      * 获取指定推文的所有附件
@@ -39,5 +39,25 @@ public interface AccessoryMapper {
      * @author mnilsy
      */
     @Select("select accessory_Url from accessory where tweet_Id=#{tweet_Id}")
-    List<String> getAccessoryUrl(String tweet_Id);
+    List<String> getAccessoryListUrl(String tweet_Id);
+
+    /**
+     * 获取指定附件的url
+     *
+     * @param accessory_Id 附件的id
+     * @return 附件的url
+     * @author mnilsy
+     */
+    @Select("select accessory_Url from accessory where accessory_Id=#{accessory_Id}")
+    String getAccessoryUrl(String accessory_Id);
+
+    /**
+     * 获取指定推文的所有附件的id
+     *
+     * @param tweet_Id 推文id
+     * @return 该推文所有附件
+     * @author mnilsy
+     */
+    @Select("select accessory_Id from accessory where tweet_Id=#{tweet_Id}")
+    List<String> getAccessory_Id(String tweet_Id);
 }
