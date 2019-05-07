@@ -10,6 +10,7 @@ import top.mnilsy.cup.pojo.UserPojo;
 import top.mnilsy.cup.service.UserService;
 import top.mnilsy.cup.utils.SendMailUtil;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.io.ByteArrayOutputStream;
 import java.util.Base64;
@@ -22,6 +23,9 @@ import java.util.Map;
  */
 @Service("userService")
 public class UserServiceImpl implements UserService {
+
+    @Resource(name = "userMapper")
+    private UserMapper userMapper;
 
     /**
      *获取验证码
@@ -50,7 +54,6 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public UserPojo getPasswdLogin(String user,String passwd) {
-        UserMapper userMapper = null;
         UserPojo userPojo = new UserPojo();
         PasswdPojo passwdPojo = new PasswdPojo();
         if (user != null || passwd != null){
@@ -69,7 +72,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserVO getUserByUsername(String user_Name) {
-        UserMapper userMapper = null;
         UserVO userVO = userMapper.getUserByName(user_Name);
         if (userVO != null){
             return userVO;
@@ -84,7 +86,6 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public UserPojo codeLogin(String user_Phone,String code) {
-        UserMapper userMapper = null;
         if (this.getPhoneCode(user_Phone).equals(code)){
             UserPojo userPojo = userMapper.getUserByPhoneInfo(user_Phone);
             if (userPojo != null){
@@ -102,7 +103,6 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public String checkUserName(String user_Name) {
-        UserMapper userMapper = null;
         UserPojo userPojo = userMapper.getUserByUserName(user_Name);
         if (userPojo != null){
             return null;
@@ -119,7 +119,6 @@ public class UserServiceImpl implements UserService {
     public String register(String user_Phone, String code) {
         UserPojo userPojo = new UserPojo();
         PasswdPojo passwdPojo = new PasswdPojo();
-        UserMapper userMapper = null;
         String telRegex = "^[1](([3|5|8][\\\\d])|([4][5-9])|([6][5,6])|([7][3-8])|([9][8,9]))[\\\\d]{8}$";
         String thiscode = this.getPhoneCode(user_Phone);
         userPojo = userMapper.getUserByPhoneInfo(user_Phone);
@@ -149,7 +148,6 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public UserVO setUserNamePasswd(String user_Name, String passwd,UserPojo userPojo) {
-        UserMapper userMapper = null;
         PasswdPojo passwdPojo = new PasswdPojo();
         UserVO userVO = new UserVO();
         if (user_Name != null && passwd != null){
@@ -185,7 +183,6 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public UserVO updateUserSex(String user_Sex,UserPojo userPojo) {
-       UserMapper userMapper = null;
        UserVO userVO = new UserVO();
        String userSex = userPojo.getUser_Sex();
        if (userSex.equals(user_Sex)){
@@ -204,7 +201,6 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public String updatePasswd(String oldPasswd, String newPasswd,UserPojo userPojo) {
-        UserMapper userMapper = null;
         PasswdPojo passwdPojo = new PasswdPojo();
         if (oldPasswd.equals(newPasswd)){
             return null;
@@ -228,7 +224,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public String retrievePasswd(String newPasswd, String code,UserPojo userPojo) {
         PasswdPojo passwdPojo = new PasswdPojo();
-        UserMapper userMapper = null;
         String userPhone = userPojo.getUser_Phone();
         if (this.getPhoneCode(userPhone).equals(code)){
             String userId = userPojo.getUser_Id();
@@ -254,7 +249,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserVO updateUserPhone(String user_Phone, String code,String oldPhone) {
         UserVO userVO = new UserVO();
-        UserMapper userMapper = null;
         if (this.getPhoneCode(user_Phone).equals(code)){
             userVO = userMapper.getUserByPhone(oldPhone);
             userVO.setUser_Phone(user_Phone);
@@ -271,7 +265,6 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public UserVO bindUserEmail(String user_Email, String code, UserPojo userPojo) {
-        UserMapper userMapper = null;
         UserVO userVO = new UserVO();
         if (this.getEmailCode(user_Email).equals(code)){
             userVO = userMapper.getUserByName(userPojo.getUser_Name());
@@ -289,7 +282,6 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public UserVO updateUserEmail(String user_Email, String newCode, String oldCode, UserPojo userPojo) {
-        UserMapper userMapper =null;
         UserVO userVO = new UserVO();
         String oldEmail = userPojo.getUser_Email();
         if (this.getEmailCode(oldEmail).equals(oldCode)){
@@ -311,7 +303,6 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public UserVO updateUserNickName(String user_NickName, UserPojo userPojo) {
-        UserMapper userMapper = null;
         UserVO userVO =new UserVO();
         String userName = userPojo.getUser_Name();
         if (user_NickName != null){
