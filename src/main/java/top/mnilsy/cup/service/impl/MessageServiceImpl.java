@@ -34,7 +34,7 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public MessageVO addMessage(MessageVO messageVO) {
         if (messageVO.getMessage_Vlue() == null || messageVO.getMessage_Vlue().trim().length() == 0) return null;
-        if (blacklistMapper.isBlacklist(messageVO.getSender_Name(), messageVO.getRecipient_Name()) == 1) return null;
+        if (blacklistMapper.isBlacklistByuserName(messageVO.getSender_Name(), messageVO.getRecipient_Name()) == 1) return null;
         messageVO.setMessage_Id(UUID.randomUUID().toString());
         messageVO.setMessage_Time(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
         if (messageMapper.insertMessage(messageVO) == 1)

@@ -8,23 +8,23 @@
         function f() {
             $.ajax({
                 contentType: "application/x-www-form-urlencoded; charset=utf-8",
-                type: "get",
-                url: "/followMNILSY.api",
-                /*data: {
+                type: "post",
+                url: "/open//putWriteBackwriteBack_User_Name.api",
+                data: {
                     data: {
-                        sessionId: "sesionid",
-                        user_BackgroundUrl: "背景",
-                        user_Email: "mnilsy.top@gmail.com",
+                        discuss_Id: "this is discuss id",
+                        user_BackgroundUrl: "背景"
+                      /*  user_Email: "mnilsy.top@gmail.com",
                         user_HeadUrl_max: "大头像",
                         user_HeadUrl_min: "小头像",
                         user_Name: "mnilsy",
                         user_NickName: "ShuyL",
                         user_Phone: "13536497415",
                         user_QRCode: "二维码",
-                        user_Sex: "男"
+                        user_Sex: "男"*/
                     },
                     sessionid: "TestMessage"
-                },*/
+                },
                 async: true,
                 dataType: "json",
                 success: function (data) {

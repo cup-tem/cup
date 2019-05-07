@@ -66,4 +66,16 @@ public class RelationshipServiceImpl implements RelationshipService {
         if (count < 0) return null;
         return blacklistMapper.getBlackist(user_Id, count * 15);
     }
+
+    @Override
+    public boolean isBalcklistByTweet(String user_Id, String tweet_Id) {
+        if (user_Id.length() != 36 || tweet_Id.length() != 36) return false;
+        return blacklistMapper.isBlacklistByTweet(user_Id, tweet_Id) == 1;
+    }
+
+    @Override
+    public boolean isBlacklistByTDW(String user_Id, String writeBack_User_Name, String discuss_Id) {
+        if (user_Id.length()!=36||discuss_Id.length()!=36||writeBack_User_Name==null)return false;
+        return blacklistMapper.isBlacklistByTDW(user_Id,writeBack_User_Name,discuss_Id)==1;
+    }
 }

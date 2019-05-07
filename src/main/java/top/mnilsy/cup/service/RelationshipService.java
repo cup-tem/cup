@@ -60,4 +60,23 @@ public interface RelationshipService {
      */
     List<UserListVO> getBalcklist(String user_Id, int count);
 
+    /**
+     * 判断该用户与指定推文的的发布者是否是黑名单关系
+     * @param user_Id 用户id
+     * @param tweet_Id 推文id
+     * @return 是否为黑名单关系
+     * @author mnilsy
+     */
+    boolean isBalcklistByTweet(String user_Id,String tweet_Id);
+
+    /**
+     * 判断该用户与回复者、评论者、推文发布者是否是黑名单关系
+     * @param user_Id 用户id
+     * @param writeBack_User_Name 推文id
+     * @param discuss_Id 评论id
+     * @return 是否为黑名单关系
+     * @author mnilsy
+     */
+    boolean isBlacklistByTDW(String user_Id,String writeBack_User_Name,String discuss_Id);
+
 }
