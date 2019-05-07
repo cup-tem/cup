@@ -5,12 +5,14 @@ import org.springframework.transaction.annotation.Transactional;
 import top.mnilsy.cup.VO.DiscussVO;
 import top.mnilsy.cup.VO.TweetVO;
 import top.mnilsy.cup.dao.*;
+import top.mnilsy.cup.enums.TweetTypeEnum;
+import top.mnilsy.cup.enums.UrlEnum;
 import top.mnilsy.cup.pojo.*;
 import top.mnilsy.cup.service.AtService;
 import top.mnilsy.cup.service.TweetService;
+import top.mnilsy.cup.utils.FileUtil;
 
 import javax.annotation.Resource;
-import java.util.Base64;
 import java.util.List;
 
 /**
@@ -39,7 +41,12 @@ public class TweetServiceImpl implements TweetService {
     @Override
     public TweetVO getTweet(String tweet_Id) {
         if (tweet_Id.length() < 36) return null;
-        return tweetMapper.getTweetVO(tweet_Id);
+        TweetVO tweetVO = tweetMapper.getTweetVO(tweet_Id);
+        if (tweetVO.getTweet_Type() != TweetTypeEnum.PHOTO.vlue) return tweetVO;
+        for (int i = 0; i < tweetVO.getAccessory().size(); i++) {
+            tweetVO.getAccessory().set(i, FileUtil.thumbnail(tweetVO.getAccessory().get(i)));
+        }
+        return tweetVO;
     }
 
     @Override
@@ -55,15 +62,30 @@ public class TweetServiceImpl implements TweetService {
         boolean flag = tweetMapper.insertTweet(tweetPojo) == 1;
         if (flag) {
             AccessoryPojo[] accessoryPojos = new AccessoryPojo[accessory.length];
-            for (int i = 0; i < accessory.length; i++) {
-                //待续。。。。。附件存储
-                accessoryPojos[i] = new AccessoryPojo(tweetPojo.getTweet_Id(), accessory[i]);
+            if (tweet_Type == TweetTypeEnum.PHOTO.vlue) {//推文为图片类型
+                for (int i = 0; i < accessory.length; i++) {
+                    String url = UrlEnum.ACCESSORY.vlue + tweetPojo.getTweet_Id() + "_" + i + ".jpg";
+                    if (!FileUtil.base64ToFile(accessory[i], url)) return false;
+                    accessoryPojos[i] = new AccessoryPojo(tweetPojo.getTweet_Id(), url);
+                }
+            }
+            if (tweet_Type == TweetTypeEnum.VIDEO.vlue) {//推文为视频类型
+                String url = UrlEnum.ACCESSORY.vlue + tweetPojo.getTweet_Id() + ".mp4";
+                if (!FileUtil.base64ToFile(accessory[0], url)) return false;
+                accessoryPojos[0] = new AccessoryPojo(tweetPojo.getTweet_Id(), url);
+            }
+            if (tweet_Type == TweetTypeEnum.MUSIC.vlue) {//推文为视频类型
+                String url = UrlEnum.ACCESSORY.vlue + tweetPojo.getTweet_Id() + ".mp3";
+                if (!FileUtil.base64ToFile(accessory[0], url)) return false;
+                accessoryPojos[0] = new AccessoryPojo(tweetPojo.getTweet_Id(), url);
             }
             int count = 0;
-            try {
-                count = accessoryMapper.insetAccessory(accessoryPojos);
-            } catch (Exception e) {
-                e.printStackTrace();
+            if (tweet_Type != TweetTypeEnum.TEXT.vlue) {
+                try {
+                    count = accessoryMapper.insetAccessory(accessoryPojos);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
             if (count == 0) {
                 flag = false;

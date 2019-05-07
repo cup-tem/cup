@@ -21,7 +21,8 @@ public class SendSMSUtil {
      *
      * @param phoneNumber 手机号码
      * @param code        验证码
-     * @return
+     * @return 是否发送成功
+     * @author mnilsy
      */
     public static boolean send(String phoneNumber, String code) {
         DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou", "LTAIvGygzcCRkahy", "");

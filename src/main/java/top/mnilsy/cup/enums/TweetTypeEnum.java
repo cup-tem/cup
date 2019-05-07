@@ -6,7 +6,8 @@ package top.mnilsy.cup.enums;
 public enum TweetTypeEnum {
     TEXT(0, "纯文本"),
     PHOTO(1, "图片"),
-    VIDEO(2, "视频");
+    VIDEO(2, "视频"),
+    MUSIC(3, "图片");
     public int vlue;
     public String desc;
 
