@@ -10,6 +10,7 @@ import top.mnilsy.cup.utils.RequestMessage;
 import top.mnilsy.cup.utils.ResponMessage;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
@@ -86,8 +87,14 @@ public class UserManageContrller {
      * @return
      */
     @PostMapping("/logout.api")
-    public ResponMessage logout(HttpSession session){
-        return new ResponMessage();
+    public ResponMessage logout(HttpSession session, HttpServletRequest request){
+        session = request.getSession();
+        if (session != null){
+            UserPojo userPojo = (UserPojo) session.getAttribute("userPojo");
+            session.invalidate();
+            return ResponMessage.ok("登出成功");
+        }
+        return ResponMessage.error("无需登出");
     }
 
     /**
@@ -97,9 +104,10 @@ public class UserManageContrller {
      * @return 请求状态码status，失败信息message
      */
     @PostMapping("/open/register.api")
-    public ResponMessage register(RequestMessage requestMessage) {
-        String register = userService.register((String)requestMessage.getData().get("user_Phone"),(String)requestMessage.getData().get("code"));
-        if (register != null){
+    public ResponMessage register(RequestMessage requestMessage,HttpSession session) {
+        UserPojo userPojo = userService.register((String)requestMessage.getData().get("user_Phone"),(String)requestMessage.getData().get("code"));
+        if (userPojo != null){
+            session.setAttribute("userPojo",userPojo);
             return ResponMessage.ok();
         }
         return ResponMessage.error("账号注册失败");

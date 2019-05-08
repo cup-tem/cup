@@ -70,7 +70,7 @@ public interface UserService {
      * @return 是否注册成功
      * @author Jason_Jane
      */
-    String register(String user_Phone, String code);
+    UserPojo register(String user_Phone, String code);
 
     /**
      * 设置用户名和密码

@@ -82,12 +82,19 @@ public class CupApplicationTests {
 
     @Test
     public void testMapper(){
-
-        UserPojo userPojo = userMapper.getUserByIdInfo("23b005ac-cae6-412f-b4c8-f568b07c0a02");
-        UserVO userVO = userMapper.getUserByName(userPojo.getUser_Name());
-        userVO.setUser_NickName("baby");
-        int name = userMapper.updateUserNickName(userVO);
-        System.out.println(name);
+        String userId = "23b005ac-cae6-412f-b4c8-f568b07c0a02";
+        String userPhone = "13536497415";
+        String userName = "MNILSY";
+        String userNickName = "baby";
+        String userSex = "女";
+        String email = "770502378@qq.com";
+        UserPojo userPojo = new UserPojo();
+        UserVO userVO = new UserVO();
+        PasswdPojo passwdPojo = new PasswdPojo();
+        userPojo = userMapper.getUserByPhoneInfo(userPhone);
+        userVO = userMapper.getUserByName(userName);
+        int test = userMapper.setUserNameByPhoneInfo(userPojo);
+        System.out.println(test);
     }
 
     @Test
