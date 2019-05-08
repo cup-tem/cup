@@ -87,7 +87,7 @@ public class UserManageContrller {
 
     /**
      * 登出
-     * @return
+     * @return message
      */
     @PostMapping("/logout.api")
     public ResponMessage logout(HttpSession session, HttpServletRequest request){
@@ -172,8 +172,15 @@ public class UserManageContrller {
      * @return 请求状态码status，用户信息data.userVO
      */
     @PostMapping("/uploadingUserBackgroundUrl.api")
-    public ResponMessage uploadingUserBackgroundUrl(RequestMessage requestMessage) {
-        return new ResponMessage();
+    public ResponMessage uploadingUserBackgroundUrl(RequestMessage requestMessage,HttpSession session) {
+        UserPojo userPojo = (UserPojo) session.getAttribute("userPojo");
+        UserVO userVO = userService.uploadingBackground((String)requestMessage.getData().get("user_Background"),userPojo);
+        if (userVO != null){
+            userPojo = userMapper.getUserByUserName(userVO.getUser_Name());
+            session.setAttribute("userPojo",userPojo);
+            return ResponMessage.ok(userVO);
+        }
+        return ResponMessage.error("上传背景图失败");
     }
 
     /**

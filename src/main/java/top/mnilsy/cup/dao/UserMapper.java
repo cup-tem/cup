@@ -189,6 +189,26 @@ public interface UserMapper {
     int updatePhone(UserVO userVO, String oldPhone);
 
     /**
+     * 上传头像
+     *
+     * @param userVO 用户信息
+     * @return userVO
+     * @author Jason_Jane
+     */
+    @Update("update user set user_HeadUrl_max = #{user_HeadUrl_max} and user_HeadUrl_min = #{user_HeadUrl_min} where user_Name = #{user_Name}")
+    int updateUserHead(UserVO userVO);
+
+    /**
+     * 上传背景图
+     *
+     * @param userVO 用户信息
+     * @return userVO
+     * @author Jason_Jane
+     */
+    @Update("update user set user_Background = #{user_Background} where user_Name = #{user_Name}")
+    int updateBackground(UserVO userVO);
+
+    /**
      * 绑定电子邮箱
      *
      * @param userVO 用户信息

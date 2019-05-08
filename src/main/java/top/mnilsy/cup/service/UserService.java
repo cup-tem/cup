@@ -92,6 +92,15 @@ public interface UserService {
     UserVO uploadingUserHead(String user_Head,UserPojo userPojo);
 
     /**
+     * 上传背景图
+     *
+     * @param user_Background 用户背景图
+     * @return 是否上传头像成功
+     * @author Jason_Jane
+     */
+    UserVO uploadingBackground(String user_Background,UserPojo userPojo);
+
+    /**
      * 修改性别
      *
      * @param user_Sex 性别

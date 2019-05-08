@@ -188,6 +188,29 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public UserVO uploadingUserHead(String user_Head,UserPojo userPojo) {
+        UserVO userVO = userMapper.getUserByName(userPojo.getUser_Name());
+        userVO.setUser_HeadUrl_max(user_Head);
+        userVO.setUser_HeadUrl_min(user_Head);
+        int updateHead = userMapper.updateUserHead(userVO);
+        if (updateHead == 1){
+            return userVO;
+        }
+        return null;
+    }
+
+    /**
+     * 上传背景图
+     *
+     * @author Jason_Jane
+     */
+    @Override
+    public UserVO uploadingBackground(String user_Background, UserPojo userPojo) {
+        UserVO userVO = userMapper.getUserByName(userPojo.getUser_Name());
+        userVO.setUser_BackgroundUrl(user_Background);
+        int updateBackground = userMapper.updateBackground(userVO);
+        if (updateBackground == 1){
+            return userVO;
+        }
         return null;
     }
 
