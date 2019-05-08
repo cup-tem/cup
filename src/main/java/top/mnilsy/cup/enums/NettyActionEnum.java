@@ -15,7 +15,8 @@ public enum NettyActionEnum {
     KEEPALIVE(5, "保持心跳"),
     AT(6, "@"),//data存放AtPojoVO
     SIGNFOR_AT(7, "签收@"),//extand存放@id at_Id
-    ERROR(8,"失败");
+    ERROR(8,"失败"),
+    LOGOUT(9, "下线");//extand存放用户名user_Name
 
     public int vule;
     public String desc;
