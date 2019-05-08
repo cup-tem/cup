@@ -67,6 +67,7 @@ public interface WritebackMapper {
      * @author mnilsy
      */
     @Insert("insert into writeback (writeBack_Id, discuss_Id, user_Id, writeBack_User_Id, writeBack_Vlue) " +
-            "values (#{writeBack_Id},#{discuss_Id},#{user_Id},#{writeBack_Vlue})")
+            "(select #{writeBack_Id},#{discuss_Id},#{user_Id},user_Id,#{writeBack_Vlue} " +
+            "from user where user_Name=#{writeBack_User_Name})")
     int insetrWriteback(WritebackPojo writebackPojo);
 }

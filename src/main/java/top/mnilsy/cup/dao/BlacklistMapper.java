@@ -58,7 +58,8 @@ public interface BlacklistMapper {
      *
      * @param message_Recipient_user_Name 被拉黑者用户名
      * @param message_Recipient_user_Name 拉黑者用户名
-     * @return
+     * @return 条数
+     * @author mnilsy
      */
     @Select("select count(*) " +
             "from blacklist b " +
@@ -66,5 +67,39 @@ public interface BlacklistMapper {
             "join user u2 on b.secondParty_User_Id = u2.user_Id " +
             "where u1.user_Name = #{message_Recipient_user_Name} " +
             "and u2.user_Name = #{message_Sender_User_Name}")
-    int isBlacklist(@Param("message_Sender_User_Name") String message_Sender_User_Name, @Param("message_Recipient_user_Name") String message_Recipient_user_Name);
+    int isBlacklistByuserName(@Param("message_Sender_User_Name") String message_Sender_User_Name, @Param("message_Recipient_user_Name") String message_Recipient_user_Name);
+
+    /**
+     * 根据用户id和推文id查询该用户与推文发布者是否为黑名单关系
+     *
+     * @param user_Id  用户id
+     * @param tweet_Id 推文id
+     * @return 条数
+     * @author mnilsy
+     */
+    @Select("select count(*) " +
+            "from blacklist b " +
+            "join tweet t on b.firstParty_User_Id = t.user_Id " +
+            "where t.tweet_Id = ? " +
+            "and b.secondParty_User_Id = ?")
+    int isBlacklistByTweet(@Param("user_Id") String user_Id, @Param("tweet_Id") String tweet_Id);
+
+    /**
+     * 根据用户id查询与回复评论者、评论者、推文发布者是否为黑名单关系
+     *
+     * @param user_Id             用户id
+     * @param writeBack_User_Name 评论者用户名
+     * @param discuss_Id          评论id
+     * @return 条数
+     * @author mnilsy
+     */
+    @Select("select count(*) " +
+            "from blacklist b," +
+            "discuss d " +
+            "join tweet t on d.tweet_Id = t.tweet_Id " +
+            "where b.secondParty_User_Id = #{user_Id} " +
+            "and discuss_Id = #{discuss_Id} " +
+            "and (b.firstParty_User_Id = d.user_Id or b.firstParty_User_Id = t.user_Id or " +
+            "b.firstParty_User_Id = (select user_Id from user where user_Name = #{writeBack_User_Name} limit 1))")
+    int isBlacklistByTDW(@Param("user_Id") String user_Id, @Param("writeBack_User_Name") String writeBack_User_Name, @Param("discuss_Id") String discuss_Id);
 }

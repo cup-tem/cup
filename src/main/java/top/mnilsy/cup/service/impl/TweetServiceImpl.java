@@ -137,8 +137,8 @@ public class TweetServiceImpl implements TweetService {
 
     @Override
     @Transactional
-    public boolean putWriteback(String discuss_Id, String user_Id, String writeBack_User_Id, String writeBack_Vlue) {
-        WritebackPojo writebackPojo = new WritebackPojo(discuss_Id, user_Id, writeBack_User_Id, writeBack_Vlue);
+    public boolean putWriteback(String discuss_Id, String user_Id, String writeBack_User_Name, String writeBack_Vlue) {
+        WritebackPojo writebackPojo = new WritebackPojo(discuss_Id, user_Id, writeBack_User_Name, writeBack_Vlue);
         boolean flag = writebackMapper.insetrWriteback(writebackPojo) == 1;
         if (flag) {
             flag = atService.writebackAt(writebackPojo.getWriteBack_Id());

@@ -7,6 +7,7 @@ public enum ResponMessageTypeEnum {
     SUCCEE(200, "成功"),
     ERROR(500, "错误"),
     NOT_LOGIN(505, "未登录"),
+    JURISDICTION(506, "权限不足"),
     FALSE(400, "否");
 
     public int vlue;

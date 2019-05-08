@@ -111,6 +111,7 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
         System.out.println("客户端被移除，channelId为：" + channelId);
 
         // 当触发handlerRemoved，ChannelGroup会自动移除对应客户端的channel
+        UserChannelRel.remove(ctx.channel().id());
         users.remove(ctx.channel());
     }
 
@@ -118,6 +119,7 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         cause.printStackTrace();
         // 发生异常之后关闭连接（关闭channel），随后从ChannelGroup中移除
+        UserChannelRel.remove(ctx.channel().id());
         ctx.channel().close();
         users.remove(ctx.channel());
     }

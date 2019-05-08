@@ -98,10 +98,10 @@ public interface TweetService {
      *
      * @param discuss_Id        评论id
      * @param user_Id           回复者id
-     * @param writeBack_User_Id 回复的用户名
+     * @param writeBack_User_Name 回复的用户名
      * @param writeBack_Vlue    回复内容
      * @return 是否回复成功
      * @author mnilsy
      */
-    boolean putWriteback(String discuss_Id, String user_Id,String writeBack_User_Id, String writeBack_Vlue);
+    boolean putWriteback(String discuss_Id, String user_Id,String writeBack_User_Name, String writeBack_Vlue);
 }
