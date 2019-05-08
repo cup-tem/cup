@@ -27,6 +27,9 @@ public class UserManageContrller {
     @Resource(name = "userService")
     private UserService userService;
 
+    @Resource(name = "userMapper")
+    private UserMapper userMapper;
+
     /**
      * 密码登录，不需要带sessionid
      * @author Jason_Jane
@@ -152,7 +155,14 @@ public class UserManageContrller {
      */
     @PostMapping("/uploadingUserHead.api")
     public ResponMessage uploadingUserHead(RequestMessage requestMessage,HttpSession session) {
-        return new ResponMessage();
+        UserPojo userPojo = (UserPojo) session.getAttribute("userPojo");
+        UserVO userVO = userService.uploadingUserHead((String)requestMessage.getData().get("user_Head"),userPojo);
+        if (userVO != null){
+            userPojo = userMapper.getUserByUserName(userVO.getUser_Name());
+            session.setAttribute("userPojo",userPojo);
+            return ResponMessage.ok(userVO);
+        }
+        return ResponMessage.error("上传头像失败");
     }
 
     /**
@@ -177,7 +187,6 @@ public class UserManageContrller {
         UserPojo userPojo = (UserPojo) session.getAttribute("userPojo");
         UserVO userVO = userService.updateUserNickName((String)requestMessage.getData().get("user_Sex"),userPojo);
         if (userVO != null){
-            UserMapper userMapper = null;
             userPojo = userMapper.getUserByUserName(userVO.getUser_Name());
             session.setAttribute("userPojo",userPojo);
             return ResponMessage.ok(userVO);
@@ -196,7 +205,6 @@ public class UserManageContrller {
         UserPojo userPojo = (UserPojo) session.getAttribute("userPojo");
         UserVO userVO = userService.updateUserSex((String)requestMessage.getData().get("user_Sex"),userPojo);
         if (userVO != null){
-            UserMapper userMapper = null;
             userPojo = userMapper.getUserByUserName(userVO.getUser_Name());
             session.setAttribute("userPojo",userPojo);
             return ResponMessage.ok(userVO);
@@ -248,7 +256,6 @@ public class UserManageContrller {
         String oldPhone = userPojo.getUser_Phone();
         UserVO userVO = userService.updateUserPhone((String)requestMessage.getData().get("user_Phone"),(String)requestMessage.getData().get("code"),oldPhone);
         if (userVO != null){
-            UserMapper userMapper = null;
             userPojo = userMapper.getUserByUserName(userVO.getUser_Name());
             session.setAttribute("userPojo",userPojo);
             return ResponMessage.ok(userVO);
@@ -285,7 +292,6 @@ public class UserManageContrller {
         UserPojo userPojo = (UserPojo) session.getAttribute("userPojo");
         UserVO userVO = userService.bindUserEmail((String) requestMessage.getData().get("user_Email"),(String) requestMessage.getData().get("code"),userPojo);
         if (userVO != null){
-            UserMapper userMapper = null;
             userPojo = userMapper.getUserByUserName(userVO.getUser_Name());
             session.setAttribute("userPojo",userPojo);
             return ResponMessage.ok(userVO);
@@ -304,7 +310,6 @@ public class UserManageContrller {
         UserPojo userPojo = (UserPojo) session.getAttribute("userPojo");
         UserVO userVO = userService.updateUserEmail((String) requestMessage.getData().get("user_Email"),(String) requestMessage.getData().get("newCode"),(String) requestMessage.getData().get("oldCode"),userPojo);
         if (userVO != null){
-            UserMapper userMapper = null;
             userPojo = userMapper.getUserByUserName(userVO.getUser_Name());
             session.setAttribute("userPojo",userPojo);
             return ResponMessage.ok(userVO);

@@ -89,7 +89,7 @@ public interface UserService {
      * @return 是否上传头像成功
      * @author Jason_Jane
      */
-    String uploadingUserHead(String user_Head);
+    UserVO uploadingUserHead(String user_Head,UserPojo userPojo);
 
     /**
      * 修改性别

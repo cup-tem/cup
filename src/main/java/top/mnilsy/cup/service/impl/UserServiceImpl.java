@@ -187,7 +187,7 @@ public class UserServiceImpl implements UserService {
      * @author Jason_Jane
      */
     @Override
-    public String uploadingUserHead(String user_Head) {
+    public UserVO uploadingUserHead(String user_Head,UserPojo userPojo) {
         return null;
     }
 
