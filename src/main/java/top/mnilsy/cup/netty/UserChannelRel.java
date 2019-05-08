@@ -6,7 +6,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import io.netty.channel.ChannelId;
 
 /**
- * @Description: user_Name和channel的关联关系处理
+ * @Description: user_Name和channelID的关联关系处理
  */
 public class UserChannelRel {
 
@@ -20,12 +20,23 @@ public class UserChannelRel {
         return manager.get(user_Name);
     }
 
-    public static String get(ChannelId channelId){
-        for (Map.Entry<String,ChannelId> entry:manager.entrySet()){
+    public static String get(ChannelId channelId) {
+        for (Map.Entry<String, ChannelId> entry : manager.entrySet()) {
             if (channelId.equals(entry.getValue()))
                 return entry.getKey();
         }
         return null;
+    }
+
+    public static void remove(String user_Name) {
+        if (get(user_Name) == null) return;
+        manager.remove(user_Name);
+    }
+
+    public static void remove(ChannelId channelId) {
+        String user_Name = get(channelId);
+        if (user_Name == null) return;
+        manager.remove(user_Name);
     }
 
     public static void output() {

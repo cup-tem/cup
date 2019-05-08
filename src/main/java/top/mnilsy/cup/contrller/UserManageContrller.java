@@ -82,6 +82,15 @@ public class UserManageContrller {
         }
 
     /**
+     * 登出
+     * @return
+     */
+    @PostMapping("/logout.api")
+    public ResponMessage logout(HttpSession session){
+        return new ResponMessage();
+    }
+
+    /**
      * 账号注册
      * @author Jason_Jane
      * @param requestMessage 手机号码data.get("user_Phone")，验证码data.get("code")
@@ -294,4 +303,5 @@ public class UserManageContrller {
         }
         return ResponMessage.error("修改电子邮箱失败");
     }
+
 }
