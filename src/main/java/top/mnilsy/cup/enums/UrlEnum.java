@@ -5,6 +5,9 @@ package top.mnilsy.cup.enums;
  */
 public enum UrlEnum {
     ACCESSORY("/home/mnilsy/nginxFile/accessory/", "推文"),
+    BACKGROUN("/home/mnilsy/nginxFile/imge/backgroun/", "背景图"),
+    HEADMAX("/home/mnilsy/nginxFile/imge/headMAX/", "大头像"),
+    HEADMIN("/home/mnilsy/nginxFile/imge/headMIN/", "小头像"),
     TEMP("/home/mnilsy/nginxFile/temp/","临时缓存");
 
     public String vlue;
