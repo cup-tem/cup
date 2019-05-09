@@ -48,12 +48,10 @@ public class UserManageContrller {
         UserPojo userPojo = userService.getPasswdLogin(user, passwd);
         if (userPojo == null) return ResponMessage.error("登录失败");
         session.setAttribute("userInfo", userPojo);
-        JSONObject jsonObject = new JSONObject();
         UserVO userVO = new UserVO();
         BeanUtils.copyProperties(userPojo, userVO);
         userVO.setSessionId(session.getId());
-        jsonObject.put("userVO", userVO);
-        return ResponMessage.ok(jsonObject);
+        return ResponMessage.ok(userVO);
     }
 
     /**
