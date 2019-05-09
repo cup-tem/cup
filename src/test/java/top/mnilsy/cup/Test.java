@@ -16,7 +16,7 @@ public class Test {
         System.out.println(JSON.toJSONString(responMessage));
         System.out.println("status：" + responMessage.getStatus());
         System.out.println("message：" + responMessage.getMessage());
-` `        System.out.println("datauserVO：" + ((UserVO)((Map)responMessage.getData()).get("userVO")).getUser_Name());
+        System.out.println("datauserVO：" + ((UserVO)((Map)responMessage.getData()).get("userVO")).getUser_Name());
         System.out.println("datasessionid：" + ((Map)responMessage.getData()).get("sessionid"));
     }
 }
