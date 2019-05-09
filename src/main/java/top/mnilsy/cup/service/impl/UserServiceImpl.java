@@ -41,10 +41,10 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public String getEmailCode(String user_Email) {
-        String ecode = "TestEcode";
+        String code = "TestEcode";
         SendMailUtil sendMailUtil = new SendMailUtil();
-        sendMailUtil.send(user_Email,ecode);
-        return ecode;
+        sendMailUtil.send(user_Email,code);
+        return code;
     }
 
     /**

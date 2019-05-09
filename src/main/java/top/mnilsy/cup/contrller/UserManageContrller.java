@@ -8,12 +8,14 @@ import top.mnilsy.cup.dao.UserMapper;
 import top.mnilsy.cup.pojo.PasswdPojo;
 import top.mnilsy.cup.pojo.UserPojo;
 import top.mnilsy.cup.service.UserService;
+import top.mnilsy.cup.utils.FileUtil;
 import top.mnilsy.cup.utils.RequestMessage;
 import top.mnilsy.cup.utils.ResponMessage;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -186,7 +188,11 @@ public class UserManageContrller {
      */
     @PostMapping("/uploadingUserHead.api")
     public ResponMessage uploadingUserHead(RequestMessage requestMessage,HttpSession session) {
-        return ResponMessage.error("上传头像失败");
+        UserPojo userPojo = (UserPojo) session.getAttribute("userPojo");
+        String user_Head = (String) requestMessage.getData().get("user_Name");
+        String base = FileUtil.fileToBase64(user_Head);
+
+        return null;
     }
 
     /**
@@ -197,7 +203,8 @@ public class UserManageContrller {
      */
     @PostMapping("/uploadingUserBackgroundUrl.api")
     public ResponMessage uploadingUserBackgroundUrl(RequestMessage requestMessage,HttpSession session) {
-        return ResponMessage.error("上传头像失败");
+        UserPojo userPojo = (UserPojo) session.getAttribute("userPojo");
+        return null;
     }
 
     /**
