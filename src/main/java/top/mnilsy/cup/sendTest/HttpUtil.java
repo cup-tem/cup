@@ -1,6 +1,7 @@
 package top.mnilsy.cup.sendTest;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import okhttp3.*;
 import top.mnilsy.cup.enums.UrlEnum;
 import top.mnilsy.cup.utils.RequestMessage;
@@ -49,7 +50,6 @@ public class HttpUtil {
         data.put("passwd", passwd);
         RequestMessage requestMessage = new RequestMessage(data);
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), JSON.toJSONString(requestMessage));
-
         return send("open/passwdLogin.api", requestBody);
     }
 }

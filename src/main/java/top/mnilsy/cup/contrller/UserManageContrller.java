@@ -31,11 +31,15 @@ public class UserManageContrller {
     @Resource(name = "userService")
     private UserService userService;
 
+    @Resource(name = "userMapper")
+    private UserMapper userMapper;
+
     /**
      * 密码登录，不需要带sessionid
      * @author Jason_Jane
      * @param requestMessage 用户名||手机号码||电子邮箱data.get("user")，密码data.get("passwd")
-     * @return 请求状态码status，失败信息message，用户信息data.userVO,会话data.sessionid
+     * @return 请求状态码status，失败信息message，用户信息data.userVO
+     * @author Jason_Jane
      */
     @PostMapping("/open/passwdLogin.api")
     public ResponMessage passwdLogin(RequestMessage requestMessage, HttpSession session) {
@@ -61,6 +65,7 @@ public class UserManageContrller {
      * @author mnilsy
      * @param requestMessage 手机号码data.get("user_Phone“）
      * @return 请求状态码status，失败信息message，会话data.sessionid
+     * @author mnilsy
      */
     @GetMapping("/open/getPhoneCode.api")
     public ResponMessage getPhoneCode(RequestMessage requestMessage, HttpSession session) {
@@ -79,6 +84,7 @@ public class UserManageContrller {
      * @author Jason_Jane
      * @param requestMessage 手机号码data.get("user_Phone")，验证码data.get("code")
      * @return 请求状态码status，失败信息message，用户信息data.userVO
+     * @author Jason_Jane
      */
     @PostMapping("/open/codeLogin.api")
     public ResponMessage codeLogin(RequestMessage requestMessage, HttpSession session) {
@@ -102,6 +108,7 @@ public class UserManageContrller {
 
     /**
      * 登出
+     *
      * @return message
      */
     @PostMapping("/logout.api")
@@ -120,6 +127,7 @@ public class UserManageContrller {
      * @author Jason_Jane
      * @param requestMessage 手机号码data.get("user_Phone")，验证码data.get("code")
      * @return 请求状态码status，失败信息message
+     * @author Jason_Jane
      */
     @PostMapping("/open/register.api")
     public ResponMessage register(RequestMessage requestMessage,HttpSession session) {
@@ -141,6 +149,7 @@ public class UserManageContrller {
      * @author Jason_Jane
      * @param requestMessage 用户名data.get("user_Name")
      * @return 请求状态码status
+     * @author Jason_Jane
      */
     @PostMapping("/open/checkUserName.api")
     public ResponMessage checkUserName(RequestMessage requestMessage) {
@@ -158,6 +167,7 @@ public class UserManageContrller {
      * @author Jason_Jane
      * @param requestMessage 用户名data.get("user_Name")，密码data.get("passwd")
      * @return 请求状态码status，用户信息data.userVO
+     * @author Jason_Jane
      */
     @PostMapping("/setUserNamePasswd.api")
     public ResponMessage setUserNamePasswd(RequestMessage requestMessage,HttpSession session) {
@@ -233,6 +243,7 @@ public class UserManageContrller {
      * @author Jason_Jane
      * @param requestMessage 用户性别data.get("user_Sex")
      * @return 请求状态码status，用户信息data.userVO
+     * @author Jason_Jane
      */
     @PostMapping("/updateUserSex.api")
     public ResponMessage updateUserSex(RequestMessage requestMessage,HttpSession session) {
@@ -254,6 +265,7 @@ public class UserManageContrller {
      * @author Jason_Jane
      * @param requestMessage 用户旧密码data.get("oldPasswd")，用户新密码data.get("newPasswd")
      * @return 请求状态码status，失败信息message
+     * @author Jason_Jane
      */
     @PostMapping("/updatePasswd.api")
     public ResponMessage updatePasswd(RequestMessage requestMessage,HttpSession session) {
@@ -280,6 +292,7 @@ public class UserManageContrller {
      * @author Jason_Jane
      * @param requestMessage 用户新密码data.get("newPasswd")，手机验证码data.get("code")
      * @return 请求状态码status，失败信息message
+     * @author Jason_Jane
      */
     @PostMapping("/open/retrievePasswd.api")
     public ResponMessage retrievePasswd(RequestMessage requestMessage,HttpSession session) {
