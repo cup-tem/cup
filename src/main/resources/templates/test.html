@@ -9,21 +9,13 @@
             $.ajax({
                 contentType: "application/x-www-form-urlencoded; charset=utf-8",
                 type: "post",
-                url: "/open//putWriteBackwriteBack_User_Name.api",
+                url: "/open/passwdLogin.api",
                 data: {
                     data: {
-                        discuss_Id: "this is discuss id",
-                        user_BackgroundUrl: "背景"
-                      /*  user_Email: "mnilsy.top@gmail.com",
-                        user_HeadUrl_max: "大头像",
-                        user_HeadUrl_min: "小头像",
-                        user_Name: "mnilsy",
-                        user_NickName: "ShuyL",
-                        user_Phone: "13536497415",
-                        user_QRCode: "二维码",
-                        user_Sex: "男"*/
+                        user: "MNILSY",
+                        passwd: "123456"
                     },
-                    sessionid: "TestMessage"
+                    sessionid: ""
                 },
                 async: true,
                 dataType: "json",

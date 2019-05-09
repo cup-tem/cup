@@ -1,9 +1,6 @@
 package top.mnilsy.cup.dao;
 
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 import top.mnilsy.cup.VO.UserVO;
 import top.mnilsy.cup.pojo.PasswdPojo;
@@ -237,4 +234,11 @@ public interface UserMapper {
      */
     @Update("update user set user_NickName = #{user_NickName} where user_Name = #{user_Name}")
     int updateUserNickName(UserVO userVO);
+
+    @Select("select u.* " +
+            "from user u " +
+            "join passwd p on u.user_Id = p.user_Id " +
+            "where (user_Name = #{user} or user_Email = #{user} or user_Phone = #{user}) " +
+            "and passwd_Normal = #{passwd}")
+    UserPojo loginBypasswd(@Param("user") String user, @Param("passwd") String passwd);
 }

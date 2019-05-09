@@ -2,6 +2,7 @@ package top.mnilsy.cup.sendTest;
 
 import com.alibaba.fastjson.JSON;
 import okhttp3.*;
+import top.mnilsy.cup.enums.UrlEnum;
 import top.mnilsy.cup.utils.RequestMessage;
 import top.mnilsy.cup.utils.ResponMessage;
 
@@ -22,12 +23,13 @@ public class HttpUtil {
      */
     private static ResponMessage send(String url, RequestBody requestBody) {
         OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder().url(url).post(requestBody).build();
+        Request request = new Request.Builder().url(UrlEnum.HTTPSERVER.vlue+url).post(requestBody).build();
         Response response = null;
         try {
             response = client.newCall(request).execute();
             if (response.body() == null) return null;
-            return JSON.parseObject(response.body().string(), ResponMessage.class);
+            String s=response.body().string();
+            return JSON.parseObject(s, ResponMessage.class);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -46,9 +48,8 @@ public class HttpUtil {
         data.put("user", user);
         data.put("passwd", passwd);
         RequestMessage requestMessage = new RequestMessage(data);
-        RequestBody requestBody = RequestBody.create(MediaType.parse("application/x-www-form-urlencoded"), JSON.toJSONString(requestMessage));
-        return send("/open/passwdLogin.api", requestBody);
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), JSON.toJSONString(requestMessage));
+
+        return send("open/passwdLogin.api", requestBody);
     }
-
-
 }
