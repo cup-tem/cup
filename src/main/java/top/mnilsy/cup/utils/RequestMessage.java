@@ -19,6 +19,10 @@ import java.util.Map;
         this.data = data;
     }
 
+    public RequestMessage(Map<String, Object> data) {
+        this.data = data;
+    }
+
     public String getSessionid() {
         return sessionid;
     }

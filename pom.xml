@@ -84,13 +84,19 @@
             <artifactId>aliyun-java-sdk-core</artifactId>
             <version>4.1.0</version>
         </dependency>
-
         <!-- https://mvnrepository.com/artifact/net.coobird/thumbnailator -->
         <dependency>
             <groupId>net.coobird</groupId>
             <artifactId>thumbnailator</artifactId>
             <version>0.4.8</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp -->
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>3.10.0</version>
+        </dependency>
+
     </dependencies>
 
     <build>
