@@ -198,6 +198,10 @@ public class UserServiceImpl implements UserService {
             String passwd_Old2 = passwdPojo.getPasswd_Old1();
             String passwd_Old1 = oldPasswd;
             String passwd_Normal = newPasswd;
+            System.out.println(passwd_Normal);
+            System.out.println(passwd_Old1);
+            System.out.println(passwd_Old2);
+            System.out.println(passwd_Old3);
             int updatePasswd = userMapper.updatePasswd(passwd_Normal,passwd_Old1,passwd_Old2,passwd_Old3,user_Id);
             if (updatePasswd == 1){
                 return 2;

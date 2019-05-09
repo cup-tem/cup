@@ -253,13 +253,19 @@ public class UserManageContrller {
         UserPojo userPojo = (UserPojo) session.getAttribute("userPojo");
         String oldPasswd = (String)requestMessage.getData().get("oldPasswd");
         String newPasswd = (String)requestMessage.getData().get("newPasswd");
+        String passwdRegex = "(?=.*[a-z])(?=.*\\d)(?=.*[#@!~%^&*?$(){};:'])[a-z\\d#@!~%^&*?$(){};:']{6,18}";
         if (oldPasswd == null)return ResponMessage.error("请输入旧密码！");
         if (newPasswd == null)return ResponMessage.error("请输入新密码！");
         if (oldPasswd.equals(newPasswd))return ResponMessage.error("新旧密码不能一样！");
+        if (!newPasswd.matches(passwdRegex))return ResponMessage.error("密码必须包含字母数字符号且为6-18位！");
         int message = userService.updatePasswd(oldPasswd,newPasswd,userPojo);
-        if (message == 0) return ResponMessage.error("旧密码不正确！");
-        if (message == 1) return ResponMessage.error("修改密码失败！");
-        return ResponMessage.ok("修改密码成功！");
+        if (message == 0){
+            return ResponMessage.error("旧密码不正确！");
+        }else  if (message == 1) {
+            return ResponMessage.error("修改密码失败！");
+        }else {
+            return ResponMessage.ok("修改密码成功！");
+        }
     }
 
     /**

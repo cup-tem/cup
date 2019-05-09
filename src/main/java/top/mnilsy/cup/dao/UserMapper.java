@@ -84,7 +84,7 @@ public interface UserMapper {
      * @return 用户基本资料
      * @author Jason_Jane
      */
-    @Select("select * from user as u LEFT JOIN passwd as p on u.user_Id = p.user_Id where user_Name = #{user} or user_Phone = #{user} or user_email = #{user} and passwd_Normal = #{passwd}")
+    @Select("select * from user LEFT JOIN passwd on user.user_Id = passwd.user_Id where user.user_Name = #{user} or user.user_Phone = #{user} or user.user_Email = #{user} and passwd.passwd_Normal = #{passwd}")
     UserPojo getUserByNamePhoneEmail(@Param("user")String user,@Param("passwd")String passwd);
 
     /**
@@ -159,7 +159,7 @@ public interface UserMapper {
      * @return passwdPojo
      * @author Jason_Jane
      */
-    @Update("update passwd set passwd_Old3 = #{passwd_Old3} and passwd_Old2 = #{passwd_Old2} and passwd_Old1 = #{passwd_Old1} and passwd_Normal = #{passwd_Normal} where user_Id = #{user_Id}")
+    @Update("update passwd set passwd_Old3 = #{passwd_Old3},passwd_Old2 = #{passwd_Old2},passwd_Old1 =  #{passwd_Old1},passwd_Normal =  #{passwd_Normal} where user_Id =  #{user_Id}")
     int updatePasswd(@Param("passwd_Normal") String passwd_Normal,@Param("passwd_Old1") String passwd_Old1,@Param("passwd_Old2") String passwd_Old2,@Param("passwd_Old3") String passwd_Old3,@Param("user_Id") String user_Id);
 
 
@@ -183,7 +183,7 @@ public interface UserMapper {
      * @param user_Id 用户id
      * @author Jason_Jane
      */
-    @Update("update passwd set passwd_Old3 = #{passwd_Old3} and passwd_Old2 = #{passwd_Old2} and passwd_Old1 = #{passwd_Old1} and passwd_Normal = #{passwd_Normal} where user_Id = #{user_Id}")
+    @Update("update passwd set passwd_Old3 = #{passwd_Old3},passwd_Old2 = #{passwd_Old2},passwd_Old1 =  #{passwd_Old1},passwd_Normal =  #{passwd_Normal} where user_Id =  #{user_Id}")
     int findPasswd(@Param("passwd_Normal") String passwd_Normal,@Param("passwd_Old1") String passwd_Old1,@Param("passwd_Old2") String passwd_Old2,@Param("passwd_Old3") String passwd_Old3,@Param("user_Id") String user_Id);
 
     /**
@@ -204,7 +204,7 @@ public interface UserMapper {
      * @return userVO
      * @author Jason_Jane
      */
-    @Update("update user set user_HeadUrl_max = #{user_HeadUrl_max} and user_HeadUrl_min = #{user_HeadUrl_min} where user_Name = #{user_Name}")
+    @Update("update user set user_HeadUrl_max = #{user_HeadUrl_max},user_HeadUrl_min = #{user_HeadUrl_min} where user_Name = #{user_Name}")
     int updateUserHead(UserVO userVO);
 
     /**

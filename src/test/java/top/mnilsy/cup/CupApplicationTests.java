@@ -82,7 +82,7 @@ public class CupApplicationTests {
 
     @Test
     public void testMapper(){
-        String userId = "23b005ac-cae6-412f-b4c8-f568b07c0a02";
+        /*String userId = "23b005ac-cae6-412f-b4c8-f568b07c0a02";
         String userPhone = "13536497415";
         String userName = "MNILSY";
         String userNickName = "baby";
@@ -93,8 +93,14 @@ public class CupApplicationTests {
         PasswdPojo passwdPojo = new PasswdPojo();
         userPojo = userMapper.getUserByPhoneInfo(userPhone);
         userVO = userMapper.getUserByName(userName);
-        int test = userMapper.addUserByPhoneInfo(userPojo);
-        System.out.println(test);
+        int test = userMapper.addUserByPhoneInfo(userPojo);*/
+        /*String user_Id = "23b005ac-cae6-412f-b4c8-f568b07c0a02";
+        String passwd_Old3 = null;
+        String passwd_Old2 = null;
+        String passwd_Old1 = "123456";
+        String passwd_Normal = "123abc!";
+        int updatePasswd = userMapper.updatePasswd(passwd_Normal,passwd_Old1,passwd_Old2,passwd_Old3,user_Id);
+        System.out.println(updatePasswd);*/
     }
 
     @Test
