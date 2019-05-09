@@ -2,6 +2,8 @@ package top.mnilsy.cup.contrller;
 
 
 
+import com.fasterxml.jackson.databind.util.BeanUtil;
+import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 import top.mnilsy.cup.VO.UserVO;
 import top.mnilsy.cup.dao.UserMapper;
@@ -50,12 +52,10 @@ public class UserManageContrller {
        UserPojo userPojo = userService.getPasswdLogin(user,passwd);
        if (userPojo != null){
            session.setAttribute("userPojo",userPojo);
-           String user_Name = userPojo.getUser_Name();
-           UserVO userVO = userService.getUserByUsername(user_Name);
-           Map<String, Object> map = new HashMap<>();
-           map.put("sessionId", session.getId());
-           map.put("userVO",userVO);
-           return ResponMessage.ok(map);
+           UserVO userVO = new UserVO();
+           BeanUtils.copyProperties(userPojo,userVO);
+           userVO.setSessionId(session.getId());
+           return ResponMessage.ok(userVO);
        }
        return ResponMessage.error("登陆失败！");
     }
@@ -96,12 +96,10 @@ public class UserManageContrller {
        UserPojo userPojo = userService.codeLogin(user_Phone);
        if (userPojo != null){
            session.setAttribute("userPojo",userPojo);
-           String user_Name = userPojo.getUser_Name();
-           UserVO userVO = userService.getUserByUsername(user_Name);
-           Map<String, Object> map = new HashMap<>();
-           map.put("sessionId", session.getId());
-           map.put("userVO",userVO);
-           return ResponMessage.ok(map);
+           UserVO userVO = new UserVO();
+           BeanUtils.copyProperties(userPojo,userVO);
+           userVO.setSessionId(session.getId());
+           return ResponMessage.ok(userVO);
        }
        return ResponMessage.error("验证码登陆失败");
     }
