@@ -10,6 +10,7 @@ import top.mnilsy.cup.VO.TweetVO;
 import top.mnilsy.cup.VO.UserVO;
 import top.mnilsy.cup.dao.*;
 import top.mnilsy.cup.pojo.AccessoryPojo;
+import top.mnilsy.cup.pojo.PasswdPojo;
 import top.mnilsy.cup.pojo.UserPojo;
 import top.mnilsy.cup.utils.ResponMessage;
 import top.mnilsy.cup.utils.SendSMSUtil;
@@ -81,6 +82,23 @@ public class CupApplicationTests {
 
     @Test
     public void testMapper(){
+        String userId = "23b005ac-cae6-412f-b4c8-f568b07c0a02";
+        String userPhone = "13536497415";
+        String userName = "MNILSY";
+        String userNickName = "baby";
+        String userSex = "女";
+        String email = "770502378@qq.com";
+        UserPojo userPojo = new UserPojo();
+        UserVO userVO = new UserVO();
+        PasswdPojo passwdPojo = new PasswdPojo();
+        userPojo = userMapper.getUserByPhoneInfo(userPhone);
+        userVO = userMapper.getUserByName(userName);
+        int test = userMapper.setUserNameByPhoneInfo(userPojo);
+        System.out.println(test);
+    }
+
+    @Test
+    public void testController(){
 
     }
 }

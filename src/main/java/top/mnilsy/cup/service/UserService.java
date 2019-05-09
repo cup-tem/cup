@@ -70,7 +70,7 @@ public interface UserService {
      * @return 是否注册成功
      * @author Jason_Jane
      */
-    String register(String user_Phone, String code);
+    UserPojo register(String user_Phone, String code);
 
     /**
      * 设置用户名和密码
@@ -89,7 +89,16 @@ public interface UserService {
      * @return 是否上传头像成功
      * @author Jason_Jane
      */
-    String uploadingUserHead(String user_Head);
+    UserVO uploadingUserHead(String user_Head,UserPojo userPojo);
+
+    /**
+     * 上传背景图
+     *
+     * @param user_Background 用户背景图
+     * @return 是否上传头像成功
+     * @author Jason_Jane
+     */
+    UserVO uploadingBackground(String user_Background,UserPojo userPojo);
 
     /**
      * 修改性别

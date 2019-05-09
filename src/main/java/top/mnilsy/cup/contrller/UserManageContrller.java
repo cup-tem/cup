@@ -10,6 +10,7 @@ import top.mnilsy.cup.utils.RequestMessage;
 import top.mnilsy.cup.utils.ResponMessage;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,6 +26,9 @@ public class UserManageContrller {
 
     @Resource(name = "userService")
     private UserService userService;
+
+    @Resource(name = "userMapper")
+    private UserMapper userMapper;
 
     /**
      * 密码登录，不需要带sessionid
@@ -83,11 +87,17 @@ public class UserManageContrller {
 
     /**
      * 登出
-     * @return
+     * @return message
      */
     @PostMapping("/logout.api")
-    public ResponMessage logout(HttpSession session){
-        return new ResponMessage();
+    public ResponMessage logout(HttpSession session, HttpServletRequest request){
+        session = request.getSession();
+        if (session != null){
+            UserPojo userPojo = (UserPojo) session.getAttribute("userPojo");
+            session.invalidate();
+            return ResponMessage.ok("登出成功");
+        }
+        return ResponMessage.error("无需登出");
     }
 
     /**
@@ -97,9 +107,10 @@ public class UserManageContrller {
      * @return 请求状态码status，失败信息message
      */
     @PostMapping("/open/register.api")
-    public ResponMessage register(RequestMessage requestMessage) {
-        String register = userService.register((String)requestMessage.getData().get("user_Phone"),(String)requestMessage.getData().get("code"));
-        if (register != null){
+    public ResponMessage register(RequestMessage requestMessage,HttpSession session) {
+        UserPojo userPojo = userService.register((String)requestMessage.getData().get("user_Phone"),(String)requestMessage.getData().get("code"));
+        if (userPojo != null){
+            session.setAttribute("userPojo",userPojo);
             return ResponMessage.ok();
         }
         return ResponMessage.error("账号注册失败");
@@ -144,7 +155,14 @@ public class UserManageContrller {
      */
     @PostMapping("/uploadingUserHead.api")
     public ResponMessage uploadingUserHead(RequestMessage requestMessage,HttpSession session) {
-        return new ResponMessage();
+        UserPojo userPojo = (UserPojo) session.getAttribute("userPojo");
+        UserVO userVO = userService.uploadingUserHead((String)requestMessage.getData().get("user_Head"),userPojo);
+        if (userVO != null){
+            userPojo = userMapper.getUserByUserName(userVO.getUser_Name());
+            session.setAttribute("userPojo",userPojo);
+            return ResponMessage.ok(userVO);
+        }
+        return ResponMessage.error("上传头像失败");
     }
 
     /**
@@ -154,8 +172,15 @@ public class UserManageContrller {
      * @return 请求状态码status，用户信息data.userVO
      */
     @PostMapping("/uploadingUserBackgroundUrl.api")
-    public ResponMessage uploadingUserBackgroundUrl(RequestMessage requestMessage) {
-        return new ResponMessage();
+    public ResponMessage uploadingUserBackgroundUrl(RequestMessage requestMessage,HttpSession session) {
+        UserPojo userPojo = (UserPojo) session.getAttribute("userPojo");
+        UserVO userVO = userService.uploadingBackground((String)requestMessage.getData().get("user_Background"),userPojo);
+        if (userVO != null){
+            userPojo = userMapper.getUserByUserName(userVO.getUser_Name());
+            session.setAttribute("userPojo",userPojo);
+            return ResponMessage.ok(userVO);
+        }
+        return ResponMessage.error("上传背景图失败");
     }
 
     /**
@@ -169,7 +194,6 @@ public class UserManageContrller {
         UserPojo userPojo = (UserPojo) session.getAttribute("userPojo");
         UserVO userVO = userService.updateUserNickName((String)requestMessage.getData().get("user_Sex"),userPojo);
         if (userVO != null){
-            UserMapper userMapper = null;
             userPojo = userMapper.getUserByUserName(userVO.getUser_Name());
             session.setAttribute("userPojo",userPojo);
             return ResponMessage.ok(userVO);
@@ -188,7 +212,6 @@ public class UserManageContrller {
         UserPojo userPojo = (UserPojo) session.getAttribute("userPojo");
         UserVO userVO = userService.updateUserSex((String)requestMessage.getData().get("user_Sex"),userPojo);
         if (userVO != null){
-            UserMapper userMapper = null;
             userPojo = userMapper.getUserByUserName(userVO.getUser_Name());
             session.setAttribute("userPojo",userPojo);
             return ResponMessage.ok(userVO);
@@ -240,7 +263,6 @@ public class UserManageContrller {
         String oldPhone = userPojo.getUser_Phone();
         UserVO userVO = userService.updateUserPhone((String)requestMessage.getData().get("user_Phone"),(String)requestMessage.getData().get("code"),oldPhone);
         if (userVO != null){
-            UserMapper userMapper = null;
             userPojo = userMapper.getUserByUserName(userVO.getUser_Name());
             session.setAttribute("userPojo",userPojo);
             return ResponMessage.ok(userVO);
@@ -277,7 +299,6 @@ public class UserManageContrller {
         UserPojo userPojo = (UserPojo) session.getAttribute("userPojo");
         UserVO userVO = userService.bindUserEmail((String) requestMessage.getData().get("user_Email"),(String) requestMessage.getData().get("code"),userPojo);
         if (userVO != null){
-            UserMapper userMapper = null;
             userPojo = userMapper.getUserByUserName(userVO.getUser_Name());
             session.setAttribute("userPojo",userPojo);
             return ResponMessage.ok(userVO);
@@ -296,7 +317,6 @@ public class UserManageContrller {
         UserPojo userPojo = (UserPojo) session.getAttribute("userPojo");
         UserVO userVO = userService.updateUserEmail((String) requestMessage.getData().get("user_Email"),(String) requestMessage.getData().get("newCode"),(String) requestMessage.getData().get("oldCode"),userPojo);
         if (userVO != null){
-            UserMapper userMapper = null;
             userPojo = userMapper.getUserByUserName(userVO.getUser_Name());
             session.setAttribute("userPojo",userPojo);
             return ResponMessage.ok(userVO);
