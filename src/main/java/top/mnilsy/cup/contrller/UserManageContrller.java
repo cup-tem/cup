@@ -35,7 +35,7 @@ public class UserManageContrller {
      * @param requestMessage 用户名||手机号码||电子邮箱data.get("user")，密码data.get("passwd")
      * @return 请求状态码status，失败信息message，用户信息data.userVO,会话data.sessionid
      */
-    @PostMapping("/open/passwdLogin.api")//测试通过
+    @PostMapping("/open/passwdLogin.api")
     public ResponMessage passwdLogin(RequestMessage requestMessage, HttpSession session) {
        String user = (String) requestMessage.getData().get("user");
        String passwd = (String)requestMessage.getData().get("passwd");
