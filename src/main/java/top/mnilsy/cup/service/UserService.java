@@ -123,11 +123,11 @@ public interface UserService {
      * 找回密码
      *
      * @param newPasswd 用户新密码
-     * @param userPojo  用户信息
+     * @param user_Phone  用户手机号码
      * @return 是否找回成功
      * @author Jason_Jane
      */
-    int retrievePasswd(String newPasswd,UserPojo userPojo);
+    int retrievePasswd(String newPasswd,String user_Phone);
 
     /**
      * 修改手机号码
