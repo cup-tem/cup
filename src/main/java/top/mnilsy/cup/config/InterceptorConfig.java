@@ -14,7 +14,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**").excludePathPatterns("/open/**");
+        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**").excludePathPatterns("/open/*");
         registry.addInterceptor(new DiscussInterceptor()).addPathPatterns("/putDiscuss*");
         registry.addInterceptor(new WritebackInterceptor()).addPathPatterns("/putWriteBack*");
     }

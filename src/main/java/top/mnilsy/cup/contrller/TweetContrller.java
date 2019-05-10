@@ -50,7 +50,7 @@ public class TweetContrller {
      * @return 请求状态码status，失败信息message，推文data.tweetVO，推文评论data.List<discussVO>
      * @author mnilsy
      */
-    @GetMapping("/openTweet.api")
+    @PostMapping("/open/openTweet.api")
     public ResponMessage openTweet(@RequestBody RequestMessage requestMessage) {
         String tweet_Id = (String) requestMessage.getData().get("tweet_Id");
         TweetVO tweetVO = tweetService.getTweet(tweet_Id);
@@ -69,7 +69,7 @@ public class TweetContrller {
      * @return 请求状态码status，失败信息message，推文评论data.List<discussVO>
      * @author mnilsy
      */
-    @GetMapping("/getMoreDiscuss.api")
+    @PostMapping("/open/getMoreDiscuss.api")
     public ResponMessage getMoreDiscuss(@RequestBody RequestMessage requestMessage) {
         String tweet_Id = (String) requestMessage.getData().get("tweet_Id");
         String count = (String) requestMessage.getData().get("count");
@@ -81,16 +81,16 @@ public class TweetContrller {
     /**
      * 评论推文
      *
-     * @param requestMessage 评论内容data.get("discuss_Vlue")
-     * @param tweet_Id       推文的id
+     * @param requestMessage 评论内容data.get("discuss_Vlue"),推文的id data.get("tweet_Id")
      * @return 请求状态码status，失败信息message
      * @author mnilsy
      */
-    @PostMapping("/putDiscuss{tweet_Id}.api")
-    public ResponMessage putDiscuss(@RequestBody RequestMessage requestMessage, @PathVariable String tweet_Id, HttpSession session) {
+    @PostMapping("/putDiscuss.api")
+    public ResponMessage putDiscuss(@RequestBody RequestMessage requestMessage, HttpSession session) {
         UserPojo userPojo = (UserPojo) session.getAttribute("userInfo");
         //获取信息
         String discuss_Vlue = (String) requestMessage.getData().get("discuss_Vlue");
+        String tweet_Id = (String) requestMessage.getData().get("tweet_Id");
         if (discuss_Vlue == null) return ResponMessage.error("评论为空");//过滤空评论
 
         boolean flag = tweetService.putDiscuss(tweet_Id, userPojo.getUser_Id(), discuss_Vlue);
@@ -100,16 +100,17 @@ public class TweetContrller {
     /**
      * 回复评论
      *
-     * @param requestMessage    回复内容data.get("writeBack_Vlue")，评论的id data.get("discuss_Id")
-     * @param writeBack_User_Name 回复的用户名
+     * @param requestMessage 回复内容data.get("writeBack_Vlue")，评论的id data.get("discuss_Id"),回复的用户名 data.get("writeBack_User_Name")
+     * @param
      * @return 请求状态码status，失败信息message
      * @author mnilsy
      */
-    @PostMapping("/putWriteBack{writeBack_User_Name}.api")
-    public ResponMessage putWriteBack(@RequestBody RequestMessage requestMessage, @PathVariable String writeBack_User_Name, HttpSession session) {
+    @PostMapping("/putWriteBack.api")
+    public ResponMessage putWriteBack(@RequestBody RequestMessage requestMessage, HttpSession session) {
         UserPojo userPojo = (UserPojo) session.getAttribute("userInfo");
         //获取信息
         String writeBack_Vlue = (String) requestMessage.getData().get("writeBack_Vlue");
+        String writeBack_User_Name = (String) requestMessage.getData().get("writeBack_User_Name");
         String discuss_Id = (String) requestMessage.getData().get("discuss_Id");
         if (writeBack_Vlue == null) return ResponMessage.error("回复为空");//过滤空回复
         boolean flag = tweetService.putWriteback(discuss_Id, userPojo.getUser_Id(), writeBack_User_Name, writeBack_Vlue);
@@ -123,7 +124,7 @@ public class TweetContrller {
      * @return 请求状态码status，失败信息message
      * @author mnilsy
      */
-    @PostMapping("/putLike{tweet_Id}.api")
+    @GetMapping("/putLike{tweet_Id}.api")
     public ResponMessage putLike(@PathVariable String tweet_Id, HttpSession session) {
         UserPojo userPojo = (UserPojo) session.getAttribute("userInfo");
         boolean flag = tweetService.putLike(tweet_Id, userPojo.getUser_Id());
@@ -137,7 +138,7 @@ public class TweetContrller {
      * @return 请求状态码status
      * @author mnilsy
      */
-    @PostMapping("/deleteTweet{tweet_Id}.api")
+    @GetMapping("/deleteTweet{tweet_Id}.api")
     public ResponMessage deleteTweet(@PathVariable String tweet_Id, HttpSession session) {
         UserPojo userPojo = (UserPojo) session.getAttribute("userInfo");
         return tweetService.deleteTweet(tweet_Id, userPojo.getUser_Id()) ? ResponMessage.ok() : ResponMessage.error("非发布用户删除");
@@ -150,7 +151,7 @@ public class TweetContrller {
      * @return 请求状态码status
      * @author mnilsy
      */
-    @PostMapping("/deleteDiscuss{discuss_Id}.api")
+    @GetMapping("/deleteDiscuss{discuss_Id}.api")
     public ResponMessage deleteDiscuss(@PathVariable String discuss_Id, HttpSession session) {
         UserPojo userPojo = (UserPojo) session.getAttribute("userInfo");
         return tweetService.deleteDiscuss(discuss_Id, userPojo.getUser_Id()) ? ResponMessage.ok() : ResponMessage.error("非评论用户删除");
@@ -164,12 +165,11 @@ public class TweetContrller {
      * @return 请求状态码status
      * @author mnilsy
      */
-    @PostMapping("/deleteWriteBack{writeBack_Id}.api")
+    @GetMapping("/deleteWriteBack{writeBack_Id}.api")
     public ResponMessage deleteWriteBack(@PathVariable String writeBack_Id, HttpSession session) {
         UserPojo userPojo = (UserPojo) session.getAttribute("userInfo");
         return tweetService.deleteTweet(writeBack_Id, userPojo.getUser_Id()) ? ResponMessage.ok() : ResponMessage.error("非回复用户删除");
 
     }
-
 
 }

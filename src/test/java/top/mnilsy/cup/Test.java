@@ -12,9 +12,13 @@ import java.util.Map;
  */
 public class Test {
     public static void main(String[] args) {
-        ResponMessage responMessage = HttpUtil.passwdLogin("MNILSY", "123abc?");
+        //46F9938AEAEFE24A9B6EBF044362B682
+        ResponMessage responMessage = HttpUtil.
+//                passwdLogin("MNILSY", "123abc?");
+//        getPhoneCode("13536497415",null);
+//        codeLogin("13536497415","424362","FEBF7DB2FB4CFCBC7AD7490630454215");
+//        logout("FEBF7DB2FB4CFCBC7AD7490630454215");
+        register("13536497415","660359","0894FF8C207760FB74ECA2C6DD1F37CB");
         System.out.println(JSON.toJSONString(responMessage));
-        System.out.println("status：" + responMessage.getStatus());
-        System.out.println("message：" + responMessage.getMessage());
     }
 }

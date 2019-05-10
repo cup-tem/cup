@@ -1,7 +1,6 @@
 package top.mnilsy.cup.contrller;
 
 
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 import top.mnilsy.cup.VO.UserVO;
@@ -67,6 +66,21 @@ public class UserManageContrller {
             session.setAttribute("phoneCode", code);
             Map<String, String> map = new HashMap<>();
             map.put("sessionId", session.getId());
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    if (session.getAttribute("user_Phone") == null || session.getAttribute("phoneCode") == null) return;
+                    try {
+                        Thread.sleep(300000);
+                        if (session.getAttribute("user_Phone") == null || session.getAttribute("phoneCode") == null)
+                            return;
+                        session.removeAttribute("user_Phone");
+                        session.removeAttribute("phoneCode");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
             return ResponMessage.ok(map);
         }
         return ResponMessage.error("获取验证码失败");
@@ -83,8 +97,8 @@ public class UserManageContrller {
     public ResponMessage codeLogin(@RequestBody RequestMessage requestMessage, HttpSession session) {
         String user_Phone = (String) requestMessage.getData().get("user_Phone");
         if (user_Phone == null) return ResponMessage.error("请输入手机号码");
-        String thisPhone = (String)session.getAttribute("user_Phone");
-        if (!user_Phone.equals(thisPhone))return ResponMessage.error("登录手机号与验证手机号不对应");
+        String thisPhone = (String) session.getAttribute("user_Phone");
+        if (!user_Phone.equals(thisPhone)) return ResponMessage.error("登录手机号与验证手机号不对应");
         String code = (String) requestMessage.getData().get("code");
         String rCode = (String) session.getAttribute("phoneCode");
         if (!code.equals(rCode)) return ResponMessage.error("验证码输入有误");
@@ -94,6 +108,9 @@ public class UserManageContrller {
             UserVO userVO = new UserVO();
             BeanUtils.copyProperties(userPojo, userVO);
             userVO.setSessionId(session.getId());
+            //登录成功，删除验证码
+            session.removeAttribute("user_Phone");
+            session.removeAttribute("phoneCode");
             return ResponMessage.ok(userVO);
         }
         return ResponMessage.error("验证码登陆失败");
@@ -125,10 +142,10 @@ public class UserManageContrller {
     public ResponMessage register(@RequestBody RequestMessage requestMessage, HttpSession session) {
         String telRegex = "^[1](([3][0-9])|([4][5-9])|([5][0-3,5-9])|([6][5,6])|([7][0-8])|([8][0-9])|([9][1,8-9]))[0-9]{8}$";
         String user_Phone = (String) requestMessage.getData().get("user_Phone");
-        String thisPhone = (String)session.getAttribute("user_Phone");
+        String thisPhone = (String) session.getAttribute("user_Phone");
         if (user_Phone == null) return ResponMessage.error("手机号不能为空");
         if (!user_Phone.matches(telRegex)) return ResponMessage.error("请输入正确的手机号码");
-        if (!user_Phone.equals(thisPhone))return ResponMessage.error("注册手机号与填写手机号不对应");
+        if (!user_Phone.equals(thisPhone)) return ResponMessage.error("注册手机号与填写手机号不对应");
         String code = (String) requestMessage.getData().get("code");
         String rCode = (String) session.getAttribute("phoneCode");
         if (!code.equals(rCode)) return ResponMessage.error("手机验证码输入有误");
@@ -241,7 +258,7 @@ public class UserManageContrller {
         String user_NickName = (String) requestMessage.getData().get("user_NickName");
         String NickNameRegex = "^.{1,14}$";
         if (user_NickName == null) return ResponMessage.error("修改昵称不能为空");
-        if (!user_NickName.matches(NickNameRegex))return ResponMessage.error("昵称不能超过14位！");
+        if (!user_NickName.matches(NickNameRegex)) return ResponMessage.error("昵称不能超过14位！");
         UserVO userVO = userService.updateUserNickName(user_NickName, userPojo);
         if (userVO != null) {
             UserPojo userPojo1 = (UserPojo) session.getAttribute("userInfo");
@@ -267,8 +284,9 @@ public class UserManageContrller {
         String userMan = "男";
         String userLady = "女";
         if (user_Sex == null) return ResponMessage.error("修改性别不能为空");
-        if (!user_Sex.equals(userMan) || !user_Sex.equals(userLady))return ResponMessage.error("输入的性别不是“男”或“女”，请重新输入！");
-        if (user_Sex.equals(userOldSex))return ResponMessage.error("性别一样！修改失败！");
+        if (!user_Sex.equals(userMan) || !user_Sex.equals(userLady))
+            return ResponMessage.error("输入的性别不是“男”或“女”，请重新输入！");
+        if (user_Sex.equals(userOldSex)) return ResponMessage.error("性别一样！修改失败！");
         UserVO userVO = userService.updateUserSex(user_Sex, userPojo);
         if (userVO != null) {
             UserPojo userPojo1 = (UserPojo) session.getAttribute("userInfo");
@@ -344,7 +362,7 @@ public class UserManageContrller {
         String code = (String) requestMessage.getData().get("code");
         if (oldPhone.equals(user_Phone)) return ResponMessage.error("新旧手机号码一样");
         if (user_Phone == null) return ResponMessage.error("请输入新手机号码");
-        if (!user_Phone.matches(telRegex))return ResponMessage.error("手机格式不正确！请重新输入正确的手机号码！");
+        if (!user_Phone.matches(telRegex)) return ResponMessage.error("手机格式不正确！请重新输入正确的手机号码！");
         if (!code.equals(rCode)) return ResponMessage.error("输入的手机验证码有误");
         UserVO userVO = userService.updateUserPhone(user_Phone, userPojo);
         if (userVO != null) {
@@ -367,7 +385,7 @@ public class UserManageContrller {
     public ResponMessage getEmailCode(@RequestBody RequestMessage requestMessage, HttpSession session) {
         String eCode = userService.getEmailCode((String) requestMessage.getData().get("user_Email"));
         if (eCode != null) {
-            session.setAttribute("user_Email",requestMessage.getData().get("user_Email"));
+            session.setAttribute("user_Email", requestMessage.getData().get("user_Email"));
             session.setAttribute("eCode", eCode);
             Map<String, String> map = new HashMap<>();
             map.put("sessionId", session.getId());
@@ -389,9 +407,9 @@ public class UserManageContrller {
         String emailRegex = "^(\\w)+(\\.\\w+)*@(\\w)+((\\.\\w{2,3}){1,3})$";
         String user_Email = (String) requestMessage.getData().get("user_Email");
         if (user_Email == null) return ResponMessage.error("请输入电子邮箱");
-        if (!user_Email.matches(emailRegex))return ResponMessage.error("电子邮箱格式不对！请重新输入正确的电子邮箱！");
+        if (!user_Email.matches(emailRegex)) return ResponMessage.error("电子邮箱格式不对！请重新输入正确的电子邮箱");
         String thisEmail = (String) session.getAttribute("user_Email");
-        if (!user_Email.equals(thisEmail))return ResponMessage.error("输入的电子邮箱和申请验证的电子邮箱不对应");
+        if (!user_Email.equals(thisEmail)) return ResponMessage.error("输入的电子邮箱和申请验证的电子邮箱不对应");
         String code = (String) requestMessage.getData().get("code");
         if (code == null) return ResponMessage.error("请输入验证码");
         String rCode = (String) session.getAttribute("eCode");
@@ -419,14 +437,14 @@ public class UserManageContrller {
         String emailRegex = "^(\\w)+(\\.\\w+)*@(\\w)+((\\.\\w{2,3}){1,3})$";
         String oldEmail = userPojo.getUser_Email();
         String thisOldEmail = (String) session.getAttribute("user_Email");
-        if (!oldEmail.equals(thisOldEmail))return ResponMessage.error("填写的旧邮箱与申请验证的旧邮箱不对应");
+        if (!oldEmail.equals(thisOldEmail)) return ResponMessage.error("填写的旧邮箱与申请验证的旧邮箱不对应");
         String oldCode = (String) requestMessage.getData().get("oldCode");
         if (oldCode == null) return ResponMessage.error("请输入旧邮箱验证码");
         String rOldCode = (String) session.getAttribute("eCode");
         if (!oldCode.equals(rOldCode)) return ResponMessage.error("旧邮箱验证码不正确");
         String user_Email = (String) requestMessage.getData().get("user_Email");
         if (user_Email == null) return ResponMessage.error("请输入新邮箱");
-        if (!user_Email.matches(emailRegex))return ResponMessage.error("电子邮箱格式不对！请重新输入正确的电子邮箱");
+        if (!user_Email.matches(emailRegex)) return ResponMessage.error("电子邮箱格式不对！请重新输入正确的电子邮箱");
         String newCode = (String) requestMessage.getData().get("newCode");
         if (newCode == null) return ResponMessage.error("请输入新邮箱验证码");
         String rNewCode = (String) session.getAttribute("eCode");

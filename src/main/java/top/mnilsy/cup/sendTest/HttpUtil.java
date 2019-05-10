@@ -285,7 +285,7 @@ public class HttpUtil {
      * @param user_Email 用户新邮箱
      * @param newCode    新邮箱验证码
      * @param oldCode    旧邮箱验证码
-     * @return 请求状态码status，用户信息data.userVO
+     * @return 请求状态码status, 失败信息message，用户信息userVO
      */
     public ResponMessage updateUserEmail(String user_Email, String newCode, String oldCode, String sessionid) {
         Map<String, Object> data = new HashMap<>();
@@ -296,5 +296,131 @@ public class HttpUtil {
         return send("updateUserEmail.api", requestMessage, sessionid);
     }
 
+    /**
+     * 发布推文
+     *
+     * @param tweet_Type 推文类型
+     * @param tweet_Text 推文文字
+     * @param accessory  推文附件
+     * @param user_Name  @的用户
+     * @return 请求状态码status, 失败信息message
+     * @author mnilsy
+     */
+    public ResponMessage putTweet(String tweet_Type, String tweet_Text, String[] accessory, String[] user_Name, String sessionid) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("tweet_Type", tweet_Type);
+        data.put("tweet_Text", tweet_Text);
+        data.put("accessory", accessory);
+        data.put("user_Name", user_Name);
+        RequestMessage requestMessage = new RequestMessage(data);
+        return send("putTweet.api", requestMessage, sessionid);
+    }
 
+    /**
+     * 查看推文，即点开推文
+     *
+     * @param tweet_Id 推文id
+     * @return 请求状态码status, 失败信息message
+     * @author mnilsy
+     */
+    public ResponMessage openTweet(String tweet_Id) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("tweet_Id", tweet_Id);
+        RequestMessage requestMessage = new RequestMessage(data);
+        return send("open/openTweet.api", requestMessage, null);
+    }
+
+    /**
+     * 获取指定推文的更多评论
+     *
+     * @param tweet_Id 推文id
+     * @param count    获取次数
+     * @return 请求状态码status，失败信息message，推文评论List<discussVO>
+     * @author mnilsy
+     */
+    public ResponMessage getMoreDiscuss(String tweet_Id, String count) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("tweet_Id", tweet_Id);
+        data.put("count", count);
+        RequestMessage requestMessage = new RequestMessage(data);
+        return send("open/getMoreDiscuss.api", requestMessage, null);
+    }
+
+    /**
+     * 评论推文
+     *
+     * @param discuss_Vlue 评论内容
+     * @param tweet_Id     推文id
+     * @return 请求状态码status，失败信息message
+     * @author mnilsy
+     */
+    public ResponMessage putDiscuss(String discuss_Vlue, String tweet_Id, String sessionid) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("discuss_Vlue", discuss_Vlue);
+        data.put("tweet_Id", tweet_Id);
+        RequestMessage requestMessage = new RequestMessage(data);
+        return send("putDiscuss.api", requestMessage, sessionid);
+    }
+
+    /**
+     * 回复评论
+     *
+     * @param writeBack_Vlue      回复内容
+     * @param discuss_Id          评论的id
+     * @param writeBack_User_Name 回复的用户名
+     * @return 请求状态码status，失败信息message
+     * @author mnilsy
+     */
+    public ResponMessage putWriteBack(String writeBack_Vlue, String discuss_Id, String writeBack_User_Name, String sessionid) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("writeBack_Vlue", writeBack_Vlue);
+        data.put("discuss_Id", discuss_Id);
+        data.put("writeBack_User_Name", writeBack_User_Name);
+        RequestMessage requestMessage = new RequestMessage(data);
+        return send("putWriteBack.api", requestMessage, sessionid);
+    }
+
+    /**
+     * 点赞
+     *
+     * @param tweet_Id 推文id
+     * @return 请求状态码status，失败信息message
+     * @author mnilsy
+     */
+    public ResponMessage putLike(String tweet_Id, String sessionid) {
+        return send("putLike" + tweet_Id + ".api", null, sessionid);
+    }
+
+    /**
+     * 删除推文
+     *
+     * @param tweet_Id 推文id
+     * @return 请求状态码status，失败信息message
+     * @author mnilsy
+     */
+    public ResponMessage deleteTweet(String tweet_Id, String sessionid) {
+        return send("deleteTweet" + tweet_Id + ".api", null, sessionid);
+    }
+
+    /**
+     * 删除评论
+     *
+     * @param discuss_Id 评论的id
+     * @return 请求状态码status
+     * @author mnilsy
+     */
+    public ResponMessage deleteDiscuss(String discuss_Id, String sessionid) {
+        return send("deleteDiscuss" + discuss_Id + ".api", null, sessionid);
+    }
+
+    /**
+     * 删除评论回复
+     *
+     * @param writeBack_Id 评论回复的id
+     * @return 请求状态码status
+     * @author mnilsy
+     */
+    public ResponMessage deleteWriteBack(String writeBack_Id, String sessionid) {
+        return send("deleteWriteBack" + writeBack_Id + ".api", null, sessionid);
+    }
 }

@@ -13,6 +13,7 @@ import top.mnilsy.cup.service.UserService;
 import top.mnilsy.cup.utils.FileUtil;
 import top.mnilsy.cup.utils.SendMailUtil;
 import top.mnilsy.cup.utils.SendSMSUtil;
+import top.mnilsy.cup.utils.SpringUtil;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -29,6 +30,9 @@ public class UserServiceImpl implements UserService {
     @Resource(name = "userMapper")
     private UserMapper userMapper;
 
+    @Resource(name = "sendMailUtils")
+    private SendMailUtil sendMailUtil;
+
     /**
      * 获取验证码
      */
@@ -37,7 +41,7 @@ public class UserServiceImpl implements UserService {
         String code = (int) (Math.random() * 10) + "" + (int) (Math.random() * 10) + "" + (int) (Math.random() * 10) + "" + (int) (Math.random() * 10) + "" + (int) (Math.random() * 10) + "" + (int) (Math.random() * 10);
         System.out.println(code);
         if (SendSMSUtil.send(user_Phone, code)) return code;
-        return code;
+        return null;
     }
 
     /**
@@ -46,7 +50,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public String getEmailCode(String user_Email) {
         String code = "TestEcode";
-        SendMailUtil sendMailUtil = new SendMailUtil();
         sendMailUtil.send(user_Email, code);
         return code;
     }

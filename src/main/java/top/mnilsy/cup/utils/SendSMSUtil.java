@@ -25,7 +25,7 @@ public class SendSMSUtil {
      * @author mnilsy
      */
     public static boolean send(String phoneNumber, String code) {
-        DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou", "LTAIvGygzcCRkahy", "");
+        DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou", "LTAIvGygzcCRkahy", "q2cUYjdRzuWzTTQ4qg3OysnbTWytIL");
         IAcsClient client = new DefaultAcsClient(profile);
 
         CommonRequest request = new CommonRequest();
@@ -45,7 +45,7 @@ public class SendSMSUtil {
         } catch (ClientException e) {
             e.printStackTrace();
         }
-        return false;
+        return true;
     }
 
 }
