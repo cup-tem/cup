@@ -84,9 +84,7 @@ public interface UserMapper {
      * @return 用户基本资料
      * @author Jason_Jane
      */
-    @Select("select * from user LEFT JOIN passwd on user.user_Id = passwd.user_Id " +
-            "where (user.user_Name = #{user} or user.user_Phone = #{user} or user.user_Email = #{user}) " +
-            "and passwd.passwd_Normal = #{passwd}")
+    @Select("select user.* from user left join passwd p on user.user_Id = p.user_Id where passwd_Normal = #{passwd} and (user_Phone = #{user} or user_Email = #{user} or user_Name = #{user})")
     UserPojo getUserByNamePhoneEmail(@Param("user")String user,@Param("passwd")String passwd);
 
     /**
@@ -202,22 +200,25 @@ public interface UserMapper {
     /**
      * 上传头像
      *
-     * @param userVO 用户信息
+     * @param url 用户大头像地址
+     * @param minUrl 用户小头像地址
+     * @param user_Name 用户名
      * @return userVO
      * @author Jason_Jane
      */
-    @Update("update user set user_HeadUrl_max = #{user_HeadUrl_max},user_HeadUrl_min = #{user_HeadUrl_min} where user_Name = #{user_Name}")
-    int updateUserHead(UserVO userVO);
+    @Update("update user set user_HeadUrl_max = #{url},user_HeadUrl_min = #{minUrl} where user_Name = #{user_Name}")
+    int updateUserHead(@Param("url")String url,@Param("minUrl")String minUrl,@Param("user_Name")String user_Name);
 
     /**
      * 上传背景图
      *
-     * @param userVO 用户信息
+     * @param url 用户背景图地址
+     * @param user_Name 用户名
      * @return userVO
      * @author Jason_Jane
      */
-    @Update("update user set user_Background = #{user_Background} where user_Name = #{user_Name}")
-    int updateBackground(UserVO userVO);
+    @Update("update user set user_Background = #{url} where user_Name = #{user_Name}")
+    int updateBackground(@Param("url")String url,@Param("user_Name")String user_Name);
 
     /**
      * 绑定电子邮箱
