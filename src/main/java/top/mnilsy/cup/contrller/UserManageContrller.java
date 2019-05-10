@@ -65,6 +65,7 @@ public class UserManageContrller {
     public ResponMessage getPhoneCode(RequestMessage requestMessage, HttpSession session) {
         String code = userService.getPhoneCode((String) requestMessage.getData().get("user_Phone"));
         if (code != null) {
+            session.setAttribute("user_Phone", requestMessage.getData().get("user_Phone"));
             session.setAttribute("phoneCode", code);
             Map<String, String> map = new HashMap<>();
             map.put("sessionId", session.getId());
