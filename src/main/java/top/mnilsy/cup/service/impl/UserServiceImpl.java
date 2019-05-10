@@ -4,15 +4,18 @@ import org.apache.http.util.TextUtils;
 import org.springframework.stereotype.Service;
 import top.mnilsy.cup.VO.UserVO;
 import top.mnilsy.cup.dao.UserMapper;
+import top.mnilsy.cup.enums.UrlEnum;
 import top.mnilsy.cup.pojo.PasswdPojo;
 import top.mnilsy.cup.pojo.UserPojo;
 
 import top.mnilsy.cup.service.UserService;
+import top.mnilsy.cup.utils.FileUtil;
 import top.mnilsy.cup.utils.SendMailUtil;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
@@ -142,11 +145,16 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public UserVO uploadingUserHead(String user_Head,UserPojo userPojo) {
-        UserVO userVO = userMapper.getUserByName(userPojo.getUser_Name());
-        userVO.setUser_HeadUrl_max(user_Head);
-        userVO.setUser_HeadUrl_min(user_Head);
-        int updateHead = userMapper.updateUserHead(userVO);
-        if (updateHead == 1){
+        String user_Name = userPojo.getUser_Name();
+        String url = UrlEnum.HEADMAX.vlue+userPojo.getUser_Id()+".jpg";
+        if (!FileUtil.base64ToFile(user_Head,url))return null;
+        if (!FileUtil.headMin(url))return null;
+        String minUrl = UrlEnum.HEADMIN.vlue + url;
+        UserVO userVO = userMapper.getUserByName(user_Name);
+        userVO.setUser_HeadUrl_max(url);
+        userVO.setUser_HeadUrl_min(minUrl);
+        int status = userMapper.updateUserHead(url,minUrl,user_Name);
+        if (status == 1){
             return userVO;
         }
         return null;
@@ -159,10 +167,13 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public UserVO uploadingBackground(String user_Background, UserPojo userPojo) {
-        UserVO userVO = userMapper.getUserByName(userPojo.getUser_Name());
-        userVO.setUser_BackgroundUrl(user_Background);
-        int updateBackground = userMapper.updateBackground(userVO);
-        if (updateBackground == 1){
+        String user_Name = userPojo.getUser_Name();
+        String url = UrlEnum.BACKGROUN.vlue + userPojo.getUser_Id() + ".jpg";
+        if (!FileUtil.base64ToFile(user_Background,url))return null;
+        UserVO userVO = userMapper.getUserByName(user_Name);
+        userVO.setUser_BackgroundUrl(url);
+        int status = userMapper.updateBackground(url,user_Name);
+        if (status == 1){
             return userVO;
         }
         return null;

@@ -6,6 +6,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 import top.mnilsy.cup.VO.UserVO;
 import top.mnilsy.cup.dao.UserMapper;
+import top.mnilsy.cup.enums.UrlEnum;
 import top.mnilsy.cup.pojo.UserPojo;
 import top.mnilsy.cup.service.UserService;
 import top.mnilsy.cup.utils.FileUtil;
@@ -195,9 +196,15 @@ public class UserManageContrller {
     public ResponMessage uploadingUserHead(RequestMessage requestMessage,HttpSession session) {
         UserPojo userPojo = (UserPojo) session.getAttribute("userPojo");
         String user_Head = (String) requestMessage.getData().get("user_Name");
-        String base = FileUtil.fileToBase64(user_Head);
-
-        return null;
+        if (user_Head == null)return ResponMessage.error("请选择上传头像图片！");
+        UserVO userVO = userService.uploadingUserHead(user_Head,userPojo);
+        if (userVO != null){
+            UserPojo userPojo1 = (UserPojo) session.getAttribute("userPojo");
+            BeanUtils.copyProperties(userVO,userPojo1);
+            session.setAttribute("userPojo",userPojo1);
+            return ResponMessage.ok(userVO);
+        }
+        return ResponMessage.error("上传头像失败");
     }
 
     /**
@@ -209,7 +216,16 @@ public class UserManageContrller {
     @PostMapping("/uploadingUserBackgroundUrl.api")
     public ResponMessage uploadingUserBackgroundUrl(RequestMessage requestMessage,HttpSession session) {
         UserPojo userPojo = (UserPojo) session.getAttribute("userPojo");
-        return null;
+        String user_Background = (String) requestMessage.getData().get("user_Background");
+        if (user_Background == null)return ResponMessage.error("请选择上传的背景图图片！");
+        UserVO userVO = userService.uploadingBackground(user_Background,userPojo);
+        if (userVO != null){
+            UserPojo userPojo1 = (UserPojo) session.getAttribute("userPojo");
+            BeanUtils.copyProperties(userVO,userPojo1);
+            session.setAttribute("userPojo",userPojo1);
+            return ResponMessage.ok(userVO);
+        }
+        return ResponMessage.error("上传背景图失败");
     }
 
     /**
