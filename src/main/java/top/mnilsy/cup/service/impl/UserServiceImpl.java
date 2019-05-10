@@ -1,6 +1,7 @@
 package top.mnilsy.cup.service.impl;
 
 import org.apache.http.util.TextUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import top.mnilsy.cup.VO.UserVO;
 import top.mnilsy.cup.dao.UserMapper;
@@ -59,10 +60,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserPojo getPasswdLogin(String user,String passwd) {
         UserPojo userPojo = userMapper.getUserByNamePhoneEmail(user,passwd);
-        if (userPojo != null){
-            return userPojo;
-        }
-        return null;
+        return userPojo;
     }
 
     @Override
@@ -150,7 +148,8 @@ public class UserServiceImpl implements UserService {
         if (!FileUtil.base64ToFile(user_Head,url))return null;
         if (!FileUtil.headMin(url))return null;
         String minUrl = UrlEnum.HEADMIN.vlue + userPojo.getUser_Id()+".jpg";
-        UserVO userVO = userMapper.getUserByName(user_Name);
+        UserVO userVO = new UserVO();
+        BeanUtils.copyProperties(userPojo,userVO);
         userVO.setUser_HeadUrl_max(url);
         userVO.setUser_HeadUrl_min(minUrl);
         int status = userMapper.updateUserHead(url,minUrl,user_Name);

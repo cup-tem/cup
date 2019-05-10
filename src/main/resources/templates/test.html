@@ -10,13 +10,13 @@
                 contentType: "application/json; charset=utf-8",
                 type: "post",
                 url: "/open/passwdLogin.api",
-                data: {
+                data: JSON.stringify({
                     data: {
                         user:"MNILSY",
-                        passwd:"123456"
+                        passwd:"123abc?"
                     },
                     sessionid: ""
-                },
+                }),
                 async: true,
                 dataType: "json",
                 success: function (data) {
