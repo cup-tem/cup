@@ -1,20 +1,16 @@
 package top.mnilsy.cup.contrller;
 
 
-import com.fasterxml.jackson.databind.util.BeanUtil;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 import top.mnilsy.cup.VO.UserVO;
-import top.mnilsy.cup.dao.UserMapper;
-import top.mnilsy.cup.enums.UrlEnum;
 import top.mnilsy.cup.pojo.UserPojo;
 import top.mnilsy.cup.service.UserService;
-import top.mnilsy.cup.utils.FileUtil;
 import top.mnilsy.cup.utils.RequestMessage;
 import top.mnilsy.cup.utils.ResponMessage;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
