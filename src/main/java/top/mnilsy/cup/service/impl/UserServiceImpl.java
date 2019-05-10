@@ -63,10 +63,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserVO getUserByUsername(String user_Name) {
-        UserVO userVO = userMapper.getUserByName(user_Name);
-        if (userVO != null){
-            return userVO;
+    public UserPojo getUserByPhone(String user_Phone) {
+        UserPojo userPojo = userMapper.getUserByPhoneInfo(user_Phone);
+        if (userPojo != null){
+            return userPojo;
         }
         return null;
     }

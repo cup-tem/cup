@@ -37,11 +37,11 @@ public interface UserService {
     /**
      * 获取用户
      *
-     * @param user_Name 用户名
+     * @param user_Phone 用户手机号码
      * @return userVO
      * @author Jason_Jane
      */
-    UserVO getUserByUsername(String user_Name);
+    UserPojo getUserByPhone(String user_Phone);
 
     /**
      * 验证码登录
