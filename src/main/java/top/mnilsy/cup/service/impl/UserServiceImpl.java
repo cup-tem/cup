@@ -12,6 +12,7 @@ import top.mnilsy.cup.pojo.UserPojo;
 import top.mnilsy.cup.service.UserService;
 import top.mnilsy.cup.utils.FileUtil;
 import top.mnilsy.cup.utils.SendMailUtil;
+import top.mnilsy.cup.utils.SendSMSUtil;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -37,8 +38,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public String getPhoneCode(String user_Phone) {
         String code=(int)(Math.random()*10)+""+(int)(Math.random()*10)+""+(int)(Math.random()*10)+""+(int)(Math.random()*10);
-        System.out.println("输出一个验证码");
-        return "TestCode";
+        if (SendSMSUtil.send(user_Phone,code)){
+            return code;
+        }
+        return null;
     }
 
     /**
