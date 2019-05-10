@@ -14,6 +14,7 @@ import top.mnilsy.cup.utils.RequestMessage;
 import top.mnilsy.cup.utils.ResponMessage;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
