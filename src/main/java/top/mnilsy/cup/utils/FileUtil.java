@@ -81,4 +81,21 @@ public class FileUtil {
         temp.delete();
         return base64;
     }
+
+    /**
+     * 生成头像缩略图
+     *
+     * @param url 头像原图url
+     * @return 生成是否成功
+     */
+    public static boolean headMin(String url) {
+        File file = new File(url);
+        try {
+            Thumbnails.of(file).keepAspectRatio(false).size(200, 200).toFile(UrlEnum.HEADMIN.vlue + file.getName());
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
