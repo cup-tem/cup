@@ -12,8 +12,8 @@
                 url: "/open/passwdLogin.api",
                 data: {
                     data: {
-                        user: "MNILSY",
-                        passwd: "123456"
+                        user:"MNILSY",
+                        passwd:"123456"
                     },
                     sessionid: ""
                 },
@@ -30,10 +30,38 @@
                 }
             })
         }
+
+        function t() {
+            $.ajax({
+                contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                type: "post",
+                url: "/updatePasswd.api",
+                data: {
+                    data: {
+                        oldPasswd:"123abc!",
+                        newPasswd:"123abc?"
+                    },
+                    sessionid: ""
+                },
+                async: true,
+                dataType: "json",
+                success: function (data) {
+                    console.log(data)
+                },
+                error: function () {
+//这个是失败的回调
+                },
+                complete: function () {
+//这个是不管成功还是失败都会执行的回调
+                }
+            })
+        }
+
     </script>
 </head>
 <body>
-<a href="javascript:f()">emmmmmm</a>
+<a href="javascript:f()">test</a>
+<a href="javascript:t()">test2</a>
 </body>
 </html>
     
