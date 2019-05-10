@@ -126,7 +126,7 @@ public class UserManageContrller {
      */
     @PostMapping("/open/register.api")
     public ResponMessage register(@RequestBody RequestMessage requestMessage, HttpSession session) {
-        String telRegex = "^1[345678]\\d{9}$";
+        String telRegex = "^[1](([3][0-9])|([4][5-9])|([5][0-3,5-9])|([6][5,6])|([7][0-8])|([8][0-9])|([9][1,8-9]))[0-9]{8}$";
         String user_Phone = (String) requestMessage.getData().get("user_Phone");
         String thisPhone = (String)session.getAttribute("user_Phone");
         if (user_Phone == null) return ResponMessage.error("手机号不能为空");
@@ -239,7 +239,9 @@ public class UserManageContrller {
     public ResponMessage updateUserNickName(@RequestBody RequestMessage requestMessage, HttpSession session) {
         UserPojo userPojo = (UserPojo) session.getAttribute("userInfo");
         String user_NickName = (String) requestMessage.getData().get("user_NickName");
+        String NickNameRegex = "^.{1,14}$";
         if (user_NickName == null) return ResponMessage.error("修改昵称不能为空");
+        if (!user_NickName.matches(NickNameRegex))return ResponMessage.error("昵称不能超过14位！");
         UserVO userVO = userService.updateUserNickName(user_NickName, userPojo);
         if (userVO != null) {
             UserPojo userPojo1 = (UserPojo) session.getAttribute("userInfo");
