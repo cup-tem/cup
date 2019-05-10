@@ -18,10 +18,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.util.Base64;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by mnilsy on 19-4-20 下午7:28.
@@ -113,6 +110,7 @@ public class UserServiceImpl implements UserService {
         UserPojo userPojo1 = userMapper.getUserByPhoneInfo(user_Phone);
         if (userPojo1 == null){
             UserPojo userPojo = new UserPojo(user_Phone);
+            System.out.println(userPojo);
             int status = userMapper.addUserByPhoneInfo(userPojo);
             if (status == 1){
                 return 2;

@@ -39,8 +39,8 @@ public class UserPojo {
 
     public UserPojo(String user_Phone) {
         this.user_Id = String.valueOf(UUID.randomUUID());
-        this.user_Name = this.user_Id.substring(22, this.user_Id.length());
-        this.user_NickName = "cup" + user_Id.substring(25, user_Id.length());
+        this.user_Name = this.user_Id.substring(26, this.user_Id.length());
+        this.user_NickName = "cup" + user_Id.substring(29, user_Id.length());
         this.user_Phone = user_Phone;
     }
 

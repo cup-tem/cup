@@ -126,7 +126,7 @@ public class UserManageContrller {
      */
     @PostMapping("/open/register.api")
     public ResponMessage register(@RequestBody RequestMessage requestMessage, HttpSession session) {
-        String telRegex = "^[1](([3|5|8][\\\\d])|([4][5-9])|([6][5,6])|([7][3-8])|([9][8,9]))[\\\\d]{8}$";
+        String telRegex = "^1[345678]\\d{9}$";
         String user_Phone = (String) requestMessage.getData().get("user_Phone");
         String thisPhone = (String)session.getAttribute("user_Phone");
         if (user_Phone == null) return ResponMessage.error("手机号不能为空");
