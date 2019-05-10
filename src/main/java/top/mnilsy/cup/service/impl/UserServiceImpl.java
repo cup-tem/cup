@@ -146,10 +146,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserVO uploadingUserHead(String user_Head,UserPojo userPojo) {
         String user_Name = userPojo.getUser_Name();
-        String url = UrlEnum.HEADMAX.vlue+userPojo.getUser_Id()+".jpg";
+        String url = UrlEnum.HEADMAX.vlue + userPojo.getUser_Id() + ".jpg";
         if (!FileUtil.base64ToFile(user_Head,url))return null;
         if (!FileUtil.headMin(url))return null;
-        String minUrl = UrlEnum.HEADMIN.vlue + url;
+        String minUrl = UrlEnum.HEADMIN.vlue + userPojo.getUser_Id()+".jpg";
         UserVO userVO = userMapper.getUserByName(user_Name);
         userVO.setUser_HeadUrl_max(url);
         userVO.setUser_HeadUrl_min(minUrl);
