@@ -18,10 +18,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.util.Base64;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by mnilsy on 19-4-20 下午7:28.
@@ -55,7 +52,7 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * 密码登录
+     *密码登录
      *
      * @author Jason_Jane
      */
