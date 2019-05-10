@@ -13,7 +13,6 @@ import top.mnilsy.cup.utils.RequestMessage;
 import top.mnilsy.cup.utils.ResponMessage;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
@@ -79,7 +78,6 @@ public class UserManageContrller {
      *
      * @param requestMessage 手机号码data.get("user_Phone")，验证码data.get("code")
      * @return 请求状态码status，失败信息message，用户信息data.userVO
-     * @author Jason_Jane
      * @author Jason_Jane
      */
     @PostMapping("/open/codeLogin.api")
