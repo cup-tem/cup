@@ -32,6 +32,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public String getPhoneCode(String user_Phone) {
+        String code=(int)(Math.random()*10)+""+(int)(Math.random()*10)+""+(int)(Math.random()*10)+""+(int)(Math.random()*10);
         System.out.println("输出一个验证码");
         return "TestCode";
     }

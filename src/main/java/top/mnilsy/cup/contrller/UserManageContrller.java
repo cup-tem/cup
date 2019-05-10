@@ -55,7 +55,7 @@ public class UserManageContrller {
     }
 
     /**
-     * 请求手机验证码，不需要带sessionid
+     * 请求手机验证码
      *
      * @param requestMessage 手机号码data.get("user_Phone“）
      * @return 请求状态码status，失败信息message，会话data.sessionid
@@ -97,12 +97,10 @@ public class UserManageContrller {
      * @return message
      */
     @PostMapping("/logout.api")
-    public ResponMessage logout(HttpSession session, HttpServletRequest request) {
-        session = request.getSession();
-        if (session != null) {
-            UserPojo userPojo = (UserPojo) session.getAttribute("userPojo");
+    public ResponMessage logout(HttpSession session) {
+        if (session.getAttribute("userInfo") != null) {
             session.invalidate();
-            return ResponMessage.ok("登出成功");
+            return ResponMessage.ok();
         }
         return ResponMessage.error("无需登出");
     }

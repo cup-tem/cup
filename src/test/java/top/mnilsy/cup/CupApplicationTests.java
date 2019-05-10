@@ -50,5 +50,11 @@ public class CupApplicationTests {
         System.out.println(JSON.toJSONString(responMessage));
     }
 
+    @Test
+    public void testhttp(){
+        ResponMessage responMessage=HttpUtil.passwdLogin("MNILSY","123abc?");
+        System.out.println(JSON.toJSONString(responMessage));
+    }
+
 
 }
