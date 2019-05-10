@@ -169,7 +169,8 @@ public class UserServiceImpl implements UserService {
         String user_Name = userPojo.getUser_Name();
         String url = UrlEnum.BACKGROUN.vlue + userPojo.getUser_Id() + ".jpg";
         if (!FileUtil.base64ToFile(user_Background,url))return null;
-        UserVO userVO = userMapper.getUserByName(user_Name);
+        UserVO userVO = new UserVO();
+        BeanUtils.copyProperties(userPojo,userVO);
         userVO.setUser_BackgroundUrl(url);
         int status = userMapper.updateBackground(url,user_Name);
         if (status == 1){
@@ -228,16 +229,20 @@ public class UserServiceImpl implements UserService {
      * @author Jason_Jane
      */
     @Override
-    public int retrievePasswd(String newPasswd,UserPojo userPojo) {
-        String user_Id = userPojo.getUser_Id();
-        PasswdPojo passwdPojo = userMapper.getPasswdById(user_Id);
-        if (!newPasswd.equals(passwdPojo.getPasswd_Normal())){
-            String passwd_Old3 = passwdPojo.getPasswd_Old2();
-            String passwd_Old2 = passwdPojo.getPasswd_Old1();
-            String passwd_Old1 = passwdPojo.getPasswd_Normal();
-            String passwd_Normal = newPasswd;
-            int status = userMapper.findPasswd(passwd_Normal,passwd_Old1,passwd_Old2,passwd_Old3,user_Id);
-            if (status == 1){
+    public int retrievePasswd(String newPasswd,String user_Phone) {
+        UserPojo userPojo = userMapper.getUserByPhoneInfo(user_Phone);
+        if (userPojo != null){
+            String user_Id = userPojo.getUser_Id();
+            PasswdPojo passwdPojo = userMapper.getPasswdById(user_Id);
+            if (!newPasswd.equals(passwdPojo.getPasswd_Normal())){
+                String passwd_Old3 = passwdPojo.getPasswd_Old2();
+                String passwd_Old2 = passwdPojo.getPasswd_Old1();
+                String passwd_Old1 = passwdPojo.getPasswd_Normal();
+                String passwd_Normal = newPasswd;
+                int status = userMapper.findPasswd(passwd_Normal,passwd_Old1,passwd_Old2,passwd_Old3,user_Id);
+                if (status == 1){
+                    return 3;
+                }
                 return 2;
             }
             return 1;
