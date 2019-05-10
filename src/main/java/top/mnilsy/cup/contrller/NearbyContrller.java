@@ -2,6 +2,7 @@ package top.mnilsy.cup.contrller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import top.mnilsy.cup.VO.TweetVO;
 import top.mnilsy.cup.pojo.UserPojo;
@@ -34,7 +35,7 @@ public class NearbyContrller {
      * @author mnilsy
      */
     @PostMapping("/setUserLocation.api")
-    public ResponMessage setUserLocation(RequestMessage requestMessage, HttpSession session) {
+    public ResponMessage setUserLocation(@RequestBody RequestMessage requestMessage, HttpSession session) {
         UserPojo userPojo = (UserPojo) session.getAttribute("userInfo");
         double x = Double.parseDouble((String) requestMessage.getData().get("location_X"));
         double y = Double.parseDouble((String) requestMessage.getData().get("location_Y"));
@@ -63,7 +64,7 @@ public class NearbyContrller {
      * @author mnilsy
      */
     @GetMapping("/getLocationTweet.api")
-    public ResponMessage getLocationTweet(RequestMessage requestMessage, HttpSession session) {
+    public ResponMessage getLocationTweet(@RequestBody RequestMessage requestMessage, HttpSession session) {
         UserPojo userPojo = (UserPojo) session.getAttribute("userInfo");
         int count = Integer.parseInt((String) requestMessage.getData().get("count"));
         List<TweetVO> list = nearbyService.getLocationTweet(userPojo.getUser_Id(), count);

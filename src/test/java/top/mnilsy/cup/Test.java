@@ -12,11 +12,9 @@ import java.util.Map;
  */
 public class Test {
     public static void main(String[] args) {
-        ResponMessage responMessage = HttpUtil.passwdLogin("MNILSY", "123456");
+        ResponMessage responMessage = HttpUtil.passwdLogin("MNILSY", "123abc?");
         System.out.println(JSON.toJSONString(responMessage));
         System.out.println("status：" + responMessage.getStatus());
         System.out.println("message：" + responMessage.getMessage());
-        System.out.println("datauserVO：" + ((UserVO)((Map)responMessage.getData()).get("userVO")).getUser_Name());
-        System.out.println("datasessionid：" + ((Map)responMessage.getData()).get("sessionid"));
     }
 }

@@ -33,7 +33,7 @@ public class TweetContrller {
      * @author mnilsy
      */
     @PostMapping("/putTweet.api")
-    public ResponMessage putTweet(RequestMessage requestMessage, HttpSession session) {
+    public ResponMessage putTweet(@RequestBody RequestMessage requestMessage, HttpSession session) {
         UserPojo userInfo = (UserPojo) session.getAttribute("userInfo");
         int tweet_Type = Integer.parseInt((String) requestMessage.getData().get("tweet_Type"));
         String tweet_Text = (String) requestMessage.getData().get("tweet_Text");
@@ -51,7 +51,7 @@ public class TweetContrller {
      * @author mnilsy
      */
     @GetMapping("/openTweet.api")
-    public ResponMessage openTweet(RequestMessage requestMessage) {
+    public ResponMessage openTweet(@RequestBody RequestMessage requestMessage) {
         String tweet_Id = (String) requestMessage.getData().get("tweet_Id");
         TweetVO tweetVO = tweetService.getTweet(tweet_Id);
         List<DiscussVO> discussVOList = tweetService.getTweetDiscuss(tweet_Id, 0);
@@ -70,7 +70,7 @@ public class TweetContrller {
      * @author mnilsy
      */
     @GetMapping("/getMoreDiscuss.api")
-    public ResponMessage getMoreDiscuss(RequestMessage requestMessage) {
+    public ResponMessage getMoreDiscuss(@RequestBody RequestMessage requestMessage) {
         String tweet_Id = (String) requestMessage.getData().get("tweet_Id");
         String count = (String) requestMessage.getData().get("count");
         List<DiscussVO> discussVOList = tweetService.getTweetDiscuss(tweet_Id, Integer.parseInt(count));
@@ -87,7 +87,7 @@ public class TweetContrller {
      * @author mnilsy
      */
     @PostMapping("/putDiscuss{tweet_Id}.api")
-    public ResponMessage putDiscuss(RequestMessage requestMessage, @PathVariable String tweet_Id, HttpSession session) {
+    public ResponMessage putDiscuss(@RequestBody RequestMessage requestMessage, @PathVariable String tweet_Id, HttpSession session) {
         UserPojo userPojo = (UserPojo) session.getAttribute("userInfo");
         //获取信息
         String discuss_Vlue = (String) requestMessage.getData().get("discuss_Vlue");
@@ -106,7 +106,7 @@ public class TweetContrller {
      * @author mnilsy
      */
     @PostMapping("/putWriteBack{writeBack_User_Name}.api")
-    public ResponMessage putWriteBack(RequestMessage requestMessage, @PathVariable String writeBack_User_Name, HttpSession session) {
+    public ResponMessage putWriteBack(@RequestBody RequestMessage requestMessage, @PathVariable String writeBack_User_Name, HttpSession session) {
         UserPojo userPojo = (UserPojo) session.getAttribute("userInfo");
         //获取信息
         String writeBack_Vlue = (String) requestMessage.getData().get("writeBack_Vlue");
