@@ -84,9 +84,7 @@ public interface UserMapper {
      * @return 用户基本资料
      * @author Jason_Jane
      */
-    @Select("select * from user LEFT JOIN passwd on user.user_Id = passwd.user_Id " +
-            "where (user.user_Name = #{user} or user.user_Phone = #{user} or user.user_Email = #{user}) " +
-            "and passwd.passwd_Normal = #{passwd}")
+    @Select("select user.* from user left join passwd p on user.user_Id = p.user_Id where passwd_Normal = #{passwd} and (user_Phone = #{user} or user_Email = #{user} or user_Name = #{user})")
     UserPojo getUserByNamePhoneEmail(@Param("user")String user,@Param("passwd")String passwd);
 
     /**
