@@ -52,20 +52,7 @@ public class FileUtil {
     }
 
     public static String fileToBase64(File file) {
-        InputStream in = null;
-        byte[] data = null;
-        //读取图片字节数组
-        try {
-            in = new FileInputStream(file);
-            data = new byte[in.available()];
-            in.read(data);
-            in.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-        Base64.Encoder encoder = Base64.getEncoder();
-        return encoder.encodeToString(data);
+        return fileToBase64(file.getPath());
     }
 
 
