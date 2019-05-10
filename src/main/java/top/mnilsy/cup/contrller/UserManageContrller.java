@@ -109,9 +109,8 @@ public class UserManageContrller {
      */
     @PostMapping("/logout.api")
     public ResponMessage logout(HttpSession session, HttpServletRequest request){
-        session = request.getSession();
+        session = (HttpSession) request.getSession().getAttribute("userPojo");
         if (session != null){
-            UserPojo userPojo = (UserPojo) session.getAttribute("userPojo");
             session.invalidate();
             return ResponMessage.ok("登出成功");
         }
