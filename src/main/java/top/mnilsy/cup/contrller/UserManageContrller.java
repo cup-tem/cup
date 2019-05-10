@@ -107,6 +107,7 @@ public class UserManageContrller {
      * 登出
      *
      * @return message
+     * @author Jason_Jane
      */
     @PostMapping("/logout.api")
     public ResponMessage logout(HttpSession session) {
@@ -161,7 +162,7 @@ public class UserManageContrller {
 
     /**
      * 设置用户名和密码
-     * @author Jason_Jane
+     *
      * @param requestMessage 用户名data.get("user_Name")，密码data.get("passwd")
      * @return 请求状态码status，用户信息data.userVO
      * @author Jason_Jane
@@ -192,6 +193,7 @@ public class UserManageContrller {
      *
      * @param requestMessage 头像base64编码data.get("user_Head")
      * @return 请求状态码status，用户信息data.userVO
+     * @author Jason_Jane
      */
     @PostMapping("/uploadingUserHead.api")
     public ResponMessage uploadingUserHead(@RequestBody RequestMessage requestMessage, HttpSession session) {
@@ -213,6 +215,7 @@ public class UserManageContrller {
      *
      * @param requestMessage 背景base64编码data.get("user_Background")
      * @return 请求状态码status，用户信息data.userVO
+     * @author Jason_Jane
      */
     @PostMapping("/uploadingUserBackgroundUrl.api")
     public ResponMessage uploadingUserBackgroundUrl(@RequestBody RequestMessage requestMessage, HttpSession session) {
@@ -234,6 +237,7 @@ public class UserManageContrller {
      *
      * @param requestMessage 用户昵称data.get("user_NickName")
      * @return 请求状态码status，用户信息data.userVO
+     * @author Jason_Jane
      */
     @PostMapping("/updateUserNickName.api")
     public ResponMessage updateUserNickName(@RequestBody RequestMessage requestMessage, HttpSession session) {
@@ -257,7 +261,6 @@ public class UserManageContrller {
      *
      * @param requestMessage 用户性别data.get("user_Sex")
      * @return 请求状态码status，用户信息data.userVO
-     * @author Jason_Jane
      * @author Jason_Jane
      */
     @PostMapping("/updateUserSex.api")
@@ -285,7 +288,6 @@ public class UserManageContrller {
      *
      * @param requestMessage 用户旧密码data.get("oldPasswd")，用户新密码data.get("newPasswd")
      * @return 请求状态码status，失败信息message
-     * @author Jason_Jane
      * @author Jason_Jane
      */
     @PostMapping("/updatePasswd.api")
@@ -334,6 +336,7 @@ public class UserManageContrller {
      *
      * @param requestMessage 用户新手机号码data.get("user_Phone")，手机验证码data.get("code")
      * @return 请求状态码status，用户信息data.userVO
+     * @author Jason_Jane
      */
     @PostMapping("/updateUserPhone.api")
     public ResponMessage updateUserPhone(@RequestBody RequestMessage requestMessage, HttpSession session) {
@@ -362,6 +365,7 @@ public class UserManageContrller {
      *
      * @param requestMessage 用户电子邮箱data.get("user_Email")
      * @return 请求状态码status，失败信息message
+     * @author Jason_Jane
      */
     @GetMapping("/open/getEmailCode.api")
     public ResponMessage getEmailCode(@RequestBody RequestMessage requestMessage, HttpSession session) {
@@ -381,6 +385,7 @@ public class UserManageContrller {
      *
      * @param requestMessage 用户邮箱data.get("user_Email")，邮箱验证码data.get("code")
      * @return 请求状态码status，用户信息data.userVO
+     * @author Jason_Jane
      */
     @PostMapping("/bindUserEmail.api")
     public ResponMessage bindUserEmail(@RequestBody RequestMessage requestMessage, HttpSession session) {
@@ -410,6 +415,7 @@ public class UserManageContrller {
      *
      * @param requestMessage 用户新邮箱data.get("user_Email")，新邮箱验证码data.get("newCode")，旧邮箱验证码data.get("oldCode")
      * @return 请求状态码status，用户信息data.userVO
+     * @author Jason_Jane
      */
     @PostMapping("/updateUserEmail.api")
     public ResponMessage updateUserEmail(@RequestBody RequestMessage requestMessage, HttpSession session) {
