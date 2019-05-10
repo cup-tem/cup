@@ -139,6 +139,8 @@ public class UserManageContrller {
         int message = userService.register(user_Phone);
         if (message == 0) return ResponMessage.error("手机号已注册");
         if (message == 1) return ResponMessage.error("账号注册失败");
+        UserPojo userPojo = userService.getUserByPhone(user_Phone);
+        session.setAttribute("userInfo",userPojo);
         return ResponMessage.ok();
     }
 
