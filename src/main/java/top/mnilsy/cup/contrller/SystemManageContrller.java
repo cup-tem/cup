@@ -6,6 +6,7 @@ package top.mnilsy.cup.contrller;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import top.mnilsy.cup.utils.RequestMessage;
 import top.mnilsy.cup.utils.ResponMessage;
@@ -24,7 +25,7 @@ public class SystemManageContrller {
      * @return 请求状态码status，失败信息 message
      */
     @PostMapping("/sotpUser{user_Name}.api")
-    public ResponMessage sotpUser(RequestMessage requestMessage, @PathVariable String user_Name) {
+    public ResponMessage sotpUser(@RequestBody RequestMessage requestMessage, @PathVariable String user_Name) {
         return new ResponMessage();
     }
 
@@ -34,7 +35,7 @@ public class SystemManageContrller {
      * @return 请求状态码status，失败信息 message
      */
     @PostMapping("/atAllUser.api")
-    public ResponMessage atAllUser(RequestMessage requestMessage){
+    public ResponMessage atAllUser(@RequestBody RequestMessage requestMessage){
         return new ResponMessage();
     }
 
@@ -46,7 +47,7 @@ public class SystemManageContrller {
      * @return 请求状态码status，失败信息message
      */
     @PostMapping("/systemDeleteTweet{tweet_Id}.api")
-    public ResponMessage systemDeleteTweet(RequestMessage requestMessage, @PathVariable String tweet_Id) {
+    public ResponMessage systemDeleteTweet(@RequestBody RequestMessage requestMessage, @PathVariable String tweet_Id) {
         return new ResponMessage();
     }
 
@@ -58,7 +59,7 @@ public class SystemManageContrller {
      * @return 请求状态码status，失败信息message
      */
     @PostMapping("/systemDeleteDiscuss{discuss_Id}.api")
-    public ResponMessage systemDeleteDiscuss(RequestMessage requestMessage, @PathVariable String discuss_Id) {
+    public ResponMessage systemDeleteDiscuss(@RequestBody RequestMessage requestMessage, @PathVariable String discuss_Id) {
         return new ResponMessage();
     }
 
@@ -70,7 +71,7 @@ public class SystemManageContrller {
      * @return 请求状态码status，失败信息message
      */
     @PostMapping("/systemDeleteWriteBack{writeBack_Id}.api")
-    public ResponMessage systemDeleteWriteBack(RequestMessage requestMessage, @PathVariable String writeBack_Id) {
+    public ResponMessage systemDeleteWriteBack(@RequestBody RequestMessage requestMessage, @PathVariable String writeBack_Id) {
         return new ResponMessage();
     }
 

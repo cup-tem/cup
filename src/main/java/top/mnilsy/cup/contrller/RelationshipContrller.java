@@ -1,9 +1,6 @@
 package top.mnilsy.cup.contrller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import top.mnilsy.cup.VO.UserListVO;
 import top.mnilsy.cup.pojo.UserPojo;
 import top.mnilsy.cup.service.RelationshipService;
@@ -49,7 +46,7 @@ public class RelationshipContrller {
      * @author mnilsy
      */
     @GetMapping("/getFollowList.api")
-    public ResponMessage getFollowList(RequestMessage requestMessage, HttpSession session) {
+    public ResponMessage getFollowList(@RequestBody RequestMessage requestMessage, HttpSession session) {
         UserPojo userPojo = (UserPojo) session.getAttribute("userInfo");
         int count = Integer.parseInt((String) requestMessage.getData().get("count"));
         List<UserListVO> list = relationshipService.getFollwlist(userPojo.getUser_Id(), count);
@@ -64,7 +61,7 @@ public class RelationshipContrller {
      * @author mnilsy
      */
     @GetMapping("/getFans.api")
-    public ResponMessage getFans(RequestMessage requestMessage, HttpSession session) {
+    public ResponMessage getFans(@RequestBody RequestMessage requestMessage, HttpSession session) {
         UserPojo userPojo = (UserPojo) session.getAttribute("userInfo");
         int count = Integer.parseInt((String) requestMessage.getData().get("count"));
         List<UserListVO> list = relationshipService.getFans(userPojo.getUser_Id(), count);
@@ -79,7 +76,7 @@ public class RelationshipContrller {
      * @author mnilsy
      */
     @GetMapping("/getBlackList.api")
-    public ResponMessage getBlackList(RequestMessage requestMessage, HttpSession session) {
+    public ResponMessage getBlackList(@RequestBody RequestMessage requestMessage, HttpSession session) {
         UserPojo userPojo = (UserPojo) session.getAttribute("userInfo");
         int count = Integer.parseInt((String) requestMessage.getData().get("count"));
         List<UserListVO> list = relationshipService.getBalcklist(userPojo.getUser_Id(), count);
