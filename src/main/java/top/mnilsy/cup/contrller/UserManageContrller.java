@@ -378,8 +378,10 @@ public class UserManageContrller {
     @PostMapping("/bindUserEmail.api")
     public ResponMessage bindUserEmail(@RequestBody RequestMessage requestMessage, HttpSession session) {
         UserPojo userPojo = (UserPojo) session.getAttribute("userInfo");
+        String emailRegex = "^(\\w)+(\\.\\w+)*@(\\w)+((\\.\\w{2,3}){1,3})$";
         String user_Email = (String) requestMessage.getData().get("user_Email");
         if (user_Email == null) return ResponMessage.error("请输入电子邮箱");
+        if (!user_Email.matches(emailRegex))return ResponMessage.error("电子邮箱格式不对！请重新输入！");
         String thisEmail = (String) session.getAttribute("user_Email");
         if (!user_Email.equals(thisEmail))return ResponMessage.error("输入的电子邮箱和申请验证的电子邮箱不对应！");
         String code = (String) requestMessage.getData().get("code");
@@ -405,6 +407,7 @@ public class UserManageContrller {
     @PostMapping("/updateUserEmail.api")
     public ResponMessage updateUserEmail(@RequestBody RequestMessage requestMessage, HttpSession session) {
         UserPojo userPojo = (UserPojo) session.getAttribute("userInfo");
+        String emailRegex = "^(\\w)+(\\.\\w+)*@(\\w)+((\\.\\w{2,3}){1,3})$";
         String oldEmail = userPojo.getUser_Email();
         String thisOldEmail = (String) session.getAttribute("user_Email");
         if (!oldEmail.equals(thisOldEmail))return ResponMessage.error("填写的旧邮箱与申请验证的旧邮箱不对应！");
@@ -414,6 +417,7 @@ public class UserManageContrller {
         if (!oldCode.equals(rOldCode)) return ResponMessage.error("旧邮箱验证码不正确");
         String user_Email = (String) requestMessage.getData().get("user_Email");
         if (user_Email == null) return ResponMessage.error("请输入新邮箱");
+        if (!user_Email.matches(emailRegex))return ResponMessage.error("电子邮箱格式不对！请重新输入！");
         String newCode = (String) requestMessage.getData().get("newCode");
         if (newCode == null) return ResponMessage.error("请输入新邮箱验证码");
         String rNewCode = (String) session.getAttribute("eCode");
