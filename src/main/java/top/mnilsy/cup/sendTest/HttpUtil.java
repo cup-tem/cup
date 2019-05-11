@@ -423,4 +423,131 @@ public class HttpUtil {
     public ResponMessage deleteWriteBack(String writeBack_Id, String sessionid) {
         return send("deleteWriteBack" + writeBack_Id + ".api", null, sessionid);
     }
+
+    /**
+     * 关注用户
+     *
+     * @param user_Name 用户名
+     * @return 请求状态码status，失败信息 message
+     * @author mnilsy
+     */
+    public ResponMessage follow(String user_Name, String sessionid) {
+        return send("follow" + user_Name + ".api", null, sessionid);
+    }
+
+
+    /**
+     * 获取关注的人列表
+     *
+     * @param count 请求次数
+     * @return 请求状态码status，失败信息 message，关注人列表List<UserListVO>
+     * @author mnilsy
+     */
+    public ResponMessage getFollowList(String count, String sessionid) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("count", count);
+        RequestMessage requestMessage = new RequestMessage(data);
+        return send("getFollowList.api", requestMessage, sessionid);
+    }
+
+    /**
+     * 获取粉丝列表
+     *
+     * @param count 请求次数
+     * @return 请求状态码status，失败信息 message，关注你的人列表List<UserListVO>
+     * @author mnilsy
+     */
+    public ResponMessage getFans(String count, String sessionid) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("count", count);
+        RequestMessage requestMessage = new RequestMessage(data);
+        return send("getFans.api", requestMessage, sessionid);
+    }
+
+    /**
+     * 查看黑名单
+     *
+     * @param count 请求次数
+     * @return 请求状态码status，失败信息 message，关注你的人列表List<UserListVO>
+     * @author mnilsy
+     */
+    public ResponMessage getBlackList(String count, String sessionid) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("count", count);
+        RequestMessage requestMessage = new RequestMessage(data);
+        return send("getBlackList.api", requestMessage, sessionid);
+    }
+
+    /**
+     * 加入黑名单
+     *
+     * @param user_Name 目标用户名
+     * @return 请求状态码status，失败信息 message
+     * @author mnilsy
+     */
+    public ResponMessage setBlackList(String user_Name, String sessionid) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("user_Name", user_Name);
+        RequestMessage requestMessage = new RequestMessage(data);
+        return send("setBlackList.api", requestMessage, sessionid);
+    }
+
+    /**
+     * 上传定位
+     *
+     * @param location_Y 定位经度
+     * @param location_X 定位纬度
+     * @return 请求状态码status，失败信息 message
+     * @author mnilsy
+     */
+    public ResponMessage setUserLocation(String location_Y, String location_X, String sessionid) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("location_Y", location_Y);
+        data.put("location_X", location_X);
+        RequestMessage requestMessage = new RequestMessage(data);
+        return send("setUserLocation.api", requestMessage, sessionid);
+    }
+
+    /**
+     * 清除定位
+     *
+     * @return 请求状态码status，失败信息 message
+     * @author mnilsy
+     */
+    public ResponMessage clearUserLocation(String sessionid) {
+        return send("clearUserLocation.api", null, sessionid);
+    }
+
+    /**
+     * 已登录用户获取附近的人的最新推文
+     *
+     * @param count 获取次数
+     * @return 请求状态码status，失败信息 message，推文内容List<tweetVO>
+     * @author mnilsy
+     */
+    public ResponMessage getLocationTweet(String count, String sessionid) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("count", count);
+        RequestMessage requestMessage = new RequestMessage(data);
+        return send("open/getLocationTweet.api", requestMessage, sessionid);
+    }
+
+    /**
+     * 未登录用户获取附近的人的最新推文
+     *
+     * @param x     纬度
+     * @param y     经度
+     * @param count 获取次数
+     * @return 请求状态码status，失败信息 message，推文内容List<tweetVO>
+     * @author mnilsy
+     */
+    public ResponMessage getLocationTweet(String x, String y, String count) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("x", x);
+        data.put("y", y);
+        data.put("count", count);
+        RequestMessage requestMessage = new RequestMessage(data);
+        return send("open/getLocationTweet.api", requestMessage, null);
+    }
+
 }

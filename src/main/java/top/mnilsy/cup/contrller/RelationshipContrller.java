@@ -45,7 +45,7 @@ public class RelationshipContrller {
      * @return 请求状态码status，关注人列表data.List<UserListVO>
      * @author mnilsy
      */
-    @GetMapping("/getFollowList.api")
+    @PostMapping("/getFollowList.api")
     public ResponMessage getFollowList(@RequestBody RequestMessage requestMessage, HttpSession session) {
         UserPojo userPojo = (UserPojo) session.getAttribute("userInfo");
         int count = Integer.parseInt((String) requestMessage.getData().get("count"));
@@ -60,7 +60,7 @@ public class RelationshipContrller {
      * @return 请求状态码status，关注你的人列表data.List<UserListVO>
      * @author mnilsy
      */
-    @GetMapping("/getFans.api")
+    @PostMapping("/getFans.api")
     public ResponMessage getFans(@RequestBody RequestMessage requestMessage, HttpSession session) {
         UserPojo userPojo = (UserPojo) session.getAttribute("userInfo");
         int count = Integer.parseInt((String) requestMessage.getData().get("count"));
@@ -75,7 +75,7 @@ public class RelationshipContrller {
      * @return 请求状态码status，关注你的人列表data.List<UserListVO>
      * @author mnilsy
      */
-    @GetMapping("/getBlackList.api")
+    @PostMapping("/getBlackList.api")
     public ResponMessage getBlackList(@RequestBody RequestMessage requestMessage, HttpSession session) {
         UserPojo userPojo = (UserPojo) session.getAttribute("userInfo");
         int count = Integer.parseInt((String) requestMessage.getData().get("count"));
@@ -86,12 +86,13 @@ public class RelationshipContrller {
     /**
      * 加入黑名单
      *
-     * @param user_Name      用户名
+     * @param requestMessage 目标用户名data.get("user_Name")
      * @return 请求状态码status，失败信息 message
      * @author mnilsy
      */
-    @PostMapping("/setBlackList{user_Name}.api")
-    public ResponMessage setBlackList(@PathVariable String user_Name,HttpSession session) {
+    @PostMapping("/setBlackList.api")
+    public ResponMessage setBlackList(@RequestBody RequestMessage requestMessage, HttpSession session) {
+        String user_Name = (String) requestMessage.getData().get("user_Name");
         UserPojo userPojo = (UserPojo) session.getAttribute("userInfo");
         boolean flag = relationshipService.blacklist(userPojo.getUser_Id(), user_Name);
         return flag ? ResponMessage.ok() : ResponMessage.error("操作失败");

@@ -12,6 +12,7 @@ import top.mnilsy.cup.utils.ResponMessage;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -59,15 +60,22 @@ public class NearbyContrller {
     /**
      * 获取附近的人的最新推文
      *
-     * @param requestMessage 获取次数data.get("count")
+     * @param requestMessage 获取次数data.get("count"),纬度data.get("x"),经度data.get("y")
      * @return 请求状态码status，失败信息 message，推文内容data.List<tweetVO>
      * @author mnilsy
      */
-    @GetMapping("/getLocationTweet.api")
+    @PostMapping("/open/getLocationTweet.api")
     public ResponMessage getLocationTweet(@RequestBody RequestMessage requestMessage, HttpSession session) {
         UserPojo userPojo = (UserPojo) session.getAttribute("userInfo");
         int count = Integer.parseInt((String) requestMessage.getData().get("count"));
-        List<TweetVO> list = nearbyService.getLocationTweet(userPojo.getUser_Id(), count);
+        List<TweetVO> list = new ArrayList<>();
+        if (userPojo == null) {
+            double x = Double.parseDouble((String) requestMessage.getData().get("x"));
+            double y = Double.parseDouble((String) requestMessage.getData().get("y"));
+            list = nearbyService.getLocationTweet(x, y, count);
+        } else {
+            list = nearbyService.getLocationTweet(userPojo.getUser_Id(), count);
+        }
         boolean flag = !list.isEmpty();
         return flag ? ResponMessage.ok(list) : ResponMessage.error("获取失败");
     }

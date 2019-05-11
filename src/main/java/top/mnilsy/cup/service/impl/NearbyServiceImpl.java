@@ -39,4 +39,10 @@ public class NearbyServiceImpl implements NearbyService {
         if (count < 0 || user_Id.length() != 36) return null;
         return locationMapper.getTweet(user_Id, count * 10);
     }
+
+    @Override
+    public List<TweetVO> getLocationTweet(double x, double y, int count) {
+        if (count < 0) return null;
+        return locationMapper.getTweet(x, y, count * 10);
+    }
 }

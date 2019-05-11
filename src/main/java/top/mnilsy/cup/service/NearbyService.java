@@ -27,5 +27,20 @@ public interface NearbyService {
      */
     boolean cleanLocation(String user_Id);
 
+    /**
+     * 根据用户id，获取用户附近的人的推文
+     * @param user_Id 用户id
+     * @param count 获取次数
+     * @return 一组推文
+     */
     List<TweetVO> getLocationTweet(String user_Id,int count);
+
+    /**
+     * 根据用户定位，获取用户附近的人的推文
+     * @param x 纬度
+     * @param y 经度
+     * @param count 获取次数
+     * @return 一组推文
+     */
+    List<TweetVO> getLocationTweet(double x,double y,int count);
 }

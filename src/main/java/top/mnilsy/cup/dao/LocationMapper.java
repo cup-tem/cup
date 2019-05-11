@@ -44,7 +44,6 @@ public interface LocationMapper {
             "where user_Id = #{user_Id}")
     int updateLocation(LocationPojo locationPojo);
 
-
     /**
      * 获取一条可显示推文
      *
@@ -81,4 +80,44 @@ public interface LocationMapper {
             )
     })
     List<TweetVO> getTweet(@Param("user_Id") String user_Id, @Param("count") int count);
+
+
+    /**
+     * 获取一条可显示推文
+     *
+     * @param x 纬度
+     * @param y 经度
+     * @param count   获取次数
+     * @return 一组推文的VO包
+     * @author mnilsy
+     */
+    @Select("select u.user_HeadUrl_min," +
+            "u.user_Name," +
+            "u.user_NickName," +
+            "t.tweet_Id," +
+            "t.tweet_Time," +
+            "t.tweet_Text," +
+            "(select count(*) from `like` where tweet_Id = ?)  as tweet_LikeCount," +
+            "(select count(*) from discuss where tweet_Id = ?) as tweet_DiscussCount " +
+            "from user u " +
+            "join tweet t on u.user_Id = t.user_Id " +
+            "where u.user_Id in " +
+            "(select l1.user_Id " +
+            "from location l1," +
+            "location l2 " +
+            "where l1.location_X >= l2.location_X - 0.01 " +
+            "and l1.location_X <= l2.location_X + 0.01 " +
+            "and l1.location_Y >= l2.location_Y - 0.01 " +
+            "and l1.location_Y <= l2.location_Y + 0.01 " +
+            "and timestampdiff(day, l1.location_Time, now()) <= 3 " +
+            "and l2.location_X = #{x} " +
+            "and l2.location_Y = #{y} " +
+            "order by newTweetTime desc " +
+            "limit #{count},10)")
+    @Results({
+            @Result(property = "accessory", column = "tweet_Id",
+                    many = @Many(select = "top.mnilsy.cup.dao.AccessoryMapper.getAccessoryUrl")
+            )
+    })
+    List<TweetVO> getTweet(@Param("x") double x, @Param("y") double y, @Param("count") int count);
 }
