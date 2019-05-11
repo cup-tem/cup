@@ -5,16 +5,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.annotation.Transactional;
 import top.mnilsy.cup.VO.TweetVO;
 import top.mnilsy.cup.VO.UserVO;
 import top.mnilsy.cup.dao.*;
-import top.mnilsy.cup.pojo.AccessoryPojo;
-import top.mnilsy.cup.pojo.PasswdPojo;
-import top.mnilsy.cup.pojo.UserPojo;
-import top.mnilsy.cup.sendTest.HttpUtil;
+import top.mnilsy.cup.service.MessageService;
 import top.mnilsy.cup.utils.ResponMessage;
 import top.mnilsy.cup.utils.SendSMSUtil;
+import top.mnilsy.cup.utils.SpringUtil;
 
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
@@ -50,5 +47,10 @@ public class CupApplicationTests {
         System.out.println(JSON.toJSONString(responMessage));
     }
 
+    @Test
+    public void ptr(){
+        MessageService messageService= (MessageService) SpringUtil.getBean("messageService");
+        System.out.println(messageService);
+    }
 
 }

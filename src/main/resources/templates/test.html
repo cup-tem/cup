@@ -31,6 +31,24 @@
             })
         }
 
+        function f1() {
+           var ws=new WebSocket("ws://127.0.0.1:8088/ws");
+           ws.onopen=function () {
+               console.log("链接成功")
+               ws.send("{\"action\":1,\"extand\":\"MNILSY\"}")
+           };
+            ws.onmessage = function(message) {
+                console.log("好气啊")
+                console.log(message.data);
+            }
+            ws.onclose=function (ev) {
+                console.log("自闭")
+            }
+            ws.onerror=function (ev) {
+                console.log("错误了")
+            }
+        }
+
         function t() {
             $.ajax({
                 contentType: "application/x-www-form-urlencoded; charset=utf-8",
@@ -61,6 +79,7 @@
 </head>
 <body>
 <a href="javascript:f()">test</a>
+<a href="javascript:f1()">test</a>
 <a href="javascript:t()">test2</a>
 </body>
 </html>

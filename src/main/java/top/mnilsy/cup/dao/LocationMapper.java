@@ -119,5 +119,5 @@ public interface LocationMapper {
                     many = @Many(select = "top.mnilsy.cup.dao.AccessoryMapper.getAccessoryUrl")
             )
     })
-    List<TweetVO> getTweet(@Param("x") double x, @Param("y") double y, @Param("count") int count);
+    List<TweetVO> getTweets(@Param("x") double x, @Param("y") double y, @Param("count") int count);
 }

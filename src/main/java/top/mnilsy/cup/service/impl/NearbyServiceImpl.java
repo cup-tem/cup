@@ -43,6 +43,6 @@ public class NearbyServiceImpl implements NearbyService {
     @Override
     public List<TweetVO> getLocationTweet(double x, double y, int count) {
         if (count < 0) return null;
-        return locationMapper.getTweet(x, y, count * 10);
+        return locationMapper.getTweets(x, y, count * 10);
     }
 }

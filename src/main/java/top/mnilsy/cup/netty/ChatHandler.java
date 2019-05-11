@@ -2,16 +2,20 @@ package top.mnilsy.cup.netty;
 
 import com.alibaba.fastjson.JSON;
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.util.concurrent.GlobalEventExecutor;
+import org.springframework.context.ApplicationContext;
+import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 import top.mnilsy.cup.BO.AtBO;
 import top.mnilsy.cup.VO.MessageVO;
 import top.mnilsy.cup.enums.NettyActionEnum;
-import top.mnilsy.cup.pojo.AtPojo;
 import top.mnilsy.cup.service.AtService;
 import top.mnilsy.cup.service.MessageService;
 import top.mnilsy.cup.utils.SpringUtil;
@@ -22,6 +26,7 @@ import java.util.List;
  * @Description: 处理消息的handler
  * TextWebSocketFrame： 在netty中，是用于为websocket专门处理文本的对象，frame是消息的载体
  */
+@ChannelHandler.Sharable
 public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame> {
 
     // 用于记录和管理所有客户端的channle
@@ -34,7 +39,7 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
         String content = msg.text();// 获取客户端传输过来的消息
         Channel currentChannel = ctx.channel();
         // 获取客户端发来的消息
-        DataContent dataContent = (DataContent) JSON.parse(content);
+        DataContent dataContent = JSON.parseObject(content, DataContent.class);
         int action = dataContent.getAction();
         // 判断消息类型，根据不同的类型来处理不同的业务
 
@@ -47,8 +52,10 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
 
             // ====================== 测试 start  ======================
             for (Channel c : users) {
+                System.out.println("新加入管道id：");
                 System.out.println(c.id().asLongText());
             }
+            System.out.println("在线用户：");
             UserChannelRel.output();
             // ====================== 测试 end    ======================
 
@@ -109,7 +116,6 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
 
         String channelId = ctx.channel().id().asShortText();
         System.out.println("客户端被移除，channelId为：" + channelId);
-
         // 当触发handlerRemoved，ChannelGroup会自动移除对应客户端的channel
         UserChannelRel.remove(ctx.channel().id());
         users.remove(ctx.channel());
