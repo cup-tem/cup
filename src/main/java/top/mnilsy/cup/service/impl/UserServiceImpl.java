@@ -1,11 +1,19 @@
 package top.mnilsy.cup.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelId;
+import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import org.apache.http.util.TextUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import top.mnilsy.cup.VO.UserVO;
 import top.mnilsy.cup.dao.UserMapper;
+import top.mnilsy.cup.enums.NettyActionEnum;
 import top.mnilsy.cup.enums.UrlEnum;
+import top.mnilsy.cup.netty.ChatHandler;
+import top.mnilsy.cup.netty.DataContent;
+import top.mnilsy.cup.netty.UserChannelRel;
 import top.mnilsy.cup.pojo.PasswdPojo;
 import top.mnilsy.cup.pojo.UserPojo;
 
@@ -55,7 +63,7 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     *密码登录
+     * 密码登录
      *
      * @author Jason_Jane
      */
@@ -321,6 +329,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void RedundanceLogin(String user_Name) {
-
+        ChannelId channelId = UserChannelRel.get(user_Name);
+        if (channelId == null) return;
+        Channel channel = ChatHandler.users.find(channelId);
+        if (channel == null) return;
+        channel.writeAndFlush(new TextWebSocketFrame(JSON.toJSONString(new DataContent(NettyActionEnum.LOGOUT.vule, null, null))));
     }
 }

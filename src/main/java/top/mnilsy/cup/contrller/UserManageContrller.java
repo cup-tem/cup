@@ -45,6 +45,7 @@ public class UserManageContrller {
             UserVO userVO = new UserVO();
             BeanUtils.copyProperties(userPojo, userVO);
             userVO.setSessionId(session.getId());
+            userService.RedundanceLogin(userVO.getUser_Name());
             return ResponMessage.ok(userVO);
         }
         return ResponMessage.error("登录失败");
@@ -111,6 +112,7 @@ public class UserManageContrller {
             //登录成功，删除验证码
             session.removeAttribute("user_Phone");
             session.removeAttribute("phoneCode");
+            userService.RedundanceLogin(userVO.getUser_Name());
             return ResponMessage.ok(userVO);
         }
         return ResponMessage.error("验证码登陆失败");
