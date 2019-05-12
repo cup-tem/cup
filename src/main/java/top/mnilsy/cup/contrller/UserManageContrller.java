@@ -314,7 +314,7 @@ public class UserManageContrller {
         String passwdRegex = "(?=.*[a-z])(?=.*\\d)(?=.*[#@!~%^&*?$(){};:'])[a-z\\d#@!~%^&*?$(){};:']{6,18}";
         if (oldPasswd == null) return ResponMessage.error("请输入旧密码");
         if (newPasswd == null) return ResponMessage.error("请输入新密码");
-        if (oldPasswd.equals(newPasswd)) return ResponMessage.error("新旧密码不能一样");
+        if (oldPasswd.equals(newPasswd)) return ResponMessage.error("输入的新旧密码不能一样");
         if (!newPasswd.matches(passwdRegex)) return ResponMessage.error("密码必须包含字母数字符号且为6-18位");
         int message = userService.updatePasswd(oldPasswd, newPasswd, userPojo);
         if (message == 0) {

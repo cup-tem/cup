@@ -9,12 +9,11 @@
             $.ajax({
                 contentType: "application/json; charset=utf-8",
                 type: "post",
-                url: "/open/retrievePasswd.api",
+                url: "/setUserNamePasswd.api",
                 data: JSON.stringify({
                     data: {
-                        user_Phone:"13536497410",
-                        newPasswd:"123abc!?",
-                        code:"Test"
+                        user_Name:"JasonJane",
+                        passwd:"123abc?!"
                     },
                     sessionid: ""
                 }),
