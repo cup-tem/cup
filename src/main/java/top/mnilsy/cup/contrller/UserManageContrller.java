@@ -335,15 +335,17 @@ public class UserManageContrller {
      */
     @PostMapping("/open/retrievePasswd.api")
     public ResponMessage retrievePasswd(@RequestBody RequestMessage requestMessage, HttpSession session) {
-        UserPojo userPojo = (UserPojo) session.getAttribute("userInfo");
         String newPasswd = (String) requestMessage.getData().get("newPasswd");
-        String user_Phone = userPojo.getUser_Phone();
-        String rCode = userService.getPhoneCode(user_Phone);
+        String passwdRegex = "(?=.*[a-z])(?=.*\\d)(?=.*[#@!~%^&*?$(){};:'])[a-z\\d#@!~%^&*?$(){};:']{6,18}";
+        String user_Phone = (String) session.getAttribute("user_Phone");
+        String rCode = (String) session.getAttribute("phoneCode");
         String code = (String) requestMessage.getData().get("code");
         if (!code.equals(rCode)) return ResponMessage.error("手机验证码输入有误");
+        if(!newPasswd.matches(passwdRegex))return ResponMessage.error("密码必须包含字母数字符号且为6-18位");
         int message = userService.retrievePasswd(newPasswd, user_Phone);
-        if (message == 0) return ResponMessage.error("新旧密码一样");
-        if (message == 1) return ResponMessage.error("修改密码失败");
+        if (message == 0) return ResponMessage.error("不存在该手机账号");
+        if (message == 1) return ResponMessage.error("新旧密码一样");
+        if (message == 2) return ResponMessage.error("修改密码失败");
         return ResponMessage.ok();
     }
 
