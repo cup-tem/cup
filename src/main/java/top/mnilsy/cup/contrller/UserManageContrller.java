@@ -461,4 +461,14 @@ public class UserManageContrller {
         return ResponMessage.error("修改电子邮箱失败");
     }
 
+    /**
+     * 心跳，判断是否在线
+     *
+     * @return 请求状态码status
+     * @author mnilsy
+     */
+    @GetMapping("/pingpong.api")
+    public ResponMessage onlin() {
+        return ResponMessage.ok();
+    }
 }

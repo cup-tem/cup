@@ -303,6 +303,16 @@ public class HttpUtil {
     }
 
     /**
+     * 心跳，判断是否在线
+     *
+     * @return 请求状态码status
+     * @author mnilsy
+     */
+    public static ResponMessage onlin(String sessionid) {
+        return send("pingpong.api", null, sessionid);
+    }
+
+    /**
      * 发布推文
      *
      * @param tweet_Type 推文类型

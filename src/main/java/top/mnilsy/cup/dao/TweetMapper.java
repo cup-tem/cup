@@ -59,7 +59,7 @@ public interface TweetMapper {
             "(select count(*) from `like` where tweet_Id = #{tweet_Id}) as tweet_LikeCount," +
             "(select count(*) from discuss where tweet_Id = #{tweet_Id}) as tweet_DiscussCount " +
             "from user u join tweet t on u.user_Id = t.user_Id where t.user_Id int " +
-            "(select secondParty_User_Id from fans where firstParty_User_Id=#{user_Id}) limit #{count},10")
+            "(select secondParty_User_Id from fans where firstParty_User_Id=#{user_Id}) order by desc limit #{count},10")
     @Results({
             @Result(property = "accessory", column = "tweet_Id",
                     many = @Many(select = "top.mnilsy.cup.dao.AccessoryMapper.getAccessoryListUrl")
