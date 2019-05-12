@@ -33,7 +33,13 @@ public class HttpUtil {
             response = client.newCall(request).execute();
             if (response.body() == null) return null;
             String s = response.body().string();
-            return JSON.parseObject(s, ResponMessage.class);
+            ResponMessage responMessage = null;
+            try {
+                responMessage = JSON.parseObject(s, ResponMessage.class);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return responMessage;
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -122,7 +128,7 @@ public class HttpUtil {
      * @return 请求状态码status，失败信息message
      * @author mnilsy
      */
-    public ResponMessage checkUserName(String user_Name) {
+    public static ResponMessage checkUserName(String user_Name) {
         Map<String, Object> data = new HashMap<>();
         data.put("user_Name", user_Name);
         RequestMessage requestMessage = new RequestMessage(data);
@@ -138,7 +144,7 @@ public class HttpUtil {
      * @return 请求状态码status, 失败信息message，用户信息userVO
      * @author mnilsy
      */
-    public ResponMessage setUserNamePasswd(String user_Name, String passwd, String sessionid) {
+    public static ResponMessage setUserNamePasswd(String user_Name, String passwd, String sessionid) {
         Map<String, Object> data = new HashMap<>();
         data.put("user_Name", user_Name);
         data.put("passwd", passwd);
@@ -153,7 +159,7 @@ public class HttpUtil {
      * @return 请求状态码status, 失败信息message，用户信息userVO
      * @author mnilsy
      */
-    public ResponMessage uploadingUserHead(String user_Head, String sessionid) {
+    public static ResponMessage uploadingUserHead(String user_Head, String sessionid) {
         Map<String, Object> data = new HashMap<>();
         data.put("user_Head", user_Head);
         RequestMessage requestMessage = new RequestMessage(data);
@@ -167,7 +173,7 @@ public class HttpUtil {
      * @return 请求状态码status, 失败信息message，用户信息userVO
      * @author mnilsy
      */
-    public ResponMessage uploadingUserBackgroundUrl(String user_Background, String sessionid) {
+    public static ResponMessage uploadingUserBackgroundUrl(String user_Background, String sessionid) {
         Map<String, Object> data = new HashMap<>();
         data.put("user_Background", user_Background);
         RequestMessage requestMessage = new RequestMessage(data);
@@ -181,7 +187,7 @@ public class HttpUtil {
      * @return 请求状态码status, 失败信息message，用户信息userVO
      * @author mnilsy
      */
-    public ResponMessage updateUserNickName(String user_NickName, String sessionid) {
+    public static ResponMessage updateUserNickName(String user_NickName, String sessionid) {
         Map<String, Object> data = new HashMap<>();
         data.put("user_NickName", user_NickName);
         RequestMessage requestMessage = new RequestMessage(data);
@@ -195,7 +201,7 @@ public class HttpUtil {
      * @return 请求状态码status, 失败信息message，用户信息userVO
      * @author mnilsy
      */
-    public ResponMessage updateUserSex(String user_Sex, String sessionid) {
+    public static ResponMessage updateUserSex(String user_Sex, String sessionid) {
         Map<String, Object> data = new HashMap<>();
         data.put("user_Sex", user_Sex);
         RequestMessage requestMessage = new RequestMessage(data);
@@ -210,7 +216,7 @@ public class HttpUtil {
      * @return 请求状态码status, 失败信息message
      * @author mnilsy
      */
-    public ResponMessage updatePasswd(String oldPasswd, String newPasswd, String sessionid) {
+    public static ResponMessage updatePasswd(String oldPasswd, String newPasswd, String sessionid) {
         Map<String, Object> data = new HashMap<>();
         data.put("oldPasswd", oldPasswd);
         data.put("newPasswd", newPasswd);
@@ -225,7 +231,7 @@ public class HttpUtil {
      * @return 请求状态码status, 失败信息message
      * @author mnilsy
      */
-    public ResponMessage retrievePasswd(String newPasswd, String code, String sessionid) {
+    public static ResponMessage retrievePasswd(String newPasswd, String code, String sessionid) {
         Map<String, Object> data = new HashMap<>();
         data.put("newPasswd", newPasswd);
         data.put("code", code);
@@ -241,7 +247,7 @@ public class HttpUtil {
      * @return 请求状态码status, 失败信息message，用户信息userVO
      * @author mnilsy
      */
-    public ResponMessage updateUserPhone(String user_Phone, String code, String sessionid) {
+    public static ResponMessage updateUserPhone(String user_Phone, String code, String sessionid) {
         Map<String, Object> data = new HashMap<>();
         data.put("user_Phone", user_Phone);
         data.put("code", code);
@@ -256,7 +262,7 @@ public class HttpUtil {
      * @return 请求状态码status, 失败信息message
      * @author mnilsy
      */
-    public ResponMessage getEmailCode(String user_Email, String sessionid) {
+    public static ResponMessage getEmailCode(String user_Email, String sessionid) {
         Map<String, Object> data = new HashMap<>();
         data.put("user_Email", user_Email);
         RequestMessage requestMessage = new RequestMessage(data);
@@ -271,7 +277,7 @@ public class HttpUtil {
      * @return 请求状态码status, 失败信息message，用户信息userVO
      * @author mnilsy
      */
-    public ResponMessage bindUserEmail(String user_Email, String code, String sessionid) {
+    public static ResponMessage bindUserEmail(String user_Email, String code, String sessionid) {
         Map<String, Object> data = new HashMap<>();
         data.put("user_Email", user_Email);
         data.put("code", code);
@@ -287,7 +293,7 @@ public class HttpUtil {
      * @param oldCode    旧邮箱验证码
      * @return 请求状态码status, 失败信息message，用户信息userVO
      */
-    public ResponMessage updateUserEmail(String user_Email, String newCode, String oldCode, String sessionid) {
+    public static ResponMessage updateUserEmail(String user_Email, String newCode, String oldCode, String sessionid) {
         Map<String, Object> data = new HashMap<>();
         data.put("user_Email", user_Email);
         data.put("newCode", newCode);
@@ -306,7 +312,7 @@ public class HttpUtil {
      * @return 请求状态码status, 失败信息message
      * @author mnilsy
      */
-    public ResponMessage putTweet(String tweet_Type, String tweet_Text, String[] accessory, String[] user_Name, String sessionid) {
+    public static ResponMessage putTweet(String tweet_Type, String tweet_Text, String[] accessory, String[] user_Name, String sessionid) {
         Map<String, Object> data = new HashMap<>();
         data.put("tweet_Type", tweet_Type);
         data.put("tweet_Text", tweet_Text);
@@ -317,13 +323,27 @@ public class HttpUtil {
     }
 
     /**
+     * 获取用户关注的人的推文，按时间降序
+     *
+     * @param conut 获取次数
+     * @return 请求状态码 status, 失败信息message 关注的人的推文List<TweetVO>
+     * @author mnilsy
+     */
+    public static ResponMessage getFollowTweet(String conut, String sessionid) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("conut", conut);
+        RequestMessage requestMessage = new RequestMessage(data);
+        return send("getFollowTweet.api", requestMessage, sessionid);
+    }
+
+    /**
      * 查看推文，即点开推文
      *
      * @param tweet_Id 推文id
      * @return 请求状态码status, 失败信息message
      * @author mnilsy
      */
-    public ResponMessage openTweet(String tweet_Id) {
+    public static ResponMessage openTweet(String tweet_Id) {
         Map<String, Object> data = new HashMap<>();
         data.put("tweet_Id", tweet_Id);
         RequestMessage requestMessage = new RequestMessage(data);
@@ -338,7 +358,7 @@ public class HttpUtil {
      * @return 请求状态码status，失败信息message，推文评论List<discussVO>
      * @author mnilsy
      */
-    public ResponMessage getMoreDiscuss(String tweet_Id, String count) {
+    public static ResponMessage getMoreDiscuss(String tweet_Id, String count) {
         Map<String, Object> data = new HashMap<>();
         data.put("tweet_Id", tweet_Id);
         data.put("count", count);
@@ -354,7 +374,7 @@ public class HttpUtil {
      * @return 请求状态码status，失败信息message
      * @author mnilsy
      */
-    public ResponMessage putDiscuss(String discuss_Vlue, String tweet_Id, String sessionid) {
+    public static ResponMessage putDiscuss(String discuss_Vlue, String tweet_Id, String sessionid) {
         Map<String, Object> data = new HashMap<>();
         data.put("discuss_Vlue", discuss_Vlue);
         data.put("tweet_Id", tweet_Id);
@@ -371,7 +391,7 @@ public class HttpUtil {
      * @return 请求状态码status，失败信息message
      * @author mnilsy
      */
-    public ResponMessage putWriteBack(String writeBack_Vlue, String discuss_Id, String writeBack_User_Name, String sessionid) {
+    public static ResponMessage putWriteBack(String writeBack_Vlue, String discuss_Id, String writeBack_User_Name, String sessionid) {
         Map<String, Object> data = new HashMap<>();
         data.put("writeBack_Vlue", writeBack_Vlue);
         data.put("discuss_Id", discuss_Id);
@@ -387,7 +407,7 @@ public class HttpUtil {
      * @return 请求状态码status，失败信息message
      * @author mnilsy
      */
-    public ResponMessage putLike(String tweet_Id, String sessionid) {
+    public static ResponMessage putLike(String tweet_Id, String sessionid) {
         return send("putLike" + tweet_Id + ".api", null, sessionid);
     }
 
@@ -398,7 +418,7 @@ public class HttpUtil {
      * @return 请求状态码status，失败信息message
      * @author mnilsy
      */
-    public ResponMessage deleteTweet(String tweet_Id, String sessionid) {
+    public static ResponMessage deleteTweet(String tweet_Id, String sessionid) {
         return send("deleteTweet" + tweet_Id + ".api", null, sessionid);
     }
 
@@ -409,7 +429,7 @@ public class HttpUtil {
      * @return 请求状态码status
      * @author mnilsy
      */
-    public ResponMessage deleteDiscuss(String discuss_Id, String sessionid) {
+    public static ResponMessage deleteDiscuss(String discuss_Id, String sessionid) {
         return send("deleteDiscuss" + discuss_Id + ".api", null, sessionid);
     }
 
@@ -420,7 +440,7 @@ public class HttpUtil {
      * @return 请求状态码status
      * @author mnilsy
      */
-    public ResponMessage deleteWriteBack(String writeBack_Id, String sessionid) {
+    public static ResponMessage deleteWriteBack(String writeBack_Id, String sessionid) {
         return send("deleteWriteBack" + writeBack_Id + ".api", null, sessionid);
     }
 
@@ -431,7 +451,7 @@ public class HttpUtil {
      * @return 请求状态码status，失败信息 message
      * @author mnilsy
      */
-    public ResponMessage follow(String user_Name, String sessionid) {
+    public static ResponMessage follow(String user_Name, String sessionid) {
         return send("follow" + user_Name + ".api", null, sessionid);
     }
 
@@ -443,7 +463,7 @@ public class HttpUtil {
      * @return 请求状态码status，失败信息 message，关注人列表List<UserListVO>
      * @author mnilsy
      */
-    public ResponMessage getFollowList(String count, String sessionid) {
+    public static ResponMessage getFollowList(String count, String sessionid) {
         Map<String, Object> data = new HashMap<>();
         data.put("count", count);
         RequestMessage requestMessage = new RequestMessage(data);
@@ -457,7 +477,7 @@ public class HttpUtil {
      * @return 请求状态码status，失败信息 message，关注你的人列表List<UserListVO>
      * @author mnilsy
      */
-    public ResponMessage getFans(String count, String sessionid) {
+    public static ResponMessage getFans(String count, String sessionid) {
         Map<String, Object> data = new HashMap<>();
         data.put("count", count);
         RequestMessage requestMessage = new RequestMessage(data);
@@ -471,7 +491,7 @@ public class HttpUtil {
      * @return 请求状态码status，失败信息 message，关注你的人列表List<UserListVO>
      * @author mnilsy
      */
-    public ResponMessage getBlackList(String count, String sessionid) {
+    public static ResponMessage getBlackList(String count, String sessionid) {
         Map<String, Object> data = new HashMap<>();
         data.put("count", count);
         RequestMessage requestMessage = new RequestMessage(data);
@@ -485,7 +505,7 @@ public class HttpUtil {
      * @return 请求状态码status，失败信息 message
      * @author mnilsy
      */
-    public ResponMessage setBlackList(String user_Name, String sessionid) {
+    public static ResponMessage setBlackList(String user_Name, String sessionid) {
         Map<String, Object> data = new HashMap<>();
         data.put("user_Name", user_Name);
         RequestMessage requestMessage = new RequestMessage(data);
@@ -500,7 +520,7 @@ public class HttpUtil {
      * @return 请求状态码status，失败信息 message
      * @author mnilsy
      */
-    public ResponMessage setUserLocation(String location_Y, String location_X, String sessionid) {
+    public static ResponMessage setUserLocation(String location_Y, String location_X, String sessionid) {
         Map<String, Object> data = new HashMap<>();
         data.put("location_Y", location_Y);
         data.put("location_X", location_X);
@@ -514,7 +534,7 @@ public class HttpUtil {
      * @return 请求状态码status，失败信息 message
      * @author mnilsy
      */
-    public ResponMessage clearUserLocation(String sessionid) {
+    public static ResponMessage clearUserLocation(String sessionid) {
         return send("clearUserLocation.api", null, sessionid);
     }
 
@@ -525,7 +545,7 @@ public class HttpUtil {
      * @return 请求状态码status，失败信息 message，推文内容List<tweetVO>
      * @author mnilsy
      */
-    public ResponMessage getLocationTweet(String count, String sessionid) {
+    public static ResponMessage getLocationTweet(String count, String sessionid) {
         Map<String, Object> data = new HashMap<>();
         data.put("count", count);
         RequestMessage requestMessage = new RequestMessage(data);
@@ -541,7 +561,7 @@ public class HttpUtil {
      * @return 请求状态码status，失败信息 message，推文内容List<tweetVO>
      * @author mnilsy
      */
-    public ResponMessage getLocationTweet(String x, String y, String count) {
+    public static ResponMessage getLocationTweet(String x, String y, String count) {
         Map<String, Object> data = new HashMap<>();
         data.put("x", x);
         data.put("y", y);

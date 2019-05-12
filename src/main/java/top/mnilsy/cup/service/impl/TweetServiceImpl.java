@@ -50,6 +50,12 @@ public class TweetServiceImpl implements TweetService {
     }
 
     @Override
+    public List<TweetVO> getFollowTweet(String user_Id, int count) {
+        if (count < 0 || user_Id.length() < 36) return null;
+        return tweetMapper.getTweetVO_secondParty_User_Id(user_Id, count * 10);
+    }
+
+    @Override
     public List<DiscussVO> getTweetDiscuss(String tweet_Id, int count) {
         if (count < 0 || tweet_Id.length() < 36) return null;
         return discussMapper.getTweetDiscuss(tweet_Id, count * 10);

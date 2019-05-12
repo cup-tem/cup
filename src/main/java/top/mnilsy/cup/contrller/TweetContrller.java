@@ -29,7 +29,7 @@ public class TweetContrller {
      *
      * @param requestMessage 推文类型data.get("tweet_Type")，推文文字data.get("tweet_Text")，
      *                       推文附件data.get("accessory")[]，@的用户data.get("user_Name")[]
-     * @return 请求状态码 status
+     * @return 请求状态码 status, 失败信息message
      * @author mnilsy
      */
     @PostMapping("/putTweet.api")
@@ -40,7 +40,22 @@ public class TweetContrller {
         String accessory[] = (String[]) requestMessage.getData().get("accessory");
         String user_Name[] = (String[]) requestMessage.getData().get("user_Name");
         boolean flag = tweetService.addTweet(tweet_Type, tweet_Text, accessory, user_Name, userInfo.getUser_Id());
-        return flag ? ResponMessage.ok() : ResponMessage.error();
+        return flag ? ResponMessage.ok() : ResponMessage.error("发布失败");
+    }
+
+    /**
+     * 获取用户关注的人的推文，按时间降序
+     *
+     * @param requestMessage 获取次数data.get("conut")
+     * @return 请求状态码 status, 失败信息message 关注的人的推文data.List<TweetVO>
+     * @author mnilsy
+     */
+    @PostMapping("/getFollowTweet.api")
+    public ResponMessage getFollowTweet(@RequestBody RequestMessage requestMessage, HttpSession session) {
+        UserPojo userInfo = (UserPojo) session.getAttribute("userInfo");
+        int conut = Integer.parseInt((String) requestMessage.getData().get("conut"));
+        List<TweetVO> list = tweetService.getFollowTweet(userInfo.getUser_Id(), conut);
+        return list.isEmpty() ? ResponMessage.error("没有更多了") : ResponMessage.ok(list);
     }
 
     /**

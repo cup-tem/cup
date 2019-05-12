@@ -19,6 +19,16 @@ public interface TweetService {
     TweetVO getTweet(String tweet_Id);
 
     /**
+     * 获取用户关注的人的推文
+     *
+     * @param user_Id 用户id
+     * @param count 获取次数，每次10条
+     * @return 推文的VO包
+     * @author mnilsy
+     */
+    List<TweetVO> getFollowTweet(String user_Id,int count);
+
+    /**
      * 获取制定推文的10条评论
      *
      * @param tweet_Id 推文id

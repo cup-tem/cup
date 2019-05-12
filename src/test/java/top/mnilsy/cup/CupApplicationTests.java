@@ -8,6 +8,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import top.mnilsy.cup.VO.TweetVO;
 import top.mnilsy.cup.VO.UserVO;
 import top.mnilsy.cup.dao.*;
+import top.mnilsy.cup.sendTest.HttpUtil;
 import top.mnilsy.cup.service.MessageService;
 import top.mnilsy.cup.utils.ResponMessage;
 import top.mnilsy.cup.utils.SendSMSUtil;
@@ -51,6 +52,11 @@ public class CupApplicationTests {
     public void ptr(){
         MessageService messageService= (MessageService) SpringUtil.getBean("messageService");
         System.out.println(messageService);
+    }
+
+    @Test
+    public void Testsms(){
+        System.out.println(JSON.toJSONString(HttpUtil.passwdLogin("MNILSY","123abc?")));
     }
 
 }
