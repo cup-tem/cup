@@ -1,8 +1,10 @@
 package top.mnilsy.cup.service;
 
+import com.alibaba.fastjson.JSONArray;
 import top.mnilsy.cup.VO.DiscussVO;
 import top.mnilsy.cup.VO.TweetVO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -49,7 +51,7 @@ public interface TweetService {
      * @return 否是发布成功
      * @author mnilsy
      */
-    boolean addTweet(int tweet_Type, String tweet_Text, String[] accessory, String[] atUser_Name, String user_Id);
+    boolean addTweet(int tweet_Type, String tweet_Text, ArrayList accessory, ArrayList atUser_Name, String user_Id);
 
     /**
      * 点赞/取消赞

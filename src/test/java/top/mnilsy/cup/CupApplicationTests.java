@@ -50,8 +50,7 @@ public class CupApplicationTests {
 
     @Test
     public void ptr(){
-        MessageService messageService= (MessageService) SpringUtil.getBean("messageService");
-        System.out.println(messageService);
+        System.out.println(userMapper.selectUser("MNILSY").toString());
     }
 
     @Test

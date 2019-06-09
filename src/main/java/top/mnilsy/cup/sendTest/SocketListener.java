@@ -16,18 +16,26 @@ import java.util.TimerTask;
  * Created by mnilsy on 19-5-12 上午11:04.
  */
 public class SocketListener extends WebSocketListener {
-
+    private String user_Name;
     private Timer timer = new Timer();
     private WebSocket msocket;
+
+    public SocketListener() {
+    }
+
+    public SocketListener(String user_Name) {
+        this.user_Name = user_Name;
+    }
 
     @Override
     public void onOpen(WebSocket webSocket, Response response) {
         this.msocket = webSocket;
+        webSocket.send(JSON.toJSONString(new DataContent(NettyActionEnum.LOGIN.vule, null, user_Name)));
         //ping pong
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                webSocket.send(JSON.toJSONString(new DataContent(NettyActionEnum.KEEPALIVE.vule, null, null)));
+                webSocket.send(JSON.toJSONString(new DataContent(NettyActionEnum.KEEPALIVE.vule, null, user_Name)));
                 System.out.println("ping pong");
             }
         }, new Date(), 30000);
@@ -35,13 +43,11 @@ public class SocketListener extends WebSocketListener {
 
     @Override
     public void onMessage(WebSocket webSocket, String text) {
-        System.out.println("我收到了");
-        System.out.println(text);
+        DeSocketMeagss.deCode(text,new Object(),webSocket);
     }
 
     @Override
     public void onMessage(WebSocket webSocket, ByteString bytes) {
-        System.out.println(bytes);
     }
 
     @Override
@@ -71,7 +77,7 @@ public class SocketListener extends WebSocketListener {
         this.msocket = msocket;
     }
 
-    public void close(){
-        msocket.close(1000,"exit");
+    public void close() {
+        msocket.close(1000, "exit");
     }
 }

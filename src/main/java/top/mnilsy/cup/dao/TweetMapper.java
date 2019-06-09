@@ -77,7 +77,7 @@ public interface TweetMapper {
      * @return 增加条数
      * @author mnilsy
      */
-    @Insert("insert into tweet(tweet_Id,tweet_Type,tweet_Text,user_Id) values (#{tweetPojo.tweet_Id},#{tweetPojo.tweet_Type},#{tweetPojo.tweet_Text},#{tweetPojo.user_Id})")
+    @Insert("insert into tweet(tweet_Id,tweet_Type,tweet_Text,user_Id) values (#{tweet_Id},#{tweet_Type},#{tweet_Text},#{user_Id})")
     int insertTweet(TweetPojo tweetPojo);
 
     /**

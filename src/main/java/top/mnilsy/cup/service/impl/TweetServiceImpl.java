@@ -1,5 +1,6 @@
 package top.mnilsy.cup.service.impl;
 
+import com.alibaba.fastjson.JSONArray;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import top.mnilsy.cup.VO.DiscussVO;
@@ -13,6 +14,7 @@ import top.mnilsy.cup.service.TweetService;
 import top.mnilsy.cup.utils.FileUtil;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -63,26 +65,26 @@ public class TweetServiceImpl implements TweetService {
 
     @Transactional
     @Override
-    public boolean addTweet(int tweet_Type, String tweet_Text, String[] accessory, String[] atUser_Name, String user_Id) {
+    public boolean addTweet(int tweet_Type, String tweet_Text, ArrayList accessory, ArrayList atUser_Name, String user_Id) {
         TweetPojo tweetPojo = new TweetPojo(tweet_Type, tweet_Text, user_Id);
         boolean flag = tweetMapper.insertTweet(tweetPojo) == 1;
         if (flag) {
-            AccessoryPojo[] accessoryPojos = new AccessoryPojo[accessory.length];
+            AccessoryPojo[] accessoryPojos = new AccessoryPojo[accessory.size()];
             if (tweet_Type == TweetTypeEnum.PHOTO.vlue) {//推文为图片类型
-                for (int i = 0; i < accessory.length; i++) {
+                for (int i = 0; i < accessory.size(); i++) {
                     String url = UrlEnum.ACCESSORY.vlue + tweetPojo.getTweet_Id() + "_" + i + ".jpg";
-                    if (!FileUtil.base64ToFile(accessory[i], url)) return false;
+                    if (!FileUtil.base64ToFile((String) accessory.get(i), url)) return false;
                     accessoryPojos[i] = new AccessoryPojo(tweetPojo.getTweet_Id(), url);
                 }
             }
             if (tweet_Type == TweetTypeEnum.VIDEO.vlue) {//推文为视频类型
                 String url = UrlEnum.ACCESSORY.vlue + tweetPojo.getTweet_Id() + ".mp4";
-                if (!FileUtil.base64ToFile(accessory[0], url)) return false;
+                if (!FileUtil.base64ToFile((String) accessory.get(0), url)) return false;
                 accessoryPojos[0] = new AccessoryPojo(tweetPojo.getTweet_Id(), url);
             }
             if (tweet_Type == TweetTypeEnum.MUSIC.vlue) {//推文为视频类型
                 String url = UrlEnum.ACCESSORY.vlue + tweetPojo.getTweet_Id() + ".mp3";
-                if (!FileUtil.base64ToFile(accessory[0], url)) return false;
+                if (!FileUtil.base64ToFile((String) accessory.get(0), url)) return false;
                 accessoryPojos[0] = new AccessoryPojo(tweetPojo.getTweet_Id(), url);
             }
             int count = 0;
@@ -96,8 +98,8 @@ public class TweetServiceImpl implements TweetService {
             if (count == 0) {
                 flag = false;
             } else {
-                for (String user_Name : atUser_Name) {
-                    atService.tweetAt(tweetPojo.getTweet_Id(), user_Name);
+                for (Object user_Name : atUser_Name) {
+                    atService.tweetAt(tweetPojo.getTweet_Id(), (String) user_Name);
                 }
             }
         }

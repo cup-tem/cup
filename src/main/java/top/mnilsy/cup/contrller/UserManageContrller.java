@@ -1,6 +1,7 @@
 package top.mnilsy.cup.contrller;
 
 
+import com.alibaba.fastjson.JSON;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 import top.mnilsy.cup.VO.UserVO;
@@ -12,6 +13,7 @@ import top.mnilsy.cup.utils.ResponMessage;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -341,11 +343,14 @@ public class UserManageContrller {
         String rCode = (String) session.getAttribute("phoneCode");
         String code = (String) requestMessage.getData().get("code");
         if (!code.equals(rCode)) return ResponMessage.error("手机验证码输入有误");
-        if(!newPasswd.matches(passwdRegex))return ResponMessage.error("密码必须包含字母数字符号且为6-18位");
+        if (!newPasswd.matches(passwdRegex)) return ResponMessage.error("密码必须包含字母数字符号且为6-18位");
         int message = userService.retrievePasswd(newPasswd, user_Phone);
         if (message == 0) return ResponMessage.error("不存在该手机账号");
         if (message == 1) return ResponMessage.error("新旧密码一样");
         if (message == 2) return ResponMessage.error("修改密码失败");
+        //删除验证码
+        if (session.getAttribute("phoneCode") != null) session.removeAttribute("phoneCode");
+        if (session.getAttribute("code") != null) session.removeAttribute("code");
         return ResponMessage.ok();
     }
 
@@ -472,5 +477,17 @@ public class UserManageContrller {
     @GetMapping("/pingpong.api")
     public ResponMessage onlin() {
         return ResponMessage.ok();
+    }
+
+    /**
+     * 搜索用户
+     *
+     * @param requestMessage 用户名data.get("user_Name")
+     * @return 请求状态码status，用户信息data.userVO
+     */
+    @PostMapping("/open/selectUser.api")
+    public ResponMessage selectUser(@RequestBody RequestMessage requestMessage) {
+        List<UserVO> list = userService.getSelectUser((String) requestMessage.getData().get("user_Name"));
+        return list.isEmpty() ? ResponMessage.error("查询无果") : ResponMessage.ok(list);
     }
 }

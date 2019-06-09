@@ -1,5 +1,7 @@
 package top.mnilsy.cup.contrller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.web.bind.annotation.*;
 import top.mnilsy.cup.VO.DiscussVO;
@@ -11,6 +13,7 @@ import top.mnilsy.cup.utils.ResponMessage;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,7 +31,7 @@ public class TweetContrller {
      * 发布推文
      *
      * @param requestMessage 推文类型data.get("tweet_Type")，推文文字data.get("tweet_Text")，
-     *                       推文附件data.get("accessory")[]，@的用户data.get("user_Name")[]
+     *                       推文附件(ArrayList)data.get("accessory")，@的用户(ArrayList)data.get("user_Name")
      * @return 请求状态码 status, 失败信息message
      * @author mnilsy
      */
@@ -37,8 +40,8 @@ public class TweetContrller {
         UserPojo userInfo = (UserPojo) session.getAttribute("userInfo");
         int tweet_Type = Integer.parseInt((String) requestMessage.getData().get("tweet_Type"));
         String tweet_Text = (String) requestMessage.getData().get("tweet_Text");
-        String accessory[] = (String[]) requestMessage.getData().get("accessory");
-        String user_Name[] = (String[]) requestMessage.getData().get("user_Name");
+        ArrayList accessory = (ArrayList) requestMessage.getData().get("accessory");
+        ArrayList user_Name = (ArrayList) requestMessage.getData().get("user_Name");
         boolean flag = tweetService.addTweet(tweet_Type, tweet_Text, accessory, user_Name, userInfo.getUser_Id());
         return flag ? ResponMessage.ok() : ResponMessage.error("发布失败");
     }

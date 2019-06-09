@@ -84,7 +84,11 @@ public interface UserMapper {
      * @return 用户基本资料
      * @author Jason_Jane
      */
-    @Select("select user.* from user left join passwd p on user.user_Id = p.user_Id where passwd_Normal = #{passwd} and (user_Phone = #{user} or user_Email = #{user} or user_Name = #{user})")
+    @Select("select u.* " +
+            "from user u " +
+            "join passwd p on u.user_Id = p.user_Id " +
+            "where (user_Name = #{user} or user_Email = #{user} or user_Phone=#{user}) " +
+            "and passwd_Normal = #{passwd}")
     UserPojo getUserByNamePhoneEmail(@Param("user")String user,@Param("passwd")String passwd);
 
     /**
@@ -251,4 +255,17 @@ public interface UserMapper {
      */
     @Update("update user set user_NickName = #{user_NickName} where user_Id = #{user_Id}")
     int updateUserNickName(@Param("user_NickName")String user_NickName,@Param("user_Id")String user_Id);
+
+    /**
+     * 模糊查询用户
+     *
+     * @param user_Name 用户名
+     * @return userPojo
+     * @author mnilsy
+     */
+    @Select("select * " +
+            "from user " +
+            "where user_Name like #{user_Name} " +
+            "and user_Condition = 0;")
+    List<UserPojo> selectUser(String user_Name);
 }

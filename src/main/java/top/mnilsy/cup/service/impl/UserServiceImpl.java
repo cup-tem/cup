@@ -66,9 +66,8 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public UserPojo getPasswdLogin(String user, String passwd) {
-        String passwdConvertMD5 = MD5Util.MD5Encode(passwd,"utf8");
-        UserPojo userPojo = userMapper.getUserByNamePhoneEmail(user, passwdConvertMD5);
-        return userPojo;
+        String passwdConvertMD5 = MD5Util.MD5Encode(passwd, "utf8");
+        return userMapper.getUserByNamePhoneEmail(user, passwdConvertMD5);
     }
 
     /**
@@ -140,7 +139,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserVO setUserNamePasswd(String user_Name, String passwd, UserPojo userPojo) {
         String user_Id = userPojo.getUser_Id();
-        String passwdConvertMD5 = MD5Util.MD5Encode(passwd,"utf8");
+        String passwdConvertMD5 = MD5Util.MD5Encode(passwd, "utf8");
         int name = userMapper.setUserNameById(user_Name, user_Id);
         int pass = userMapper.setPasswd(passwdConvertMD5, user_Id);
         if (name == 1 && pass == 1) {
@@ -219,8 +218,8 @@ public class UserServiceImpl implements UserService {
     public int updatePasswd(String oldPasswd, String newPasswd, UserPojo userPojo) {
         String user_Id = userPojo.getUser_Id();
         PasswdPojo passwdPojo = userMapper.getPasswdById(user_Id);
-        String oldPasswdConvertMD5 = MD5Util.MD5Encode(oldPasswd,"utf8");
-        String newPasswdConvertMD5 = MD5Util.MD5Encode(newPasswd,"utf8");
+        String oldPasswdConvertMD5 = MD5Util.MD5Encode(oldPasswd, "utf8");
+        String newPasswdConvertMD5 = MD5Util.MD5Encode(newPasswd, "utf8");
         if (oldPasswdConvertMD5.equals(passwdPojo.getPasswd_Normal())) {
             String passwd_Old3 = passwdPojo.getPasswd_Old2();
             String passwd_Old2 = passwdPojo.getPasswd_Old1();
@@ -250,7 +249,7 @@ public class UserServiceImpl implements UserService {
         if (userPojo != null) {
             String user_Id = userPojo.getUser_Id();
             PasswdPojo passwdPojo = userMapper.getPasswdById(user_Id);
-            String passwdConvertMD5 = MD5Util.MD5Encode(newPasswd,"utf8");
+            String passwdConvertMD5 = MD5Util.MD5Encode(newPasswd, "utf8");
             if (!passwdConvertMD5.equals(passwdPojo.getPasswd_Normal())) {
                 String passwd_Old3 = passwdPojo.getPasswd_Old2();
                 String passwd_Old2 = passwdPojo.getPasswd_Old1();
@@ -341,5 +340,18 @@ public class UserServiceImpl implements UserService {
         Channel channel = ChatHandler.users.find(channelId);
         if (channel == null) return;
         channel.writeAndFlush(new TextWebSocketFrame(JSON.toJSONString(new DataContent(NettyActionEnum.LOGOUT.vule, null, null))));
+    }
+
+    @Override
+    public List<UserVO> getSelectUser(String user_Name) {
+        List<UserPojo> pojoList = userMapper.selectUser("%" + user_Name + "%");
+        if (pojoList.isEmpty()) return null;
+        List<UserVO> voList = new ArrayList<>();
+        for (UserPojo userPojo : pojoList) {
+            UserVO userVO = new UserVO();
+            BeanUtils.copyProperties(userPojo, userVO);
+            voList.add(userVO);
+        }
+        return voList;
     }
 }

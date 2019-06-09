@@ -2,8 +2,6 @@ package top.mnilsy.cup.sendTest;
 
 import okhttp3.*;
 
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -21,7 +19,7 @@ public class SocketClient {
                 .retryOnConnectionFailure(true)
                 .build();
         Request request = new Request.Builder().url("ws://127.0.0.1:8088/ws").build();
-        SocketListener socketListener = new SocketListener();
+        SocketListener socketListener = new SocketListener("MNILSY");
         client.newWebSocket(request, socketListener);
     }
 }

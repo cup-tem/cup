@@ -3,6 +3,8 @@ package top.mnilsy.cup.service;
 import top.mnilsy.cup.VO.UserVO;
 import top.mnilsy.cup.pojo.UserPojo;
 
+import java.util.List;
+
 /**
  * Created by mnilsy on 19-4-20 下午7:15.
  */
@@ -87,7 +89,7 @@ public interface UserService {
      * @return 是否上传头像成功
      * @author Jason_Jane
      */
-    UserVO uploadingUserHead(String user_Head,UserPojo userPojo);
+    UserVO uploadingUserHead(String user_Head, UserPojo userPojo);
 
     /**
      * 上传背景图
@@ -96,7 +98,7 @@ public interface UserService {
      * @return 是否上传头像成功
      * @author Jason_Jane
      */
-    UserVO uploadingBackground(String user_Background,UserPojo userPojo);
+    UserVO uploadingBackground(String user_Background, UserPojo userPojo);
 
     /**
      * 修改性别
@@ -122,23 +124,22 @@ public interface UserService {
     /**
      * 找回密码
      *
-     * @param newPasswd 用户新密码
-     * @param user_Phone  用户手机号码
+     * @param newPasswd  用户新密码
+     * @param user_Phone 用户手机号码
      * @return 是否找回成功
      * @author Jason_Jane
      */
-    int retrievePasswd(String newPasswd,String user_Phone);
+    int retrievePasswd(String newPasswd, String user_Phone);
 
     /**
      * 修改手机号码
      *
      * @param user_Phone 用户新手机号
-     * @param userPojo 用户信息
+     * @param userPojo   用户信息
      * @return userVO
      * @author Jason_Jane
      */
     UserVO updateUserPhone(String user_Phone, UserPojo userPojo);
-
 
 
     /**
@@ -148,7 +149,7 @@ public interface UserService {
      * @param userPojo   用户
      * @return userVO
      */
-    UserVO bindUserEmail(String user_Email,UserPojo userPojo);
+    UserVO bindUserEmail(String user_Email, UserPojo userPojo);
 
     /**
      * 修改电子邮箱
@@ -175,4 +176,12 @@ public interface UserService {
      * @author mnilsy
      */
     void RedundanceLogin(String user_Name);
+
+    /**
+     * 查询用户
+     *
+     * @param user_Name 用户名
+     * @return userVO
+     */
+    List<UserVO> getSelectUser(String user_Name);
 }
